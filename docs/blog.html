@@ -191,6 +191,80 @@
       .main { padding: 2rem 1.25rem 3rem; }
       .hero { padding: 2.5rem 1.25rem 2rem; }
     }
+
+    /* ── Glossary term highlights ── */
+    .gl-term {
+      border-bottom: 1.5px dotted var(--red);
+      cursor: help;
+      border-radius: 2px;
+      transition: background 0.12s;
+    }
+    .gl-term:hover, .gl-term.gl-active { background: rgba(238,49,36,0.09); }
+
+    /* ── Popup card ── */
+    #gl-popup {
+      position: fixed;
+      z-index: 9999;
+      width: 320px;
+      background: var(--dark);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem 1rem;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.07);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.17s ease, transform 0.17s ease;
+      font-size: 0.87rem;
+      line-height: 1.55;
+    }
+    #gl-popup.gl-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .gl-pop-badge {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+    .gl-pop-term { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.45rem; }
+    .gl-pop-def  { color: rgba(255,255,255,0.8); font-size: 0.84rem; }
+    .gl-ladder {
+      margin-top: 0.85rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .gl-ladder-hdr {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.32);
+      margin-bottom: 0.32rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .gl-rungs { display: flex; gap: 3px; }
+    .gl-rung {
+      flex: 1;
+      height: 5px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.11);
+      transition: background 0.15s;
+    }
+    .gl-rung.gl-lit { background: var(--red); }
+    .gl-rung-names { display: flex; gap: 3px; margin-top: 4px; }
+    .gl-rung-name {
+      flex: 1;
+      font-size: 0.56rem;
+      color: rgba(255,255,255,0.26);
+      text-align: center;
+      line-height: 1.3;
+    }
+    .gl-rung-name.gl-lit { color: #fff; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -553,5 +627,169 @@
   &copy; 2026 Fortinet, Inc. All rights reserved. &nbsp;·&nbsp; <a href="/genAISeC/" style="color:rgba(255,255,255,0.5)">Back to home</a>
 </footer>
 
+<script>
+(function () {
+  'use strict';
+
+  /* ── Glossary data (ordered longest-first so LLM Agent matches before LLM) ── */
+  var GLOSSARY = [
+    {
+      term: 'Agentic AI', level: 5,
+      def: 'Autonomous, multi-step, persistent operation. The system plans, executes, observes, replans, and continues toward a goal without per-step human approval. Where traditional RBAC and audit models start to break.'
+    },
+    {
+      term: 'LLM Agent', level: 3,
+      def: 'An LLM wrapped in a control loop with tool access (function calling, ReAct). The model\'s output now triggers real actions: API calls, shell commands, database queries.'
+    },
+    {
+      term: 'GenAI', level: 1,
+      def: 'The broad category of AI that produces novel content (text, code, images, audio) rather than just classifying existing data.'
+    },
+    {
+      term: 'LLM', level: 2,
+      def: 'The transformer-based token-prediction engine at the core of text GenAI. Stateless, non-deterministic, bounded by context window and knowledge cutoff.'
+    },
+    {
+      term: 'MCP', level: 4,
+      def: 'Model Context Protocol. An open standard from Anthropic that decouples AI clients from tool integrations, collapsing N×M custom connectors into N+M. The new universal interface between models and enterprise systems.'
+    }
+  ];
+
+  /* Ladder ordered simple → powerful */
+  var LADDER = ['GenAI', 'LLM', 'LLM Agent', 'MCP', 'Agentic AI'];
+
+  /* Combined regex — longest alternatives first to prevent partial matches.
+     LLMs? catches both "LLM" and "LLMs"; \b...\b prevents matching inside
+     OWASP codes like LLM01 or LLM08 (digit after M = no word boundary). */
+  var PATTERN = /\b(Agentic\s+AI|LLM\s+[Aa]gents?|GenAI|LLMs?|MCP)\b/g;
+
+  function findEntry(matched) {
+    var t = matched.toLowerCase();
+    if (t.indexOf('agentic') === 0) return GLOSSARY[0];
+    if (t.indexOf('llm a') === 0)   return GLOSSARY[1];
+    if (t.indexOf('genai') === 0)   return GLOSSARY[2];
+    if (t.indexOf('llm') === 0)     return GLOSSARY[3];
+    if (t.indexOf('mcp') === 0)     return GLOSSARY[4];
+    return null;
+  }
+
+  /* ── DOM text-node wrapping ── */
+  function wrapNode(node) {
+    var text = node.textContent;
+    PATTERN.lastIndex = 0;
+    if (!PATTERN.test(text)) return;
+    PATTERN.lastIndex = 0;
+
+    var frag = document.createDocumentFragment();
+    var last = 0, m;
+    while ((m = PATTERN.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var entry = findEntry(m[0]);
+      if (entry) {
+        var s = document.createElement('span');
+        s.className = 'gl-term';
+        s.dataset.glTerm = entry.term;
+        s.textContent = m[0];
+        frag.appendChild(s);
+      } else {
+        frag.appendChild(document.createTextNode(m[0]));
+      }
+      last = PATTERN.lastIndex;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+
+  function highlight() {
+    var walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function (n) {
+          if (!n.textContent.trim()) return NodeFilter.FILTER_REJECT;
+          /* Skip inside links, code, existing gl-term spans, script, style, header brand, footer */
+          if (n.parentElement.closest('a, code, script, style, .gl-term, header, footer'))
+            return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(wrapNode);
+  }
+
+  /* ── Popup ── */
+  var popup = document.createElement('div');
+  popup.id = 'gl-popup';
+  popup.setAttribute('role', 'tooltip');
+  popup.innerHTML =
+    '<div class="gl-pop-badge">Quick Definition</div>' +
+    '<div class="gl-pop-term"></div>' +
+    '<div class="gl-pop-def"></div>' +
+    '<div class="gl-ladder">' +
+      '<div class="gl-ladder-hdr"><span>Simple</span><span>Powerful</span></div>' +
+      '<div class="gl-rungs">' + LADDER.map(function () { return '<div class="gl-rung"></div>'; }).join('') + '</div>' +
+      '<div class="gl-rung-names">' + LADDER.map(function (l) { return '<div class="gl-rung-name">' + l + '</div>'; }).join('') + '</div>' +
+    '</div>';
+
+  function position(el) {
+    var rect = el.getBoundingClientRect();
+    var PW = 320, PH = 230;
+    var left = rect.left;
+    if (left + PW > window.innerWidth - 12) left = window.innerWidth - PW - 12;
+    if (left < 12) left = 12;
+    var top = rect.bottom + 10;
+    if (rect.bottom + PH > window.innerHeight - 12) top = rect.top - PH - 10;
+    popup.style.left = left + 'px';
+    popup.style.top  = top  + 'px';
+  }
+
+  function show(el) {
+    var name  = el.dataset.glTerm;
+    var entry = GLOSSARY.find(function (e) { return e.term === name; });
+    if (!entry) return;
+
+    popup.querySelector('.gl-pop-term').textContent = entry.term;
+    popup.querySelector('.gl-pop-def').textContent  = entry.def;
+
+    var rungs = popup.querySelectorAll('.gl-rung');
+    var names = popup.querySelectorAll('.gl-rung-name');
+    rungs.forEach(function (r, i) { r.classList.toggle('gl-lit', i < entry.level); });
+    names.forEach(function (n, i) { n.classList.toggle('gl-lit', LADDER[i] === entry.term); });
+
+    position(el);
+    popup.classList.add('gl-visible');
+    el.classList.add('gl-active');
+  }
+
+  function hide() {
+    popup.classList.remove('gl-visible');
+    document.querySelectorAll('.gl-term.gl-active').forEach(function (e) { e.classList.remove('gl-active'); });
+  }
+
+  var hideId;
+  function wire() {
+    document.addEventListener('mouseover', function (e) {
+      clearTimeout(hideId);
+      var t = e.target.closest('.gl-term');
+      if (t) show(t); else hideId = setTimeout(hide, 260);
+    });
+    popup.addEventListener('mouseenter', function () { clearTimeout(hideId); });
+    popup.addEventListener('mouseleave', function () { hideId = setTimeout(hide, 260); });
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('.gl-term');
+      if (t) { e.stopPropagation(); show(t); } else hide();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.appendChild(popup);
+    highlight();
+    wire();
+  });
+}());
+</script>
 </body>
 </html>
