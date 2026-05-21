@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortinet GenAI Security — Reference &amp; Positioning Guide</title>
+  <style>
+    :root {
+      --red: #EE3124;
+      --dark: #1a1a2e;
+      --mid: #2d2d44;
+      --light: #f5f5f7;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --border: #d2d2d7;
+      --link: #0071e3;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #fff;
+    }
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 0 2rem;
+    }
+    header .inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: none;
+    }
+    header .brand span { color: var(--red); }
+    header .nav-link {
+      margin-left: auto;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+    header .nav-link:hover { color: #fff; }
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 3.5rem 2rem 2.5rem;
+      text-align: center;
+    }
+    .hero .tag {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 680px;
+      margin: 0 auto 1rem;
+    }
+    .hero .subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    /* TOC */
+    .toc {
+      background: var(--light);
+      border-left: 4px solid var(--red);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+    .toc h2 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      border: none;
+    }
+    .toc ol { margin-left: 1.25rem; }
+    .toc li { margin: 0.3rem 0; font-size: 0.92rem; }
+    .toc a { color: var(--link); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .main h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.75rem;
+      color: var(--dark);
+      padding-top: 0.5rem;
+      border-top: 3px solid var(--red);
+      display: inline-block;
+    }
+    .main h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 1.75rem 0 0.5rem;
+      color: var(--dark);
+    }
+    .main p { margin: 0.75rem 0; }
+    .main ul, .main ol { margin: 0.75rem 0 0.75rem 1.5rem; }
+    .main li { margin: 0.4rem 0; }
+    .main a { color: var(--link); text-decoration: none; }
+    .main a:hover { text-decoration: underline; }
+    .main strong { font-weight: 700; }
+    .main em { font-style: italic; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    /* Pillar cards */
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .pillar-card {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 1.25rem;
+      border-top: 3px solid var(--red);
+    }
+    .pillar-card .pillar-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+    .pillar-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--dark); }
+    .pillar-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+    /* Talking points */
+    .talking-points { counter-reset: tp; list-style: none; margin-left: 0; }
+    .talking-points li {
+      counter-increment: tp;
+      padding: 1rem 1.25rem 1rem 3.5rem;
+      background: var(--light);
+      border-radius: 8px;
+      margin: 0.65rem 0;
+      position: relative;
+      font-size: 0.95rem;
+    }
+    .talking-points li::before {
+      content: counter(tp);
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      background: var(--red);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    thead { background: var(--dark); color: #fff; }
+    thead th { padding: 0.75rem 1rem; text-align: left; font-weight: 600; white-space: nowrap; }
+    tbody tr:nth-child(even) { background: var(--light); }
+    tbody td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tbody td a { word-break: break-all; }
+    /* Reference link lists */
+    .ref-list { list-style: none; margin-left: 0; }
+    .ref-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .ref-list li:last-child { border-bottom: none; }
+    .disclaimer {
+      background: var(--light);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.5); }
+    @media (max-width: 600px) {
+      .main { padding: 2rem 1.25rem 3rem; }
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+    }
+
+    /* ── Glossary term highlights ── */
+    .gl-term {
+      border-bottom: 1.5px dotted var(--red);
+      cursor: help;
+      border-radius: 2px;
+      transition: background 0.12s;
+    }
+    .gl-term:hover, .gl-term.gl-active { background: rgba(238,49,36,0.09); }
+    #gl-popup {
+      position: fixed;
+      z-index: 9999;
+      width: 320px;
+      background: var(--dark);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem 1rem;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.07);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.17s ease, transform 0.17s ease;
+      font-size: 0.87rem;
+      line-height: 1.55;
+    }
+    #gl-popup.gl-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .gl-pop-badge { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+    .gl-pop-term { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.45rem; }
+    .gl-pop-def  { color: rgba(255,255,255,0.8); font-size: 0.84rem; }
+    .gl-ladder { margin-top: 0.85rem; padding-top: 0.7rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .gl-ladder-hdr { display: flex; justify-content: space-between; font-size: 0.6rem; color: rgba(255,255,255,0.32); margin-bottom: 0.32rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .gl-rungs { display: flex; gap: 3px; }
+    .gl-rung { flex: 1; height: 5px; border-radius: 2px; background: rgba(255,255,255,0.11); transition: background 0.15s; }
+    .gl-rung.gl-lit { background: var(--red); }
+    .gl-rung-names { display: flex; gap: 3px; margin-top: 4px; }
+    .gl-rung-name { flex: 1; font-size: 0.56rem; color: rgba(255,255,255,0.26); text-align: center; line-height: 1.3; }
+    .gl-rung-name.gl-lit { color: #fff; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a class="brand" href="/genAISeC/"><span>Forti</span>net · GenAI Security</a>
+    <a class="nav-link" href="blog.html">&larr; Back to blog</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="tag">PreSales Reference</div>
+  <h1>Fortinet GenAI Security — Reference &amp; Positioning Guide</h1>
+  <p class="subtitle">Product pillars, architecture story, FortiAIGate deep-dive, FortiOS 8.0, MCP visibility, and the master reference list.</p>
+</div>
+
+<div class="main">
+
+  <div class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#strategy">Fortinet's GenAI Security Strategy: Two Sides of the Same Coin</a></li>
+      <li><a href="#pillars">The FortiAI Pillar Framework</a></li>
+      <li><a href="#mapping">Product-to-Pillar Mapping</a></li>
+      <li><a href="#datacenter">Secure AI Data Center Solution</a></li>
+      <li><a href="#fortios8">FortiOS 8.0 — The Inflection Point</a></li>
+      <li><a href="#fortiaigate">FortiAIGate — The Detailed Product Story</a></li>
+      <li><a href="#mcp">MCP Visibility — Fortinet's Network-Layer Position</a></li>
+      <li><a href="#references">The Master Reference List</a></li>
+      <li><a href="#talking-points">PreSales Quick-Hit Talking Points</a></li>
+    </ol>
+  </div>
+
+  <hr>
+
+  <h2 id="strategy">1. Fortinet's GenAI Security Strategy: Two Sides of the Same Coin</h2>
+  <p>Fortinet's stated AI strategy splits cleanly into two complementary missions:</p>
+  <ol>
+    <li><strong>Security FOR AI</strong> — protecting the customer's AI systems (LLMs, RAG, agents, MCP integrations, model infrastructure) from compromise, data leakage, and misuse.</li>
+    <li><strong>AI FOR Security</strong> — using AI to make Fortinet's own products faster, more accurate, and more autonomous (SecOps, NetOps).</li>
+  </ol>
+
+  <hr>
+
+  <h2 id="pillars">2. The FortiAI Pillar Framework</h2>
+  <p>Fortinet groups its entire AI strategy under <strong>FortiAI</strong>, structured across three solution pillars. This is the structure to use in any deck, one-pager, or customer briefing.</p>
+
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <div class="pillar-icon">🛡️</div>
+      <h4>FortiAI-Protect</h4>
+      <p>Detect &amp; defend against AI-powered threats and shadow AI. Covers inbound AI threats and outbound shadow AI exposure.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🤖</div>
+      <h4>FortiAI-Assist</h4>
+      <p>Agentic AI for SecOps &amp; NetOps. Embeds GenAI and agentic capabilities inside Fortinet's own management plane to automate operational tasks.</p>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🔒</div>
+      <h4>FortiAI-SecureAI</h4>
+      <p>Protect the customer's AI infrastructure, models, and data. Where FortiAIGate, FortiCNAPP AI-SPM, and GenAI-specific guardrails sit.</p>
+    </div>
+  </div>
+
+  <h3>FortiAI-Protect — Key capabilities</h3>
+  <ul>
+    <li>AI application monitoring — visibility into <strong>6,500+ AI-related URLs</strong> (model types, data paths, application purposes)</li>
+    <li>Zero-trust enforcement for shadow AI (block, allow, sanction usage)</li>
+    <li>Contextual risk assessment with sub-1-second blocking on AI-driven attacks</li>
+    <li>IPS enhanced with AI/ML for deep-packet inspection and anomaly detection</li>
+    <li>Advanced sandboxing for AI vulnerability discovery</li>
+    <li>ML models trained on 20M+ threat samples; ~40% false-positive reduction reported</li>
+  </ul>
+  <p><strong>Reference:</strong> <a href="https://www.fortinet.com/products/fortiai-protect">FortiAI-Protect product page</a></p>
+
+  <h3>FortiAI-Assist — Key capabilities</h3>
+  <ul>
+    <li>Automated alert filtering, triage, and prioritization</li>
+    <li>Autonomous threat hunting and behavioral analytics</li>
+    <li>Automated network configuration optimization and proactive network issue detection</li>
+    <li>Policy update automation and configuration correction</li>
+    <li><strong>Privacy guarantee:</strong> customer queries processed locally; data does not leave the network; sensitive data masked before reaching the LLM; customer data is not used to train Fortinet's GenAI assistant</li>
+  </ul>
+
+  <h3>FortiAI-SecureAI — Key capabilities</h3>
+  <ul>
+    <li>Runtime security for LLM applications (prompt injection, jailbreaking, model poisoning, excessive consumption)</li>
+    <li>Input sanitization and output filtering at the model boundary</li>
+    <li>Blocking risky open-source models before deployment</li>
+    <li>Zero-trust access for AI models and high-value training data</li>
+    <li>Protection of AI infrastructure across networks, APIs, and major cloud platforms</li>
+    <li>Data integrity and LLM data-leakage prevention</li>
+    <li>Honeypot/deception tactics for early attack detection</li>
+    <li>AI traffic optimization and load balancing</li>
+  </ul>
+  <p><strong>Reference:</strong> <a href="https://www.fortinet.com/solutions/ai-security">Fortinet AI Security Solutions hub</a></p>
+
+  <hr>
+
+  <h2 id="mapping">3. Product-to-Pillar Mapping</h2>
+  <p>The most useful PreSales mental model — which physical/virtual product delivers each pillar's capabilities.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Pillar</th><th>Lead products</th><th>Supporting products</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FortiAI-Protect</strong><br><small>Shadow AI, AI-driven threat detection</small></td>
+          <td><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate</a>, <a href="https://www.fortinet.com/products/sase">FortiSASE</a>, <a href="https://www.fortinet.com/products/ips">FortiGuard IPS</a>, <a href="https://www.fortinet.com/products/fortidlp">FortiDLP</a></td>
+          <td><a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient</a>, <a href="https://www.fortinet.com/products/endpoint-security/fortiedr">FortiEDR</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a>, <a href="https://www.fortinet.com/products/forticasb-sspm">FortiCASB-SSPM</a></td>
+        </tr>
+        <tr>
+          <td><strong>FortiAI-Assist</strong><br><small>Agentic SecOps/NetOps</small></td>
+          <td><a href="https://www.fortinet.com/products/management/fortianalyzer">FortiAnalyzer</a>, <a href="https://www.fortinet.com/products/siem/fortisiem">FortiSIEM</a>, <a href="https://www.fortinet.com/products/fortisoar">FortiSOAR</a>, <a href="https://www.fortinet.com/products/management/fortimanager">FortiManager</a></td>
+          <td>Fabric-wide GenAI assistant</td>
+        </tr>
+        <tr>
+          <td><strong>FortiAI-SecureAI</strong><br><small>Security FOR AI</small></td>
+          <td><strong><a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a></strong>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb</a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud">FortiAppSec Cloud</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/fortipam">FortiPAM</a></td>
+          <td><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a>, <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a>, <a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient + EMS</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <h2 id="datacenter">4. Secure AI Data Center Solution — The Architecture Story</h2>
+  <p>Fortinet positions <strong>FortiAIGate as the centerpiece</strong> of a broader <strong>Secure AI Data Center solution</strong> that integrates:</p>
+  <ul>
+    <li><strong>FortiGate G-series NGFWs</strong> — high-performance traffic inspection, east-west segmentation for model-serving clusters, <strong>MCP and agent-to-agent traffic visibility (FortiOS 8.0)</strong>, native shadow AI detection on the FortiGate 3500G and 400G</li>
+    <li><strong>FortiAIGate</strong> — AI runtime gateway (containerized, Kubernetes-native, GPU/SmartNIC-accelerated)</li>
+    <li><strong>FortiWeb / FortiAppSec Cloud</strong> — web app and API protection in front of LLM endpoints</li>
+    <li><strong>FortiCNAPP</strong> — cloud-native protection across AWS, Azure, GCP, OCI; AI workload posture; CIEM</li>
+    <li><strong>Application delivery controllers (FortiADC)</strong> for AI traffic shaping</li>
+    <li><strong>FortiGuard threat intelligence</strong> — continuously refined AI-attack signatures pushed across the Fabric</li>
+  </ul>
+  <p><strong>Reference:</strong> <a href="https://www.fortinet.com/content/dam/fortinet/assets/solution-guides/sb-high-security-ai.pdf">High-Performance Security for AI-Driven Data Centers (Fortinet solution brief)</a></p>
+
+  <hr>
+
+  <h2 id="fortios8">5. FortiOS 8.0 — The Inflection Point <small style="font-size:0.7em;font-weight:400;color:var(--muted)">(March 2026, Accelerate)</small></h2>
+  <p>FortiOS 8.0 is the OS release that explicitly added AI-era controls to the entire Fortinet Security Fabric, across three pillars of innovation:</p>
+
+  <h3>AI-driven security</h3>
+  <ul>
+    <li><strong>MCP and agent-to-agent traffic inspection</strong> — first network-vendor support for MCP visibility at the firewall layer</li>
+    <li><strong>Native shadow AI detection</strong> on FortiGate (3500G, 400G announced)</li>
+    <li>GenAI application control with awareness of model types, training data destinations, geolocation</li>
+    <li>Inline CASB control extended to JSON payloads for custom SaaS/AI apps</li>
+  </ul>
+
+  <h3>Next-generation SASE</h3>
+  <ul>
+    <li>SASE Outpost for local enforcement</li>
+    <li><strong>Sovereign SASE</strong> — multilayer data residency (regional log retention, control-plane residency, sovereign PoPs, fully sovereign deployments)</li>
+    <li>Unified SD-WAN bundles, multipath IPsec tunnels</li>
+  </ul>
+
+  <h3>Quantum-safe protection</h3>
+  <ul>
+    <li>Hybrid post-quantum cryptography in SSL deep inspection (flow mode)</li>
+  </ul>
+
+  <p><strong>References:</strong></p>
+  <ul>
+    <li><a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases/2026/fortinet-introduces-fortios-8-expand-secure-networking-with-secure-ai-controls-fabric-based-ai-agents-flexible-sase-and-simplified-sdwan">FortiOS 8.0 press release</a></li>
+    <li><a href="https://www.fortinet.com/blog/security-architecture/fortios-8-redefining-secure-networking-in-the-ai-and-quantum-era">FortiOS 8.0 blog deep-dive</a></li>
+    <li><a href="https://www.fortinet.com/products/fortigate/fortios">FortiOS product page</a></li>
+    <li><a href="https://docs.fortinet.com/document/fortigate/7.6.0/new-features/369310/protecting-llm-and-genai">Protecting LLM and GenAI — FortiOS 7.6.0+ docs</a></li>
+  </ul>
+
+  <hr>
+
+  <h2 id="fortiaigate">6. FortiAIGate — The Detailed Product Story</h2>
+  <p>FortiAIGate is the product that most directly differentiates Fortinet in the LLM security conversation.</p>
+
+  <h3>Deployment</h3>
+  <ul>
+    <li>Containerized; native Kubernetes deployment</li>
+    <li>Multi-GPU and SmartNIC-accelerated for low-latency proxy offloading</li>
+    <li>Auto-scales with LLM utilization</li>
+    <li>Sits <strong>between the application and the model</strong> (OpenAI, Anthropic, Bedrock, Azure OpenAI, Vertex AI, or self-hosted)</li>
+  </ul>
+
+  <h3>What it secures against</h3>
+  <ul>
+    <li>Prompt injections (direct and indirect)</li>
+    <li>Jailbreaking attempts</li>
+    <li>Model poisoning</li>
+    <li>Excessive resource consumption (token-flood DoS)</li>
+    <li>Data leakage (input and output inspection)</li>
+    <li>Model theft</li>
+    <li>Bot-driven abuse and DDoS</li>
+  </ul>
+
+  <h3>Operational features</h3>
+  <ul>
+    <li>Intelligent LLM traffic steering / multi-backend routing</li>
+    <li>Output caching to reduce token consumption and cost</li>
+    <li>Per-interaction logging (input/output prices per provider/model)</li>
+    <li>Fine-grained cost monitoring per interaction</li>
+    <li><strong>AI Guard</strong> — the core security/governance component with provider configuration and inbound/outbound enforcement</li>
+    <li>Customizable guardrails per LLM endpoint</li>
+  </ul>
+
+  <p><strong>References:</strong></p>
+  <ul>
+    <li><a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate product page</a></li>
+    <li><a href="https://www.fortinet.com/blog/security-operations/fortiaigate-optimizing-and-protecting-ai-workloads">Fortinet blog: FortiAIGate — Optimizing and Protecting AI Workloads</a></li>
+    <li><a href="https://www.fortinet.com/content/dam/fortinet/assets/solution-guides/sb-secure-ai-workloads-llms-fortiaigate.pdf">FortiAIGate solution brief PDF</a></li>
+    <li><a href="https://docs.fortinet.com/document/fortiaigate/8.0.0/fortiaigate-administration-guide/592867/ai-guard">AI Guard documentation</a></li>
+    <li><a href="https://itdigest.com/cloud-computing-mobility/cloud-security/fortinet-introduces-fortiaigate-to-secure-and-optimize-enterprise-ai-workloads/">Fortinet press release introducing FortiAIGate</a></li>
+  </ul>
+
+  <hr>
+
+  <h2 id="mcp">7. MCP Visibility — Fortinet's Network-Layer Position</h2>
+  <p>FortiOS 8.0 introduced explicit <strong>MCP and agent-to-agent traffic inspection</strong> at the firewall layer — a meaningful differentiator. Combined with FortiAI-SecureAI, this gives Fortinet visibility into:</p>
+  <ul>
+    <li>Which MCP servers are running in the network</li>
+    <li>Which clients (Claude Desktop, Cursor, custom apps) are connecting to them</li>
+    <li>What tools are being invoked, with what parameters</li>
+    <li>Whether MCP servers are reaching out to external services with sensitive data</li>
+  </ul>
+  <p><strong>Reference:</strong> <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">Selective control of GenAI / LLM traffic egressing through FortiGate (community technical guide)</a></p>
+
+  <hr>
+
+  <h2 id="references">8. The Master Reference List</h2>
+
+  <h3>Fortinet official product pages</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Product</th><th>Role in GenAI security</th><th>URL</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FortiAI (umbrella)</td><td>AI security strategy hub</td><td><a href="https://www.fortinet.com/solutions/ai-security">fortinet.com/solutions/ai-security</a></td></tr>
+        <tr><td>FortiAI-Protect</td><td>Shadow AI + AI-driven threat detection</td><td><a href="https://www.fortinet.com/products/fortiai-protect">fortinet.com/products/fortiai-protect</a></td></tr>
+        <tr><td>FortiAI-SecureAI (pillar)</td><td>Securing customer AI infra/models</td><td><a href="https://www.fortinet.com/solutions/enterprise-midsize-business/fortiai">fortinet.com/…/fortiai</a></td></tr>
+        <tr><td>FortiAIGate</td><td>LLM runtime gateway</td><td><a href="https://www.fortinet.com/products/fortiaigate">fortinet.com/products/fortiaigate</a></td></tr>
+        <tr><td>FortiCNAPP</td><td>Cloud AI workload protection, CIEM, DSPM</td><td><a href="https://www.fortinet.com/products/forticnapp">fortinet.com/products/forticnapp</a></td></tr>
+        <tr><td>FortiDLP</td><td>Shadow AI data protection (endpoint)</td><td><a href="https://www.fortinet.com/products/fortidlp">fortinet.com/products/fortidlp</a></td></tr>
+        <tr><td>FortiPAM</td><td>Secrets vault for LLM/MCP/cloud API keys</td><td><a href="https://www.fortinet.com/products/fortipam">fortinet.com/products/fortipam</a></td></tr>
+        <tr><td>FortiWeb</td><td>WAF in front of LLM APIs</td><td><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">fortinet.com/…/fortiweb</a></td></tr>
+        <tr><td>FortiAppSec Cloud</td><td>SaaS WAF for LLM-powered apps</td><td><a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud">fortinet.com/…/fortiappsec-cloud</a></td></tr>
+        <tr><td>FortiGate VM</td><td>Cloud NGFW, segmentation, MCP visibility</td><td><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">fortinet.com/…/fortigate-virtual-appliances</a></td></tr>
+        <tr><td>FortiSASE</td><td>Shadow AI discovery, SSE, SSPM</td><td><a href="https://www.fortinet.com/products/sase">fortinet.com/products/sase</a></td></tr>
+        <tr><td>FortiCASB-SSPM</td><td>SaaS posture for RAG sources</td><td><a href="https://www.fortinet.com/products/forticasb-sspm">fortinet.com/products/forticasb-sspm</a></td></tr>
+        <tr><td>FortiSandbox</td><td>Dynamic file analysis for RAG ingestion + model artifacts</td><td><a href="https://www.fortinet.com/products/fortisandbox">fortinet.com/products/fortisandbox</a></td></tr>
+        <tr><td>FortiClient / EMS</td><td>Unified VPN + ZTNA agent + centralized management</td><td><a href="https://www.fortinet.com/products/endpoint-security/forticlient">fortinet.com/…/forticlient</a></td></tr>
+        <tr><td>FortiEDR</td><td>Endpoint detection and response</td><td><a href="https://www.fortinet.com/products/endpoint-security/fortiedr">fortinet.com/…/fortiedr</a></td></tr>
+        <tr><td>FortiAuthenticator</td><td>IAM + MFA + SSO</td><td><a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">fortinet.com/…/fortiauthenticator</a></td></tr>
+        <tr><td>FortiAnalyzer</td><td>Centralized logging + SOC dashboards</td><td><a href="https://www.fortinet.com/products/management/fortianalyzer">fortinet.com/…/fortianalyzer</a></td></tr>
+        <tr><td>FortiSIEM</td><td>SIEM for AI events</td><td><a href="https://www.fortinet.com/products/siem/fortisiem">fortinet.com/…/fortisiem</a></td></tr>
+        <tr><td>FortiSOAR</td><td>SOAR with FortiAI-Assist</td><td><a href="https://www.fortinet.com/products/fortisoar">fortinet.com/products/fortisoar</a></td></tr>
+        <tr><td>Universal ZTNA</td><td>ZTNA solution umbrella</td><td><a href="https://www.fortinet.com/products/ztna">fortinet.com/products/ztna</a></td></tr>
+        <tr><td>Security Fabric</td><td>Platform overview</td><td><a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">fortinet.com/…/security-fabric</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Official documentation, blogs, and solution briefs</h3>
+  <ul class="ref-list">
+    <li><a href="https://www.fortinet.com/solutions/ai-security">Fortinet AI Security Solutions hub</a></li>
+    <li><a href="https://www.fortinet.com/solutions/enterprise-midsize-business/fortiai">AI Security Solutions — full FortiAI overview</a></li>
+    <li><a href="https://www.fortinet.com/blog/security-operations/fortiaigate-optimizing-and-protecting-ai-workloads">FortiAIGate blog: Optimizing and Protecting AI Workloads</a></li>
+    <li><a href="https://www.fortinet.com/content/dam/fortinet/assets/solution-guides/sb-secure-ai-workloads-llms-fortiaigate.pdf">FortiAIGate solution brief PDF</a></li>
+    <li><a href="https://www.fortinet.com/content/dam/fortinet/assets/solution-guides/sb-high-security-ai.pdf">Fortinet High-Performance Security for AI-Driven Data Centers brief</a></li>
+    <li><a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases/2026/fortinet-introduces-fortios-8-expand-secure-networking-with-secure-ai-controls-fabric-based-ai-agents-flexible-sase-and-simplified-sdwan">FortiOS 8.0 press release</a></li>
+    <li><a href="https://www.fortinet.com/blog/security-architecture/fortios-8-redefining-secure-networking-in-the-ai-and-quantum-era">FortiOS 8.0 blog</a></li>
+    <li><a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases/2026/fortinet-expands-fortigate-g-series-to-secure-ai-from-data-center-to-modern-enterprise-edges">FortiGate G Series Expansion for AI press release</a></li>
+    <li><a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases/2025/fortinet-expands-fortiai-across-its-security-fabric-platform">FortiAI Expansion across Security Fabric (April 2025 press release)</a></li>
+    <li><a href="https://docs.fortinet.com/document/fortigate/7.6.0/new-features/369310/protecting-llm-and-genai">FortiOS docs: Protecting LLM and GenAI features</a></li>
+    <li><a href="https://docs.fortinet.com/document/fortiaigate/8.0.0/fortiaigate-administration-guide/592867/ai-guard">FortiAIGate AI Guard documentation</a></li>
+    <li><a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">FortiGate community guide on GenAI/LLM/MCP traffic control</a></li>
+    <li><a href="https://www.fortinet.com/content/dam/fortinet/assets/data-sheets/og-forticasb-sspm.pdf">FortiCASB-SSPM ordering guide PDF</a></li>
+    <li><a href="https://www.fortinet.com/content/dam/fortinet/assets/data-sheets/fortipam.pdf">FortiPAM data sheet PDF</a></li>
+  </ul>
+
+  <h3>Trusted third-party coverage</h3>
+  <ul class="ref-list">
+    <li><a href="https://www.helpnetsecurity.com/2025/04/09/fortinet-unveils-fortiai-innovations-enhancing-threat-protection-and-security-operations/">Help Net Security on FortiAI innovations</a></li>
+    <li><a href="https://www.networkworld.com/article/4147159/fortinets-ai-driven-defense-for-a-machine-speed-era.html">Network World — Fortinet AI-driven defense for machine-speed era</a></li>
+    <li><a href="https://futurumgroup.com/insights/fortinets-fortios-8-0-pushes-secure-networking-toward-ai-governance/">Futurum Group analyst note on FortiOS 8.0</a></li>
+    <li><a href="https://www.msspalert.com/news/fortinet-fortios-8-0-adds-ai-security-controls-sovereign-sase-and-unified-soc-capabilities">MSSP Alert on FortiOS 8.0 AI security controls</a></li>
+    <li><a href="https://sapinsider.org/map/fortiai-advancing-enterprise-security-in-the-age-of-intelligent-threats/">SAPinsider on FortiAI for enterprise security</a></li>
+    <li><a href="https://www.wwt.com/product/fortinet-ai-security/overview">WWT partner page: Fortinet AI Security overview</a></li>
+    <li><a href="https://www.spectrum-edge.com/fortinet-fortiai-overview/">Spectrum-Edge practical look at FortiAI and the Security Fabric</a></li>
+  </ul>
+
+  <hr>
+
+  <h2 id="talking-points">9. PreSales Quick-Hit Talking Points</h2>
+  <p>For the moments when a customer or partner asks "what does Fortinet actually do for GenAI security?"</p>
+  <ol class="talking-points">
+    <li><strong>"Fortinet is the only network security incumbent with a purpose-built LLM runtime gateway."</strong> FortiAIGate sits between your applications and any model — public or private — and enforces guardrails against prompt injection, data exfiltration, model poisoning, jailbreaking, and token-flood DoS.</li>
+    <li><strong>"FortiOS 8.0 made the firewall MCP-aware."</strong> As of March 2026, FortiGate inspects MCP and agent-to-agent traffic natively — visibility no other major NGFW vendor ships today.</li>
+    <li><strong>"Shadow AI is covered three different ways."</strong> FortiSASE (SWG-based discovery), FortiDLP (endpoint-based content inspection), and FortiGate (6,500+ AI URLs categorized). Pick the deployment model that fits the customer.</li>
+    <li><strong>"FortiAI is structured into three pillars — Protect, Assist, SecureAI."</strong> This is the official Fortinet narrative; sticking to it makes joint material with the field team easy.</li>
+    <li><strong>"Data sovereignty was built in, not bolted on."</strong> Fortinet's GenAI assistant processes queries locally; customer data does not train the model; sensitive content is blocked or masked before reaching the LLM. Sovereign SASE adds regional control plane and PoP residency.</li>
+    <li><strong>"The Security Fabric story is the differentiator."</strong> FortiAIGate alone is competitive with point players like Lakera or Prompt Security. The convergence with FortiCNAPP, FortiDLP, FortiPAM, FortiSASE, FortiSandbox, and FortiAnalyzer — under one OS, one policy plane, one telemetry lake — is what wins against best-of-breed-only buyers.</li>
+  </ol>
+
+  <div class="disclaimer">
+    Working reference for Fortinet PreSales engineering on GenAI security. Update as the FortiAIGate, FortiOS, and FortiAI product lines evolve.
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2026 Fortinet, Inc. All rights reserved. &nbsp;·&nbsp; <a href="/genAISeC/">Home</a> &nbsp;·&nbsp; <a href="blog.html">Blog</a>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var GLOSSARY = [
+    { term: 'Agentic AI', level: 5, def: 'Autonomous, multi-step, persistent operation. The system plans, executes, observes, replans, and continues toward a goal without per-step human approval. Where traditional RBAC and audit models start to break.' },
+    { term: 'LLM Agent', level: 3, def: 'An LLM wrapped in a control loop with tool access (function calling, ReAct). The model\'s output now triggers real actions: API calls, shell commands, database queries.' },
+    { term: 'GenAI', level: 1, def: 'The broad category of AI that produces novel content (text, code, images, audio) rather than just classifying existing data.' },
+    { term: 'LLM', level: 2, def: 'The transformer-based token-prediction engine at the core of text GenAI. Stateless, non-deterministic, bounded by context window and knowledge cutoff.' },
+    { term: 'MCP', level: 4, def: 'Model Context Protocol. An open standard from Anthropic that decouples AI clients from tool integrations, collapsing N×M custom connectors into N+M. The new universal interface between models and enterprise systems.' }
+  ];
+  var LADDER = ['GenAI', 'LLM', 'LLM Agent', 'MCP', 'Agentic AI'];
+  var PATTERN = /\b(Agentic\s+AI|LLM\s+[Aa]gents?|GenAI|LLMs?|MCP)\b/g;
+  function findEntry(m) {
+    var t = m.toLowerCase();
+    if (t.indexOf('agentic') === 0) return GLOSSARY[0];
+    if (t.indexOf('llm a') === 0)   return GLOSSARY[1];
+    if (t.indexOf('genai') === 0)   return GLOSSARY[2];
+    if (t.indexOf('llm') === 0)     return GLOSSARY[3];
+    if (t.indexOf('mcp') === 0)     return GLOSSARY[4];
+    return null;
+  }
+  function wrapNode(node) {
+    var text = node.textContent;
+    PATTERN.lastIndex = 0;
+    if (!PATTERN.test(text)) return;
+    PATTERN.lastIndex = 0;
+    var frag = document.createDocumentFragment(), last = 0, m;
+    while ((m = PATTERN.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var entry = findEntry(m[0]);
+      if (entry) {
+        var s = document.createElement('span');
+        s.className = 'gl-term'; s.dataset.glTerm = entry.term; s.textContent = m[0];
+        frag.appendChild(s);
+      } else { frag.appendChild(document.createTextNode(m[0])); }
+      last = PATTERN.lastIndex;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+  function highlight() {
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        if (!n.textContent.trim()) return NodeFilter.FILTER_REJECT;
+        if (n.parentElement.closest('a,code,script,style,.gl-term,header,footer,.toc')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(wrapNode);
+  }
+  var popup = document.createElement('div');
+  popup.id = 'gl-popup';
+  popup.innerHTML = '<div class="gl-pop-badge">Quick Definition</div><div class="gl-pop-term"></div><div class="gl-pop-def"></div><div class="gl-ladder"><div class="gl-ladder-hdr"><span>Simple</span><span>Powerful</span></div><div class="gl-rungs">' + LADDER.map(function(){ return '<div class="gl-rung"></div>'; }).join('') + '</div><div class="gl-rung-names">' + LADDER.map(function(l){ return '<div class="gl-rung-name">'+l+'</div>'; }).join('') + '</div></div>';
+  function show(el) {
+    var entry = GLOSSARY.find(function(e){ return e.term === el.dataset.glTerm; });
+    if (!entry) return;
+    popup.querySelector('.gl-pop-term').textContent = entry.term;
+    popup.querySelector('.gl-pop-def').textContent = entry.def;
+    popup.querySelectorAll('.gl-rung').forEach(function(r,i){ r.classList.toggle('gl-lit', i < entry.level); });
+    popup.querySelectorAll('.gl-rung-name').forEach(function(n,i){ n.classList.toggle('gl-lit', LADDER[i] === entry.term); });
+    var rect = el.getBoundingClientRect(), PW = 320, PH = 230;
+    var left = Math.min(rect.left, window.innerWidth - PW - 12); if (left < 12) left = 12;
+    var top = rect.bottom + 10; if (rect.bottom + PH > window.innerHeight - 12) top = rect.top - PH - 10;
+    popup.style.left = left + 'px'; popup.style.top = top + 'px';
+    popup.classList.add('gl-visible'); el.classList.add('gl-active');
+  }
+  function hide() {
+    popup.classList.remove('gl-visible');
+    document.querySelectorAll('.gl-term.gl-active').forEach(function(e){ e.classList.remove('gl-active'); });
+  }
+  var hideId;
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.appendChild(popup);
+    highlight();
+    document.addEventListener('mouseover', function(e){ clearTimeout(hideId); var t = e.target.closest('.gl-term'); if (t) show(t); else hideId = setTimeout(hide, 260); });
+    popup.addEventListener('mouseenter', function(){ clearTimeout(hideId); });
+    popup.addEventListener('mouseleave', function(){ hideId = setTimeout(hide, 260); });
+    document.addEventListener('click', function(e){ var t = e.target.closest('.gl-term'); if (t){ e.stopPropagation(); show(t); } else hide(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') hide(); });
+  });
+}());
+</script>
+</body>
+</html>
