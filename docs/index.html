@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GenAI Security — Fortinet</title>
   <style>
-    :root { --red: #EE3124; --dark: #1a1a2e; }
+    :root { --red: #EE3124; --dark: #1a1a2e; --light: #f5f5f7; --muted: #6e6e73; --border: #d2d2d7; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -15,9 +15,14 @@
     header {
       background: var(--dark);
       color: #fff;
-      padding: 1.25rem 2rem;
+      padding: 0 2rem;
     }
-    .brand { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; }
+    header .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.25rem 0;
+    }
+    .brand { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; color: #fff; text-decoration: none; }
     .brand span { color: var(--red); }
     .hero {
       background: linear-gradient(135deg, var(--dark) 0%, #16213e 60%, #0f3460 100%);
@@ -25,8 +30,8 @@
       text-align: center;
       padding: 5rem 2rem 4rem;
     }
-    .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; }
-    .hero p { font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 540px; margin: 0 auto 2.5rem; }
+    .hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 1rem; line-height: 1.2; }
+    .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 540px; margin: 0 auto 2.5rem; line-height: 1.6; }
     .btn {
       display: inline-block;
       background: var(--red);
@@ -39,27 +44,38 @@
       transition: opacity 0.15s;
     }
     .btn:hover { opacity: 0.88; }
-    .post-card {
+    /* Cards section */
+    .cards {
       max-width: 720px;
       margin: 4rem auto;
       padding: 0 2rem;
     }
-    .post-card h2 { font-size: 1.15rem; color: #6e6e73; font-weight: 400; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .section-label + .section-label { margin-top: 2.5rem; }
     .card {
-      border: 1px solid #d2d2d7;
+      border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
       text-decoration: none;
       color: inherit;
       display: block;
-      transition: box-shadow 0.2s;
+      transition: box-shadow 0.2s, transform 0.2s;
+      margin-bottom: 1.25rem;
     }
-    .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+    .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.12); transform: translateY(-2px); }
     .card-top {
       background: linear-gradient(135deg, var(--dark), #0f3460);
       color: #fff;
       padding: 2rem;
     }
+    .card-top.alt { background: linear-gradient(135deg, #16213e, var(--dark)); }
     .card-top .tag {
       display: inline-block;
       background: var(--red);
@@ -72,11 +88,11 @@
       border-radius: 2px;
       margin-bottom: 1rem;
     }
-    .card-top h3 { font-size: 1.3rem; font-weight: 700; line-height: 1.3; }
+    .card-top h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; }
     .card-body { padding: 1.5rem 2rem; }
-    .card-body p { color: #6e6e73; font-size: 0.95rem; line-height: 1.6; }
+    .card-body p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
     .card-footer {
-      padding: 1rem 2rem;
+      padding: 0.9rem 2rem;
       border-top: 1px solid #f0f0f0;
       font-size: 0.85rem;
       color: var(--red);
@@ -88,14 +104,20 @@
       text-align: center;
       padding: 1.5rem;
       font-size: 0.82rem;
-      margin-top: 4rem;
+      margin-top: 3rem;
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.25rem 2.5rem; }
+      .cards { padding: 0 1.25rem; margin: 2.5rem auto; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="brand"><span>Forti</span>net · GenAI Security</div>
+  <div class="inner">
+    <a class="brand" href="/genAISeC/"><span>Forti</span>net · GenAI Security</a>
+  </div>
 </header>
 
 <div class="hero">
@@ -104,23 +126,26 @@
   <a class="btn" href="blog.html">Read the latest post &rarr;</a>
 </div>
 
-<div class="post-card">
-  <h2>Latest</h2>
+<div class="cards">
+
+  <p class="section-label">Blog</p>
+
   <a class="card" href="blog.html">
     <div class="card-top">
       <div class="tag">Security Insights</div>
       <h3>Walk the GenAISec Talk</h3>
     </div>
     <div class="card-body">
-      <p>A five-layer breakdown of GenAI attack surface: Developer Endpoint, LLM API Consumption, RAG Pipeline, MCP Integration, and Cloud Infrastructure — with real-world CVEs, Fortinet coverage, and best-of-breed vendor mapping at every layer.</p>
+      <p>A five-layer breakdown of the GenAI attack surface: Developer Endpoint, LLM API Consumption, RAG Pipeline, MCP Integration, and Cloud Infrastructure — with real-world CVEs, Fortinet coverage, and vendor mapping at every layer.</p>
     </div>
     <div class="card-footer">Read the post &rarr;</div>
   </a>
-</div>
 
-  <a class="card" href="reference.html" style="margin-top:1rem;">
-    <div class="card-top" style="background:linear-gradient(135deg,#16213e,#1a1a2e);">
-      <div class="tag">PreSales Reference</div>
+  <p class="section-label" style="margin-top:2.5rem;">PreSales Reference</p>
+
+  <a class="card" href="reference.html">
+    <div class="card-top alt">
+      <div class="tag">Reference Guide</div>
       <h3>Fortinet GenAI Security — Reference &amp; Positioning Guide</h3>
     </div>
     <div class="card-body">
@@ -128,6 +153,7 @@
     </div>
     <div class="card-footer">Open guide &rarr;</div>
   </a>
+
 </div>
 
 <footer>
