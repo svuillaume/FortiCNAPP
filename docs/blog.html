@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Securing the GenAI Stack — Fortinet</title>
+  <style>
+    :root {
+      --red: #EE3124;
+      --dark: #1a1a2e;
+      --mid: #2d2d44;
+      --light: #f5f5f7;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --border: #d2d2d7;
+      --link: #0071e3;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #fff;
+    }
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 0 2rem;
+    }
+    header .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: none;
+    }
+    header .brand span { color: var(--red); }
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero .tag {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 720px;
+      margin: 0 auto 1.25rem;
+    }
+    .hero .subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 640px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .main h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.75rem;
+      color: var(--dark);
+      padding-top: 0.5rem;
+      border-top: 3px solid var(--red);
+      display: inline-block;
+    }
+    .main h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 1.75rem 0 0.5rem;
+      color: var(--dark);
+    }
+    .main p { margin: 0.75rem 0; }
+    .main ul, .main ol {
+      margin: 0.75rem 0 0.75rem 1.5rem;
+    }
+    .main li { margin: 0.35rem 0; }
+    .main a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .main a:hover { text-decoration: underline; }
+    .main strong { font-weight: 700; }
+    .main em { font-style: italic; }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    blockquote {
+      border-left: 4px solid var(--red);
+      background: var(--light);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+    .layers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .layer-card {
+      background: var(--light);
+      border-radius: 8px;
+      padding: 1rem;
+      border-top: 3px solid var(--red);
+      font-size: 0.9rem;
+    }
+    .layer-card strong { display: block; margin-bottom: 0.25rem; }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    thead { background: var(--dark); color: #fff; }
+    thead th {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    tbody tr:nth-child(even) { background: var(--light); }
+    tbody td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .section-label {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-bottom: 0.4rem;
+    }
+    .disclaimer {
+      background: var(--light);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.82rem;
+    }
+    @media (max-width: 600px) {
+      .main { padding: 2rem 1.25rem 3rem; }
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a class="brand" href="/genAISeC/"><span>Forti</span>net · GenAI Security</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="tag">Security Insights</div>
+  <h1>Securing the GenAI Stack: A Layered Look at the Attack Surface — Fortinet, and the Broader Vendor Landscape</h1>
+  <p class="subtitle">From the developer's laptop to the LLM endpoint in your cloud, GenAI has quietly redrawn the enterprise attack surface. Here is a clean, practical view of what's changed, real attacks already happening at each layer, where the Fortinet Security Fabric fits in — and the best-of-breed vendors covering each layer alongside it.</p>
+</div>
+
+<div class="main">
+
+  <h2>Why this matters now</h2>
+  <p>Generative AI is no longer a side project. Developers are "vibe coding" with Copilot and Cursor, applications are calling LLM APIs at runtime, knowledge bases are being indexed into vector stores for RAG, and the Model Context Protocol (MCP) is connecting models to live tools and data sources.</p>
+  <p>Each of these shifts introduces a new layer of risk. And like any new architecture, GenAI does not replace the security fundamentals — it <strong>stacks new concerns on top of them</strong>.</p>
+  <p>This post walks through the five layers of a typical GenAI deployment, the main risks at each layer, recent real-world incidents, how the Fortinet portfolio maps to each layer, and the leading third-party vendors customers also evaluate. No agentic AI here — we are keeping the scope to LLM consumption, RAG, and MCP integrations.</p>
+
+  <hr>
+
+  <h2>The five layers at a glance</h2>
+  <div class="layers-grid">
+    <div class="layer-card"><strong>1. Developer Endpoint</strong>where code is written with AI assistance</div>
+    <div class="layer-card"><strong>2. LLM API Consumption</strong>where your application talks to the model</div>
+    <div class="layer-card"><strong>3. RAG Pipeline</strong>where retrieved data feeds the model</div>
+    <div class="layer-card"><strong>4. MCP Integration</strong>where the model reads from connected tools</div>
+    <div class="layer-card"><strong>5. Cloud &amp; Model Infrastructure</strong>where it all runs</div>
+  </div>
+  <p>Let us take each in turn.</p>
+
+  <hr>
+
+  <h2>Layer 1 — The Developer Endpoint</h2>
+  <p>This is where "vibe coding" lives. Developers prompt AI assistants to generate, refactor, or autocomplete code at speeds that outpace traditional code review.</p>
+
+  <h3>The main risks</h3>
+  <ul>
+    <li><strong>Insecure code at scale.</strong> A December 2025 study of open-source pull requests found AI-generated code introduces <strong>2.74x more security vulnerabilities</strong> than human-written code. Veracode's 2025 GenAI Code Security Report tested 100+ LLMs and found AI introduced security vulnerabilities in <strong>45% of cases</strong>.</li>
+    <li><strong>Sensitive data leaving the boundary.</strong> Developers paste <code>.env</code> files, customer PII, or proprietary source into public LLM interfaces. Once submitted, it is gone.</li>
+    <li><strong>Slopsquatting.</strong> Commercial models hallucinate ~5% of suggested package names; open-source models up to ~22%. Attackers register the hallucinated names and lie in wait.</li>
+  </ul>
+
+  <h3>Recent attacks</h3>
+  <ul>
+    <li><strong>"Rules File Backdoor" — Pillar Security (March 2025).</strong> Attackers embed invisible Unicode instructions inside <code>.cursorrules</code> or Copilot configuration files. When developers pull a poisoned repo, the AI assistant silently generates backdoored code. (<a href="https://www.pillar.security/blog/new-vulnerability-in-github-copilot-and-cursor-how-hackers-can-weaponize-code-agents">Pillar Security disclosure</a>)</li>
+    <li><strong>"IDEsaster" — 24+ CVEs across AI IDEs (December 2025).</strong> Researcher Ari Marzouk disclosed flaws across Cursor (<strong>CVE-2025-49150, CVE-2025-54130, CVE-2025-61590</strong>), GitHub Copilot (<strong>CVE-2025-53773, CVSS 7.8</strong>), Windsurf, Zed.dev, Roo Code, and JetBrains Junie. (<a href="https://byteiota.com/ai-ide-security-crisis-30-flaws-expose-cursor-copilot/">byteiota analysis</a>)</li>
+    <li><strong>Cursor IDE RCE via MCP — CVE-2025-54135 / CVE-2025-54136 (August 2025).</strong> Indirect prompt injection wrote a malicious <code>.cursor/mcp.json</code> configuration into the workspace, achieving persistent RCE across IDE restarts. (<a href="https://workos.com/blog/prompt-injection-attacks">WorkOS write-up</a>)</li>
+  </ul>
+
+  <h3>Where Fortinet fits</h3>
+  <ul>
+    <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
+    <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
+    <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
+  </ul>
+
+  <h3>Other best-of-breed vendors at this layer</h3>
+  <ul>
+    <li><strong>AI coding assistants with native enterprise security:</strong> <a href="https://github.com/features/copilot">GitHub Copilot Enterprise</a>, <a href="https://aws.amazon.com/q/developer/">Amazon Q Developer</a>, and <a href="https://www.tabnine.com/">Tabnine Enterprise</a>.</li>
+    <li><strong>AI-aware SAST and code scanning:</strong> <a href="https://snyk.io/platform/deepcode-ai/">Snyk DeepCode AI</a>, <a href="https://checkmarx.com/">Checkmarx</a>, <a href="https://www.veracode.com/">Veracode</a>, <a href="https://www.sonarsource.com/">SonarQube</a>.</li>
+    <li><strong>GitHub Advanced Security (GHAS):</strong> <a href="https://github.com/security/advanced-security">Code Security and Secret Protection</a>.</li>
+    <li><strong>MCP and AI dev-tool gateways:</strong> <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://www.backslash.security/">Backslash Security</a>, <a href="https://www.truefoundry.com/">TrueFoundry</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Layer 2 — LLM API Consumption</h2>
+  <p>When your application calls OpenAI, Anthropic, Bedrock, Vertex AI, or Azure OpenAI, you inherit a new flow of sensitive data leaving your perimeter — and a new untrusted input source coming back.</p>
+
+  <h3>The main risks</h3>
+  <ul>
+    <li><strong>Prompt injection (direct and indirect).</strong> OWASP ranks this as <strong>LLM01:2025 — the #1 LLM risk</strong>. (<a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP LLM01:2025</a>)</li>
+    <li><strong>Insecure output handling.</strong> When model output is rendered as HTML, executed as code, or used in SQL, the LLM becomes a fresh vector for XSS, SSRF, and RCE.</li>
+    <li><strong>Cost and availability impact.</strong> Unbounded token consumption and adversarial long-context prompts drive runaway cloud spend. A leaked API key is now a financial DoS.</li>
+  </ul>
+
+  <h3>Recent attacks</h3>
+  <ul>
+    <li><strong>EchoLeak — CVE-2025-32711, Microsoft 365 Copilot (June 2025).</strong> Disclosed by Aim Labs, the <strong>first known zero-click prompt injection in a production LLM system</strong>. An email triggered Copilot to retrieve internal documents and exfiltrate them to an attacker-controlled server with no user interaction. (<a href="https://arxiv.org/pdf/2509.10540">Academic paper</a>)</li>
+    <li><strong>ChatGPT Connector data leakage (July–August 2025).</strong> NSFOCUS documented incidents where indirect prompt injection through ChatGPT's connectors (Google Drive, SharePoint, GitHub) exfiltrated API keys, credentials, and confidential files. (<a href="https://nsfocusglobal.com/prompt-word-injection-an-analysis-of-recent-llm-security-incidents/">NSFOCUS analysis</a>)</li>
+    <li><strong>ChatGPT Windows product key leak (July 2025).</strong> A crafted "guessing game" prompt bypassed content filters and tricked ChatGPT into revealing valid Windows product keys, including an enterprise license tied to a major bank.</li>
+  </ul>
+
+  <h3>Where Fortinet fits</h3>
+  <ul>
+    <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> is purpose-built for this layer. Deployed as a containerized LLM gateway between the application and the model, it inspects every prompt and completion in real time, enforces guardrails against prompt injection and jailbreaking, prevents data exfiltration and model theft, blocks excessive token consumption, and provides per-interaction logging and cost tracking.</li>
+    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> / <a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud"><strong>FortiAppSec Cloud</strong></a> protects the HTTP layer in front of your LLM-powered APIs — schema enforcement, rate limiting, bot mitigation, and OWASP coverage.</li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> inspects outbound traffic to external LLM providers with application-control awareness for AI SaaS and DLP on payloads.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> runtime behavior detection delivers composite alerts that detect anomalous runtime behavior in the application calling the LLM — unusual outbound destinations, abnormal token-consumption spikes, sudden secret access patterns, or compromised containers attempting to reach LLM APIs.</li>
+  </ul>
+
+  <h3>Other best-of-breed vendors at this layer</h3>
+  <ul>
+    <li><strong>AI-native LLM firewalls / guardrails:</strong> <a href="https://www.lakera.ai/">Lakera Guard</a>, <a href="https://www.prompt.security/">Prompt Security</a>, <a href="https://www.hiddenlayer.com/">HiddenLayer AISec</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.robustintelligence.com/">Robust Intelligence</a>, <a href="https://protectai.com/">Protect AI</a>.</li>
+    <li><strong>Adjacent emerging players:</strong> <a href="https://www.operant.ai/">Operant AI</a>, <a href="https://acuvity.ai/">Acuvity</a>, <a href="https://neuraltrust.ai/">NeuralTrust</a>, <a href="https://www.pillar.security/">Pillar Security</a>, <a href="https://www.enkryptai.com/">Enkrypt AI</a>.</li>
+    <li><strong>CSP-native model protections:</strong> <a href="https://azure.microsoft.com/en-us/products/ai-services/ai-content-safety">Azure AI Content Safety</a> (Prompt Shields), <a href="https://aws.amazon.com/bedrock/guardrails/">AWS Bedrock Guardrails</a>, <a href="https://cloud.google.com/security/products/model-armor">Google Cloud Model Armor</a>.</li>
+    <li><strong>Open source:</strong> <a href="https://github.com/NVIDIA/NeMo-Guardrails">NVIDIA NeMo Guardrails</a>, <a href="https://github.com/leondz/garak">Garak LLM vulnerability scanner</a>, <a href="https://github.com/Azure/PyRIT">PyRIT</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Layer 3 — The RAG Pipeline</h2>
+  <p>Retrieval-Augmented Generation is where most enterprise GenAI lives today. It is also where data governance failures hit hardest, because the model is now actively reading from your most sensitive systems.</p>
+
+  <h3>The main risks</h3>
+  <ul>
+    <li><strong>Permission bypass and over-broad retrieval.</strong> The indexer often runs with admin scope across SharePoint, Confluence, Drive, and CRM. A junior employee asks a casual question and receives executive comp data. The single most common — and most damaging — enterprise RAG failure.</li>
+    <li><strong>Indirect prompt injection through the knowledge base.</strong> Research published at <strong>USENIX Security 2025</strong> demonstrated that as few as <strong>5 carefully crafted documents</strong> can manipulate AI responses with over 90% success in a knowledge base of millions.</li>
+    <li><strong>Sensitive data sprawl and embedding inversion.</strong> The <strong>ALGEN framework (February 2025)</strong> showed that with just 1,000 alignment samples, attackers can reconstruct 50–70% of original input text from leaked embeddings.</li>
+  </ul>
+
+  <h3>Recent attacks</h3>
+  <ul>
+    <li><strong>OWASP LLM08:2025 — Vector and Embedding Weaknesses (formalized 2025).</strong> OWASP added a dedicated Top-10 entry recognizing the vector layer as a distinct attack surface.</li>
+    <li><strong>ConfusedPilot attack (2024–2025).</strong> Researchers at the University of Texas demonstrated that placing crafted documents inside a Microsoft 365 Copilot-indexed SharePoint site could manipulate Copilot's answers across an entire enterprise — no model access required.</li>
+    <li><strong>EchoLeak's RAG dimension (June 2025).</strong> Beyond Layer 2, EchoLeak (CVE-2025-32711) is fundamentally a RAG attack: the model retrieved content from a context source with no integrity check.</li>
+  </ul>
+
+  <h3>Where Fortinet fits</h3>
+  <ul>
+    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB</strong></a> and <a href="https://www.fortinet.com/products/sase"><strong>SSPM (in FortiSASE)</strong></a> govern the SaaS sources feeding RAG pipelines (Microsoft 365, Google Workspace, Salesforce). They catch over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP DSPM</strong></a> discovers and classifies sensitive data flowing into vector stores hosted on S3, Azure Blob, or managed services like OpenSearch and Pinecone — surfacing PII, PCI, and PHI sprawl in the embedding layer.</li>
+    <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> provides dynamic file analysis in a detonation environment, identifying malicious behavior, hidden scripts, and prompt-injection payloads <strong>before</strong> they reach the vector store.</li>
+    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> protects the RAG application's ingestion and query APIs with schema enforcement.</li>
+    <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> enforces guardrails on the prompts assembled from retrieved content, catching indirect injection at the model boundary.</li>
+  </ul>
+
+  <h3>Other best-of-breed vendors at this layer</h3>
+  <ul>
+    <li><strong>CASB / SSPM:</strong> <a href="https://www.netskope.com/">Netskope One</a>, <a href="https://www.zscaler.com/">Zscaler</a>, <a href="https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-cloud-apps">Microsoft Defender for Cloud Apps</a>, <a href="https://www.obsidiansecurity.com/">Obsidian Security</a>, <a href="https://www.reco.ai/">Reco AI</a>.</li>
+    <li><strong>DSPM specialists:</strong> <a href="https://www.cyera.io/">Cyera</a>, <a href="https://bigid.com/">BigID</a>, <a href="https://www.sentra.io/">Sentra</a>, <a href="https://www.dig.security/">Dig Security</a>.</li>
+    <li><strong>Document and content sandboxing:</strong> <a href="https://www.opswat.com/products/metadefender">OPSWAT MetaDefender</a>, <a href="https://votiro.com/">Votiro</a>, <a href="https://www.glasswall.com/">Glasswall</a>.</li>
+    <li><strong>RAG-aware security tooling:</strong> <a href="https://www.lakera.ai/">Lakera Guard for RAG</a>, <a href="https://www.cranium.ai/">Cranium AI</a>, <a href="https://securiti.ai/">Securiti AI</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Layer 4 — The MCP Integration Layer</h2>
+  <p>The Model Context Protocol lets models read from and act on external tools — file systems, databases, GitHub, Slack, Jira. Even in non-agentic usage, MCP opens a substantial new attack surface most teams underestimate.</p>
+
+  <h3>The main risks</h3>
+  <ul>
+    <li><strong>Malicious or compromised MCP servers</strong> with broad local privileges.</li>
+    <li><strong>Credential and token sprawl</strong> — long-lived OAuth tokens and API keys, almost always over-scoped.</li>
+    <li><strong>Loss of auditability</strong> — most MCP implementations log poorly, breaking SOC 2 and ISO accountability.</li>
+  </ul>
+
+  <h3>Recent attacks</h3>
+  <ul>
+    <li><strong>EscapeRoute — CVE-2025-53109 / CVE-2025-53110, Anthropic Filesystem MCP Server (July 2025).</strong> Cymulate disclosed chained path-prefix and symlink bypasses leading to full host compromise. (<a href="https://cymulate.com/blog/cve-2025-53109-53110-escaperoute-anthropic/">Cymulate disclosure</a>)</li>
+    <li><strong>CVE-2025-6514 — mcp-remote RCE (July 2025, CVSS 9.6).</strong> JFrog disclosed a critical flaw: connecting to a malicious remote MCP server triggered arbitrary OS command execution on the client. (<a href="https://jfrog.com/blog/2025-6514-critical-mcp-remote-rce-vulnerability/">JFrog write-up</a>)</li>
+    <li><strong>CVE-2025-65719 — Kubectl MCP Server RCE (January 2026).</strong> OX Security disclosed a critical RCE: visiting a malicious website while the Kubectl MCP Server was running gave full control of both the local machine and every Kubernetes cluster the victim had access to. (<a href="https://www.ox.security/blog/cve-2025-65719-critical-rce-in-kubectl-mcp-server/">OX Security disclosure</a>)</li>
+    <li><strong>CVE-2025-53967 — Framelink Figma MCP Server RCE (October 2025).</strong> Imperva disclosed an RCE affecting thousands of design and developer workstations. (<a href="https://www.imperva.com/blog/another-critical-rce-discovered-in-a-popular-mcp-server/">Imperva disclosure</a>)</li>
+  </ul>
+
+  <h3>Where Fortinet fits</h3>
+  <ul>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of GenAI/LLM traffic egressing through FortiGate</a>.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
+    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
+    <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> dynamically analyzes MCP server npm/PyPI packages and container images before deployment.</li>
+  </ul>
+
+  <h3>Other best-of-breed vendors at this layer</h3>
+  <ul>
+    <li><strong>MCP-specific gateways and governance:</strong> <a href="https://www.lunar.dev/">Lunar.dev MCPX</a>, <a href="https://www.docker.com/products/mcp-catalog-and-toolkit/">Docker MCP Gateway and Toolkit</a>, <a href="https://www.enkryptai.com/solutions/mcp-security">Enkrypt AI MCP Security</a>, <a href="https://invariantlabs.ai/">Invariant Labs</a>, <a href="https://www.truefoundry.com/">TrueFoundry MCP Gateway</a>, <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://composio.dev/">Composio</a>.</li>
+    <li><strong>MCP code/config scanning:</strong> <a href="https://www.backslash.security/">Backslash Open</a>, <a href="https://www.pillar.security/">Pillar Security</a>.</li>
+    <li><strong>AI agent observability adjacent to MCP:</strong> <a href="https://zenity.io/">Zenity</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.lasso.security/">Lasso Security</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Layer 5 — The Cloud and Model Infrastructure</h2>
+  <p>The foundation. Easy to overlook, never the right thing to skip.</p>
+
+  <h3>The main risks</h3>
+  <ul>
+    <li><strong>IAM misconfiguration on model endpoints</strong> — wildcarded invoke permissions, cross-account role chains, missing condition keys.</li>
+    <li><strong>Runtime compromise of self-hosted inference</strong> — container escape, model weight theft, pickle-deserialization RCE.</li>
+    <li><strong>Compliance and audit gaps</strong> — prompt and completion logs holding the most sensitive enterprise data, often ungoverned.</li>
+  </ul>
+
+  <h3>Recent attacks</h3>
+  <ul>
+    <li><strong>Hugging Face malicious model uploads (ongoing through 2024–2025).</strong> JFrog, ReversingLabs, and Protect AI documented hundreds of malicious models using pickle deserialization to achieve code execution on load.</li>
+    <li><strong>AWS Bedrock invoke-permission incidents (2024–2025).</strong> Over-permissive <code>bedrock:InvokeModel*</code> IAM policies let unintended principals invoke frontier models, generating five- and six-figure unauthorized bills before detection.</li>
+    <li><strong>PyTorch pickle-deserialization RCE in model artifacts (well-documented 2024–2025).</strong> PickleScan and similar tools identified active malicious payloads in <code>.bin</code> files in public registries.</li>
+  </ul>
+
+  <h3>Where Fortinet fits</h3>
+  <ul>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> delivers CSPM, CWPP, and CIEM across AWS, Azure, GCP, and OCI — covering IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, ISO frameworks.</li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> segments model-serving subnets from data planes, with east-west enforcement.</li>
+    <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> detonates model artifacts and container images pulled from public registries before they reach inference clusters.</li>
+    <li><a href="https://www.fortinet.com/products/management/fortianalyzer"><strong>FortiAnalyzer</strong></a> centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for AI events.</li>
+  </ul>
+
+  <h3>Other best-of-breed vendors at this layer</h3>
+  <ul>
+    <li><strong>CNAPP leaders (Gartner / PeerSpot 2026):</strong> <a href="https://www.wiz.io/">Wiz</a>, <a href="https://www.paloaltonetworks.com/prisma/cloud">Palo Alto Prisma Cloud / Cortex Cloud</a>, <a href="https://www.crowdstrike.com/products/cloud-security/">CrowdStrike Falcon Cloud Security</a>, <a href="https://www.microsoft.com/en-us/security/business/cloud-security/microsoft-defender-cloud">Microsoft Defender for Cloud</a>, <a href="https://www.sentinelone.com/platform/cloud-security/">SentinelOne Singularity Cloud Security</a>, <a href="https://orca.security/">Orca Security</a>, <a href="https://www.aquasec.com/">Aqua Security</a>.</li>
+    <li><strong>AI-SPM and AI supply chain security:</strong> <a href="https://www.hiddenlayer.com/">HiddenLayer AISec Platform</a>, <a href="https://protectai.com/">Protect AI</a>, <a href="https://www.cranium.ai/">Cranium AI</a>, <a href="https://www.lasso.security/">Lasso Security</a>.</li>
+    <li><strong>Model registry and supply chain:</strong> <a href="https://jfrog.com/">JFrog</a>, <a href="https://www.reversinglabs.com/">ReversingLabs</a>, <a href="https://www.sonatype.com/">Sonatype</a>, <a href="https://snyk.io/">Snyk</a>.</li>
+  </ul>
+
+  <hr>
+
+  <h2>A simple way to think about it</h2>
+  <p>Collapsed into one sentence for a CISO conversation:</p>
+  <blockquote>
+    <strong>GenAI changes where untrusted input enters your systems, what your applications do with model output, and how data and credentials surround the model. Everything else is a variation on those three themes.</strong>
+  </blockquote>
+
+  <h3>Layer summary</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Attack surface added</th>
+          <th>Primary Fortinet coverage</th>
+          <th>Notable third-party vendors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Developer Endpoint</strong></td>
+          <td>Insecure code, data leakage, supply chain, lateral movement</td>
+          <td><a href="https://www.fortinet.com/products/sase">FortiSASE</a>, <a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient/FortiEDR</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a> (DSPM + IaC + code), ZTNA</td>
+          <td>Snyk, Checkmarx, Veracode, GHAS, Tabnine, MintMCP, Backslash</td>
+        </tr>
+        <tr>
+          <td><strong>2. LLM API Consumption</strong></td>
+          <td>Prompt injection, output handling, cost DoS, runtime anomalies</td>
+          <td><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb/FortiAppSec</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></td>
+          <td>Lakera, Prompt Security, HiddenLayer, CalypsoAI, Protect AI, NeMo Guardrails</td>
+        </tr>
+        <tr>
+          <td><strong>3. RAG Pipeline</strong></td>
+          <td>Permission bypass, KB poisoning, embedding leakage, data sprawl</td>
+          <td><a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB/SSPM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP DSPM</a>, <a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb</a>, <a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a></td>
+          <td>Netskope, MDCA, Obsidian, Cyera, BigID, Sentra, OPSWAT, Votiro</td>
+        </tr>
+        <tr>
+          <td><strong>4. MCP Integration</strong></td>
+          <td>Server compromise, token sprawl, audit gaps</td>
+          <td><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB/SSPM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a></td>
+          <td>Lunar.dev MCPX, Docker MCP Toolkit, Enkrypt AI, Invariant Labs, TrueFoundry, Zenity</td>
+        </tr>
+        <tr>
+          <td><strong>5. Cloud &amp; Model Infra</strong></td>
+          <td>IAM misconfig, runtime compromise, model supply chain, compliance</td>
+          <td><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a>, <a href="https://www.fortinet.com/products/management/fortianalyzer">FortiAnalyzer</a></td>
+          <td>Wiz, Prisma Cloud, CrowdStrike, Defender for Cloud, SentinelOne, Orca, HiddenLayer, Protect AI</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <h2>Where Fortinet differentiates in this landscape</h2>
+  <p>This is the honest PreSales view across the layers above:</p>
+  <ul>
+    <li><strong>Convergence over point products.</strong> Most third-party vendors above are deep in one layer. The <a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a> — anchored by FortiCNAPP, FortiAIGate, FortiSASE, FortiGate, FortiWeb, FortiCASB, FortiSandbox, and FortiAnalyzer — covers all five with a single telemetry, policy, and operations model.</li>
+    <li><strong>FortiAIGate as a first-class AI runtime control plane.</strong> Few network-security incumbents have shipped a purpose-built LLM gateway; Fortinet has.</li>
+    <li><strong>The Security Fabric story.</strong> A single dashboard from endpoint to LLM gateway to cloud workload to SaaS is operationally meaningful in an environment where the threat now spans all of those tiers.</li>
+  </ul>
+  <p>Customers still combine Fortinet with best-of-breed where it makes sense: an LLM-firewall specialist for the deepest prompt-injection coverage, a dedicated DSPM where data classification is the dominant investment, or an AI-SPM tool such as HiddenLayer for granular model-supply-chain governance. The point is the conversation is no longer Fortinet <strong>or</strong> these vendors — it is the right combination, with Fortinet providing the converged backbone.</p>
+
+  <hr>
+
+  <h2>Closing thought</h2>
+  <p>GenAI security is not a single product problem and it is not a single team problem. It crosses the developer's laptop, the application tier, the data pipeline, the integration layer, and the cloud foundation.</p>
+  <p>What it asks of us is the same thing every wave of cloud transformation has asked: <strong>defense in depth, applied with intention, measured against real outcomes</strong>. The <a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a> — now extended with <a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a> as the AI-runtime control plane — was built exactly for that kind of work, unifying visibility, posture, and enforcement across the layers that GenAI now spans.</p>
+  <p>If you are designing a new GenAI workload, or retrofitting governance onto one already in production, start with the layer that worries you most, and work outward from there. The threats are new. The discipline is not.</p>
+
+  <hr>
+
+  <h2>References</h2>
+  <h3>Industry standards and frameworks</h3>
+  <ul>
+    <li><a href="https://genai.owasp.org/">OWASP Top 10 for LLM Applications (2025)</a></li>
+    <li><a href="https://genai.owasp.org/llmrisk/llm01-prompt-injection/">OWASP LLM01:2025 — Prompt Injection</a></li>
+    <li>OWASP LLM08:2025 — Vector and Embedding Weaknesses</li>
+    <li><a href="https://www.nist.gov/itl/ai-risk-management-framework">NIST AI Risk Management Framework</a></li>
+    <li><a href="https://atlas.mitre.org/">MITRE ATLAS</a></li>
+  </ul>
+  <h3>Layer 1 — Developer Endpoint</h3>
+  <ul>
+    <li><a href="https://www.pillar.security/blog/new-vulnerability-in-github-copilot-and-cursor-how-hackers-can-weaponize-code-agents">Pillar Security, "Rules File Backdoor" disclosure, March 2025</a></li>
+    <li><a href="https://byteiota.com/ai-ide-security-crisis-30-flaws-expose-cursor-copilot/">byteiota, "IDEsaster" — 24+ CVEs across AI IDEs, December 2025</a></li>
+    <li>CVE-2025-54135 / CVE-2025-54136 — Cursor MCP RCE, August 2025</li>
+    <li><a href="https://www.docker.com/blog/ai-coding-agent-horror-stories-security-risks/">Docker, "AI Coding Agent Horror Stories," February 2026</a></li>
+  </ul>
+  <h3>Layer 2 — LLM API Consumption</h3>
+  <ul>
+    <li><a href="https://arxiv.org/pdf/2509.10540">Aim Labs, EchoLeak (CVE-2025-32711) analysis</a></li>
+    <li><a href="https://nsfocusglobal.com/prompt-word-injection-an-analysis-of-recent-llm-security-incidents/">NSFOCUS, ChatGPT Connector prompt injection incidents, August 2025</a></li>
+    <li><a href="https://www.fortinet.com/blog/security-operations/fortiaigate-optimizing-and-protecting-ai-workloads">Fortinet, "FortiAIGate: Optimizing and Protecting AI Workloads," March 2026</a></li>
+    <li><a href="https://www.techtarget.com/searchsecurity/feature/LLM-firewalls-emerge-as-a-new-AI-security-layer">TechTarget, "LLM firewalls emerge as a new AI security layer," February 2026</a></li>
+  </ul>
+  <h3>Layer 3 — RAG Pipeline</h3>
+  <ul>
+    <li>USENIX Security 2025 — RAG poisoning research ("5 documents, 90% success")</li>
+    <li>ALGEN embedding inversion framework, February 2025</li>
+    <li>ConfusedPilot research on SharePoint-indexed Copilot manipulation</li>
+    <li><a href="https://vcso.ai/learn/best-dspm-tools-2026/">DSPM vendor landscape analysis, vCSO.ai 2026</a></li>
+  </ul>
+  <h3>Layer 4 — MCP Integration</h3>
+  <ul>
+    <li><a href="https://cymulate.com/blog/cve-2025-53109-53110-escaperoute-anthropic/">Cymulate, EscapeRoute (CVE-2025-53109 / CVE-2025-53110), July 2025</a></li>
+    <li><a href="https://jfrog.com/blog/2025-6514-critical-mcp-remote-rce-vulnerability/">JFrog, mcp-remote RCE (CVE-2025-6514, CVSS 9.6), July 2025</a></li>
+    <li><a href="https://www.ox.security/blog/cve-2025-65719-critical-rce-in-kubectl-mcp-server/">OX Security, Kubectl MCP Server RCE (CVE-2025-65719), January 2026</a></li>
+    <li><a href="https://www.imperva.com/blog/another-critical-rce-discovered-in-a-popular-mcp-server/">Imperva, Framelink Figma MCP Server RCE (CVE-2025-53967), October 2025</a></li>
+    <li><a href="https://www.redhat.com/en/blog/mcp-security-current-situation">Red Hat, "MCP security: The current situation," February 2026</a></li>
+    <li><a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">Fortinet community guide on selective control of GenAI/LLM traffic via FortiGate</a></li>
+  </ul>
+  <h3>Layer 5 — Cloud &amp; Model Infrastructure</h3>
+  <ul>
+    <li><a href="https://www.peerspot.com/categories/cloud-native-application-protection-platforms-cnapp">PeerSpot CNAPP Top Vendors, 2026</a></li>
+    <li><a href="https://hiddenlayer.com/innovation-hub/hiddenlayer-unveils-aisec-platform-2-0-to-deliver-unmatched-context-visibility-and-observability-for-enterprise-ai-security/">HiddenLayer AISec Platform 2.0 launch, RSAC 2025</a></li>
+    <li><a href="https://aithority.com/guest-authors/the-top-ai-supply-chain-security-vendors-of-2026/">aithority, "Top AI Supply Chain Security Vendors of 2026"</a></li>
+    <li><a href="https://www.wiz.io/academy/ai-security/ai-security-tools">Wiz Academy, "Top AI Security Tools for the Cloud"</a></li>
+  </ul>
+
+  <h3>Fortinet portfolio</h3>
+  <ul>
+    <li><a href="https://www.fortinet.com/solutions/ai-security">Fortinet AI Security Solutions</a></li>
+    <li><a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a></li>
+    <li><a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a></li>
+    <li><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></li>
+    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb</a></li>
+    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud">FortiAppSec Cloud</a></li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a></li>
+    <li><a href="https://www.fortinet.com/products/sase">FortiSASE</a></li>
+    <li><a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB</a></li>
+    <li><a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a></li>
+    <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient</a></li>
+    <li><a href="https://www.fortinet.com/products/endpoint-security/fortiedr">FortiEDR</a></li>
+    <li><a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></li>
+    <li><a href="https://www.fortinet.com/products/management/fortianalyzer">FortiAnalyzer</a></li>
+    <li><a href="https://www.fortinet.com/products">Fortinet Product Catalog</a></li>
+  </ul>
+
+  <div class="disclaimer">
+    <p>Written from a Fortinet PreSales engineering perspective. The views and architectural interpretations presented here are intended for technical discussion, solution positioning, and security strategy alignment purposes only, and may evolve as AI security capabilities and vendor implementations mature. For deeper dives — including reference architectures, threat-to-control mapping, competitive positioning, implementation guidance, or PoC planning — engage your Fortinet account team or Fortinet Systems Engineering representatives.</p>
+    <p style="margin-top:0.75rem">This material contains proprietary concepts, positioning, and technical guidance intended solely for the original audience. Redistribution, reproduction, modification, external publication, or reuse of this content — in whole or in part — without prior written consent from Fortinet is prohibited.</p>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2026 Fortinet, Inc. All rights reserved. &nbsp;·&nbsp; <a href="/genAISeC/" style="color:rgba(255,255,255,0.5)">Back to home</a>
+</footer>
+
+</body>
+</html>
