@@ -582,6 +582,17 @@
     .locked-gate-form button:hover { opacity: 0.85; }
     .locked-gate-error { font-size: 0.72rem; color: var(--red); width: 100%; margin-top: 0.25rem; display: none; }
     .locked-gate-error.visible { display: block; }
+    .locked-gate-caps { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.4rem; }
+    .locked-gate-cap {
+      background: rgba(238,49,36,0.1);
+      color: var(--red);
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      border: 1px solid rgba(238,49,36,0.25);
+      letter-spacing: 0.03em;
+    }
     /* FortiGuard Labs callout */
     .fortiguard-callout {
       background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
@@ -703,18 +714,35 @@
     <li><strong>Cursor IDE RCE via MCP — CVE-2025-54135 / CVE-2025-54136 (August 2025).</strong> Indirect prompt injection wrote a malicious <code>.cursor/mcp.json</code> configuration into the workspace, achieving persistent RCE across IDE restarts. (<a href="https://workos.com/blog/prompt-injection-attacks">WorkOS write-up</a>)</li>
   </ul>
 
-  <h3>Where Fortinet fits</h3>
-  <ul>
-    <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
-    <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines.</li>
-    <li><a href="https://www.fortinet.com/products/data-loss-prevention/fortidlp"><strong>FortiDLP</strong></a> enforces endpoint data loss prevention policies in real time — detecting and blocking sensitive data (PII, credentials, proprietary source code) from being pasted into AI coding assistants or submitted to external LLM interfaces, directly on the device before traffic ever hits the network.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
-    <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label">
+        <strong>Where Fortinet fits</strong>
+        <span>Security capabilities covered at this layer</span>
+        <div class="locked-gate-caps">
+          <span class="locked-gate-cap">SWG</span><span class="locked-gate-cap">ZTNA</span><span class="locked-gate-cap">CASB</span><span class="locked-gate-cap">DLP</span><span class="locked-gate-cap">Endpoint DLP</span><span class="locked-gate-cap">PII Detection</span><span class="locked-gate-cap">AI Prompt Control</span><span class="locked-gate-cap">DSPM</span><span class="locked-gate-cap">Data Discovery</span><span class="locked-gate-cap">IaC Scan</span><span class="locked-gate-cap">SAST</span>
+        </div>
+      </div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Where Fortinet fits</h3>
+      <ul>
+        <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
+        <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines.</li>
+        <li><a href="https://www.fortinet.com/products/data-loss-prevention/fortidlp"><strong>FortiDLP</strong></a> enforces endpoint data loss prevention policies in real time — detecting and blocking sensitive data (PII, credentials, proprietary source code) from being pasted into AI coding assistants or submitted to external LLM interfaces, directly on the device before traffic ever hits the network.</li>
+        <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
+        <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
+        <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
+      </ul>
 
-  <!-- ── Layer 1 Architecture Diagram ── -->
-  <div class="fnet-diagram">
+      <!-- ── Layer 1 Architecture Diagram ── -->
+      <div class="fnet-diagram">
     <div class="fnet-diagram-hdr">
       <span class="fnet-diagram-tag">Fortinet Coverage</span>
       <span class="fnet-diagram-title">Developer Endpoint — Protection Architecture</span>
@@ -846,7 +874,9 @@
 
       </div><!-- /fnet-cols -->
     </div><!-- /fnet-diagram-body -->
-  </div><!-- /fnet-diagram -->
+      </div><!-- /fnet-diagram -->
+    </div><!-- /locked-content Layer 1 -->
+  </div><!-- /locked-section Layer 1 -->
 
   <div class="locked-section" data-lock="vendors">
     <div class="locked-gate">
@@ -888,16 +918,33 @@
     <li><strong>ChatGPT Windows product key leak (July 2025).</strong> A crafted "guessing game" prompt bypassed content filters and tricked ChatGPT into revealing valid Windows product keys, including an enterprise license tied to a major bank.</li>
   </ul>
 
-  <h3>Where Fortinet fits</h3>
-  <ul>
-    <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> is purpose-built for this layer. Deployed as a containerized LLM gateway between the application and the model, it inspects every prompt and completion in real time, enforces guardrails against prompt injection and jailbreaking, prevents data exfiltration and model theft, blocks excessive token consumption, and provides per-interaction logging and cost tracking.</li>
-    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> / <a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud"><strong>FortiAppSec Cloud</strong></a> protects the HTTP layer in front of your LLM-powered APIs — schema enforcement, rate limiting, bot mitigation, and OWASP coverage.</li>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic to external LLM providers with application-control awareness for AI SaaS and DLP on payloads.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> runtime behavior detection delivers composite alerts that detect anomalous runtime behavior in the application calling the LLM — unusual outbound destinations, abnormal token-consumption spikes, sudden secret access patterns, or compromised containers attempting to reach LLM APIs.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label">
+        <strong>Where Fortinet fits</strong>
+        <span>Security capabilities covered at this layer</span>
+        <div class="locked-gate-caps">
+          <span class="locked-gate-cap">LLM Gateway</span><span class="locked-gate-cap">Prompt Inspection</span><span class="locked-gate-cap">Jailbreak Detection</span><span class="locked-gate-cap">DLP</span><span class="locked-gate-cap">Rate Limiting</span><span class="locked-gate-cap">OWASP LLM</span><span class="locked-gate-cap">WAF</span><span class="locked-gate-cap">Runtime Monitoring</span>
+        </div>
+      </div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Where Fortinet fits</h3>
+      <ul>
+        <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> is purpose-built for this layer. Deployed as a containerized LLM gateway between the application and the model, it inspects every prompt and completion in real time, enforces guardrails against prompt injection and jailbreaking, prevents data exfiltration and model theft, blocks excessive token consumption, and provides per-interaction logging and cost tracking.</li>
+        <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> / <a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud"><strong>FortiAppSec Cloud</strong></a> protects the HTTP layer in front of your LLM-powered APIs — schema enforcement, rate limiting, bot mitigation, and OWASP coverage.</li>
+        <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic to external LLM providers with application-control awareness for AI SaaS and DLP on payloads.</li>
+        <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> runtime behavior detection delivers composite alerts that detect anomalous runtime behavior in the application calling the LLM — unusual outbound destinations, abnormal token-consumption spikes, sudden secret access patterns, or compromised containers attempting to reach LLM APIs.</li>
+      </ul>
 
-  <!-- ── Layer 2 Architecture Diagram ── -->
-  <div class="fnet-diagram">
+      <!-- ── Layer 2 Architecture Diagram ── -->
+      <div class="fnet-diagram">
     <div class="fnet-diagram-hdr">
       <span class="fnet-diagram-tag">Fortinet Coverage</span>
       <span class="fnet-diagram-title">LLM API Consumption — Protection Architecture</span>
@@ -990,7 +1037,9 @@
         </div>
       </div>
     </div>
-  </div>
+      </div><!-- /fnet-diagram Layer 2 -->
+    </div><!-- /locked-content Layer 2 -->
+  </div><!-- /locked-section Layer 2 -->
 
   <div class="locked-section" data-lock="vendors">
     <div class="locked-gate">
@@ -1032,17 +1081,34 @@
     <li><strong>EchoLeak's RAG dimension (June 2025).</strong> Beyond Layer 2, EchoLeak (CVE-2025-32711) is fundamentally a RAG attack: the model retrieved content from a context source with no integrity check.</li>
   </ul>
 
-  <h3>Where Fortinet fits</h3>
-  <ul>
-    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB</strong></a><span class="csp-badge sent">Azure Sentinel</span> and <a href="https://www.fortinet.com/products/sase"><strong>SSPM (in FortiSASE)</strong></a> govern the SaaS sources feeding RAG pipelines (Microsoft 365, Google Workspace, Salesforce). They catch over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP DSPM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span> discovers and classifies sensitive data flowing into vector stores hosted on S3, Azure Blob, or managed services like OpenSearch and Pinecone — surfacing PII, PCI, and PHI sprawl in the embedding layer.</li>
-    <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> provides dynamic file analysis in a detonation environment, identifying malicious behavior, hidden scripts, and prompt-injection payloads <strong>before</strong> they reach the vector store.</li>
-    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> protects the RAG application's ingestion and query APIs with schema enforcement.</li>
-    <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> enforces guardrails on the prompts assembled from retrieved content, catching indirect injection at the model boundary.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label">
+        <strong>Where Fortinet fits</strong>
+        <span>Security capabilities covered at this layer</span>
+        <div class="locked-gate-caps">
+          <span class="locked-gate-cap">CASB</span><span class="locked-gate-cap">SSPM</span><span class="locked-gate-cap">DSPM</span><span class="locked-gate-cap">Data Classification</span><span class="locked-gate-cap">Data Discovery</span><span class="locked-gate-cap">Content Sandboxing</span><span class="locked-gate-cap">Schema Enforcement</span><span class="locked-gate-cap">Guardrails</span>
+        </div>
+      </div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Where Fortinet fits</h3>
+      <ul>
+        <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB</strong></a><span class="csp-badge sent">Azure Sentinel</span> and <a href="https://www.fortinet.com/products/sase"><strong>SSPM (in FortiSASE)</strong></a> govern the SaaS sources feeding RAG pipelines (Microsoft 365, Google Workspace, Salesforce). They catch over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed.</li>
+        <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP DSPM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span> discovers and classifies sensitive data flowing into vector stores hosted on S3, Azure Blob, or managed services like OpenSearch and Pinecone — surfacing PII, PCI, and PHI sprawl in the embedding layer.</li>
+        <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> provides dynamic file analysis in a detonation environment, identifying malicious behavior, hidden scripts, and prompt-injection payloads <strong>before</strong> they reach the vector store.</li>
+        <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> protects the RAG application's ingestion and query APIs with schema enforcement.</li>
+        <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> enforces guardrails on the prompts assembled from retrieved content, catching indirect injection at the model boundary.</li>
+      </ul>
 
-  <!-- ── Layer 3 Architecture Diagram ── -->
-  <div class="fnet-diagram">
+      <!-- ── Layer 3 Architecture Diagram ── -->
+      <div class="fnet-diagram">
     <div class="fnet-diagram-hdr">
       <span class="fnet-diagram-tag">Fortinet Coverage</span>
       <span class="fnet-diagram-title">RAG Pipeline — Protection Architecture</span>
@@ -1145,7 +1211,9 @@
         </div>
       </div>
     </div>
-  </div>
+      </div><!-- /fnet-diagram Layer 3 -->
+    </div><!-- /locked-content Layer 3 -->
+  </div><!-- /locked-section Layer 3 -->
 
   <div class="locked-section" data-lock="vendors">
     <div class="locked-gate">
@@ -1188,17 +1256,34 @@
     <li><strong>CVE-2025-53967 — Framelink Figma MCP Server RCE (October 2025).</strong> Imperva disclosed an RCE affecting thousands of design and developer workstations. (<a href="https://www.imperva.com/blog/another-critical-rce-discovered-in-a-popular-mcp-server/">Imperva disclosure</a>)</li>
   </ul>
 
-  <h3>Where Fortinet fits</h3>
-  <ul>
-    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> provides purpose-built MCP protection — inspecting and validating SSE (Server-Sent Events) and streamable HTTP traffic between MCP clients and servers. It delivers real-time signature detection to block injection and remote command execution attacks against tool argument values, poisoning attack scans to prevent falsified tool prompts, JSON Schema validation to enforce the unmodified MCP protocol schema, and automatic FortiGuard updates for MCP-specific threat intelligence.</li>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of AI-Driven Systems/LLM traffic egressing through FortiGate</a>.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
-    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a><span class="csp-badge sent">Azure Sentinel</span> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
-    <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> dynamically analyzes MCP server npm/PyPI packages and container images before deployment.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label">
+        <strong>Where Fortinet fits</strong>
+        <span>Security capabilities covered at this layer</span>
+        <div class="locked-gate-caps">
+          <span class="locked-gate-cap">MCP Schema Validation</span><span class="locked-gate-cap">SSE Inspection</span><span class="locked-gate-cap">Injection Detection</span><span class="locked-gate-cap">Egress Control</span><span class="locked-gate-cap">OAuth Visibility</span><span class="locked-gate-cap">Supply Chain Scan</span><span class="locked-gate-cap">Runtime Anomaly</span>
+        </div>
+      </div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Where Fortinet fits</h3>
+      <ul>
+        <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> provides purpose-built MCP protection — inspecting and validating SSE (Server-Sent Events) and streamable HTTP traffic between MCP clients and servers. It delivers real-time signature detection to block injection and remote command execution attacks against tool argument values, poisoning attack scans to prevent falsified tool prompts, JSON Schema validation to enforce the unmodified MCP protocol schema, and automatic FortiGuard updates for MCP-specific threat intelligence.</li>
+        <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of AI-Driven Systems/LLM traffic egressing through FortiGate</a>.</li>
+        <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
+        <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a><span class="csp-badge sent">Azure Sentinel</span> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
+        <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> dynamically analyzes MCP server npm/PyPI packages and container images before deployment.</li>
+      </ul>
 
-  <!-- ── Layer 4 Architecture Diagram ── -->
-  <div class="fnet-diagram">
+      <!-- ── Layer 4 Architecture Diagram ── -->
+      <div class="fnet-diagram">
     <div class="fnet-diagram-hdr">
       <span class="fnet-diagram-tag">Fortinet Coverage</span>
       <span class="fnet-diagram-title">MCP Integration — Protection Architecture</span>
@@ -1301,7 +1386,9 @@
         </div>
       </div>
     </div>
-  </div>
+      </div><!-- /fnet-diagram Layer 4 -->
+    </div><!-- /locked-content Layer 4 -->
+  </div><!-- /locked-section Layer 4 -->
 
   <div class="locked-section" data-lock="vendors">
     <div class="locked-gate">
@@ -1342,16 +1429,33 @@
     <li><strong>PyTorch pickle-deserialization RCE in model artifacts (well-documented 2024–2025).</strong> PickleScan and similar tools identified active malicious payloads in <code>.bin</code> files in public registries.</li>
   </ul>
 
-  <h3>Where Fortinet fits</h3>
-  <ul>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> delivers CSPM, CWPP, and CIEM across AWS, Azure, GCP, and OCI — covering IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, ISO frameworks.</li>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> segments model-serving subnets from data planes, with east-west enforcement.</li>
-    <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> detonates model artifacts and container images pulled from public registries before they reach inference clusters.</li>
-    <li><a href="https://www.fortinet.com/products/management/fortianalyzer"><strong>FortiAnalyzer</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for AI events.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label">
+        <strong>Where Fortinet fits</strong>
+        <span>Security capabilities covered at this layer</span>
+        <div class="locked-gate-caps">
+          <span class="locked-gate-cap">CSPM</span><span class="locked-gate-cap">CWPP</span><span class="locked-gate-cap">CIEM</span><span class="locked-gate-cap">IAM Misconfiguration</span><span class="locked-gate-cap">Network Segmentation</span><span class="locked-gate-cap">Artifact Sandboxing</span><span class="locked-gate-cap">Log Centralization</span><span class="locked-gate-cap">SOC Visibility</span>
+        </div>
+      </div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Where Fortinet fits</h3>
+      <ul>
+        <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> delivers CSPM, CWPP, and CIEM across AWS, Azure, GCP, and OCI — covering IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, ISO frameworks.</li>
+        <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> segments model-serving subnets from data planes, with east-west enforcement.</li>
+        <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> detonates model artifacts and container images pulled from public registries before they reach inference clusters.</li>
+        <li><a href="https://www.fortinet.com/products/management/fortianalyzer"><strong>FortiAnalyzer</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for AI events.</li>
+      </ul>
 
-  <!-- ── Layer 5 Architecture Diagram ── -->
-  <div class="fnet-diagram">
+      <!-- ── Layer 5 Architecture Diagram ── -->
+      <div class="fnet-diagram">
     <div class="fnet-diagram-hdr">
       <span class="fnet-diagram-tag">Fortinet Coverage</span>
       <span class="fnet-diagram-title">Cloud &amp; Model Infrastructure — Protection Architecture</span>
@@ -1442,7 +1546,9 @@
         </div>
       </div>
     </div>
-  </div>
+      </div><!-- /fnet-diagram Layer 5 -->
+    </div><!-- /locked-content Layer 5 -->
+  </div><!-- /locked-section Layer 5 -->
 
   <div class="fortiguard-callout">
     <div class="fortiguard-callout-hdr">
