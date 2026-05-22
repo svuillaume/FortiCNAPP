@@ -277,7 +277,7 @@
   <div class="inner">
     <a class="brand" href="/genAISeC/">
       <img class="logo" src="https://icons.fortinet.com/icons/Logos/Fortinet-logomark-rgb-red.svg" alt="Fortinet">
-      <span>Fortinet</span><span class="brand-sep">&nbsp;·&nbsp;</span><span>GenAI Security</span>
+      <span>Fortinet</span><span class="brand-sep">&nbsp;·&nbsp;</span><span>AI-Driven Security</span>
     </a>
   </div>
 </header>
@@ -285,15 +285,15 @@
 <div class="hero">
   <div class="tag">Security Insights</div>
   <h1>Walk the GenAISec Talk</h1>
-  <p class="subtitle">From the developer's laptop to the LLM endpoint in your cloud, GenAI has quietly redrawn the enterprise attack surface. Here is a clean, practical view of what's changed, real attacks already happening at each layer, where the Fortinet Security Fabric fits in — and the best-of-breed vendors covering each layer alongside it.</p>
+  <p class="subtitle">From the developer's laptop to the LLM endpoint in your cloud, AI-Driven Systems have quietly redrawn the enterprise attack surface. Here is a clean, practical view of what's changed, real attacks already happening at each layer, where the Fortinet Security Fabric fits in — and the best-of-breed vendors covering each layer alongside it.</p>
 </div>
 
 <div class="main">
 
   <h2>Why this matters now</h2>
-  <p>Generative AI is no longer a side project. Developers are "vibe coding" with Copilot and Cursor, applications are calling LLM APIs at runtime, knowledge bases are being indexed into vector stores for RAG, and the Model Context Protocol (MCP) is connecting models to live tools and data sources.</p>
-  <p>Each of these shifts introduces a new layer of risk. And like any new architecture, GenAI does not replace the security fundamentals — it <strong>stacks new concerns on top of them</strong>.</p>
-  <p>This post walks through the five layers of a typical GenAI deployment, the main risks at each layer, recent real-world incidents, how the Fortinet portfolio maps to each layer, and the leading third-party vendors customers also evaluate. No agentic AI here — we are keeping the scope to LLM consumption, RAG, and MCP integrations.</p>
+  <p>AI-Driven Systems are no longer a side project. Developers are "vibe coding" with Copilot and Cursor, applications are calling LLM APIs at runtime, knowledge bases are being indexed into vector stores for RAG, and the Model Context Protocol (MCP) is connecting models to live tools and data sources.</p>
+  <p>Each of these shifts introduces a new layer of risk. And like any new architecture, AI-Driven Systems do not replace the security fundamentals — it <strong>stacks new concerns on top of them</strong>.</p>
+  <p>This post walks through the five layers of a typical AI-Driven Systems deployment, the main risks at each layer, recent real-world incidents, how the Fortinet portfolio maps to each layer, and the leading third-party vendors customers also evaluate. No agentic AI here — we are keeping the scope to LLM consumption, RAG, and MCP integrations.</p>
 
   <hr>
 
@@ -314,7 +314,7 @@
 
   <h3>The main risks</h3>
   <ul>
-    <li><strong>Insecure code at scale.</strong> A December 2025 study of open-source pull requests found AI-generated code introduces <strong>2.74x more security vulnerabilities</strong> than human-written code. Veracode's 2025 GenAI Code Security Report tested 100+ LLMs and found AI introduced security vulnerabilities in <strong>45% of cases</strong>.</li>
+    <li><strong>Insecure code at scale.</strong> A December 2025 study of open-source pull requests found AI-generated code introduces <strong>2.74x more security vulnerabilities</strong> than human-written code. Veracode's 2025 AI Code Security Report tested 100+ LLMs and found AI introduced security vulnerabilities in <strong>45% of cases</strong>.</li>
     <li><strong>Sensitive data leaving the boundary.</strong> Developers paste <code>.env</code> files, customer PII, or proprietary source into public LLM interfaces. Once submitted, it is gone.</li>
     <li><strong>Slopsquatting.</strong> Commercial models hallucinate ~5% of suggested package names; open-source models up to ~22%. Attackers register the hallucinated names and lie in wait.</li>
   </ul>
@@ -381,7 +381,7 @@
   <hr>
 
   <h2>Layer 3 — The RAG Pipeline</h2>
-  <p>Retrieval-Augmented Generation is where most enterprise GenAI lives today. It is also where data governance failures hit hardest, because the model is now actively reading from your most sensitive systems.</p>
+  <p>Retrieval-Augmented Generation is where most enterprise AI-Driven Systems deployments live today. It is also where data governance failures hit hardest, because the model is now actively reading from your most sensitive systems.</p>
 
   <h3>The main risks</h3>
   <ul>
@@ -436,7 +436,7 @@
 
   <h3>Where Fortinet fits</h3>
   <ul>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of GenAI/LLM traffic egressing through FortiGate</a>.</li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of AI-Driven Systems/LLM traffic egressing through FortiGate</a>.</li>
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
     <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
     <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> dynamically analyzes MCP server npm/PyPI packages and container images before deployment.</li>
@@ -482,7 +482,7 @@
   <h2>A simple way to think about it</h2>
   <p>Collapsed into one sentence for a CISO conversation:</p>
   <blockquote>
-    <strong>GenAI changes where untrusted input enters your systems, what your applications do with model output, and how data and credentials surround the model. Everything else is a variation on those three themes.</strong>
+    <strong>AI-Driven Systems change where untrusted input enters your systems, what your applications do with model output, and how data and credentials surround the model. Everything else is a variation on those three themes.</strong>
   </blockquote>
 
   <h3>Layer summary</h3>
@@ -545,16 +545,16 @@
   <hr>
 
   <h2>Closing thought</h2>
-  <p>GenAI security is not a single product problem and it is not a single team problem. It crosses the developer's laptop, the application tier, the data pipeline, the integration layer, and the cloud foundation.</p>
-  <p>What it asks of us is the same thing every wave of cloud transformation has asked: <strong>defense in depth, applied with intention, measured against real outcomes</strong>. The <a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a> — now extended with <a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a> as the AI-runtime control plane — was built exactly for that kind of work, unifying visibility, posture, and enforcement across the layers that GenAI now spans.</p>
-  <p>If you are designing a new GenAI workload, or retrofitting governance onto one already in production, start with the layer that worries you most, and work outward from there. The threats are new. The discipline is not.</p>
+  <p>AI-Driven Systems security is not a single product problem and it is not a single team problem. It crosses the developer's laptop, the application tier, the data pipeline, the integration layer, and the cloud foundation.</p>
+  <p>What it asks of us is the same thing every wave of cloud transformation has asked: <strong>defense in depth, applied with intention, measured against real outcomes</strong>. The <a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a> — now extended with <a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a> as the AI-runtime control plane — was built exactly for that kind of work, unifying visibility, posture, and enforcement across the layers that AI-Driven Systems now span.</p>
+  <p>If you are designing a new AI-Driven Systems workload, or retrofitting governance onto one already in production, start with the layer that worries you most, and work outward from there. The threats are new. The discipline is not.</p>
 
   <hr>
 
   <div style="background:var(--light);border-radius:10px;padding:1.5rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
     <div>
       <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--red);margin-bottom:0.35rem;">PreSales Reference</div>
-      <div style="font-weight:700;font-size:1rem;margin-bottom:0.3rem;">Fortinet GenAI Security — Reference &amp; Positioning Guide</div>
+      <div style="font-weight:700;font-size:1rem;margin-bottom:0.3rem;">Fortinet AI-Driven Security — Reference &amp; Positioning Guide</div>
       <div style="font-size:0.88rem;color:var(--muted);">Product pillars, FortiAIGate deep-dive, FortiOS 8.0, MCP visibility, master reference list, and quick-hit talking points.</div>
     </div>
     <a href="reference.html" style="display:inline-block;background:var(--red);color:#fff;text-decoration:none;font-weight:700;padding:0.7rem 1.4rem;border-radius:6px;font-size:0.9rem;white-space:nowrap;">Open guide &rarr;</a>
@@ -598,7 +598,7 @@
     <li><a href="https://www.ox.security/blog/cve-2025-65719-critical-rce-in-kubectl-mcp-server/">OX Security, Kubectl MCP Server RCE (CVE-2025-65719), January 2026</a></li>
     <li><a href="https://www.imperva.com/blog/another-critical-rce-discovered-in-a-popular-mcp-server/">Imperva, Framelink Figma MCP Server RCE (CVE-2025-53967), October 2025</a></li>
     <li><a href="https://www.redhat.com/en/blog/mcp-security-current-situation">Red Hat, "MCP security: The current situation," February 2026</a></li>
-    <li><a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">Fortinet community guide on selective control of GenAI/LLM traffic via FortiGate</a></li>
+    <li><a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">Fortinet community guide on selective control of AI-Driven Systems/LLM traffic via FortiGate</a></li>
   </ul>
   <h3>Layer 5 — Cloud &amp; Model Infrastructure</h3>
   <ul>
@@ -642,46 +642,152 @@
 (function () {
   'use strict';
 
-  /* ── Glossary data (ordered longest-first so LLM Agent matches before LLM) ── */
+  /* Complexity ladder: 1 = Basic → 5 = Frontier */
+  var LADDER = ['Basic', 'Foundational', 'Advanced', 'Expert', 'Frontier'];
+
+  /* ── Glossary — 31 terms, each with a match() function for case-insensitive lookup ── */
   var GLOSSARY = [
-    {
-      term: 'Agentic AI', level: 5,
-      def: 'Autonomous, multi-step, persistent operation. The system plans, executes, observes, replans, and continues toward a goal without per-step human approval. Where traditional RBAC and audit models start to break.'
-    },
-    {
-      term: 'LLM Agent', level: 3,
-      def: 'An LLM wrapped in a control loop with tool access (function calling, ReAct). The model\'s output now triggers real actions: API calls, shell commands, database queries.'
-    },
-    {
-      term: 'GenAI', level: 1,
-      def: 'The broad category of AI that produces novel content (text, code, images, audio) rather than just classifying existing data.'
-    },
-    {
-      term: 'LLM', level: 2,
-      def: 'The transformer-based token-prediction engine at the core of text GenAI. Stateless, non-deterministic, bounded by context window and knowledge cutoff.'
-    },
-    {
-      term: 'MCP', level: 4,
-      def: 'Model Context Protocol. An open standard from Anthropic that decouples AI clients from tool integrations, collapsing N×M custom connectors into N+M. The new universal interface between models and enterprise systems.'
-    }
+    /* GenAI stack */
+    { term: 'AI-Driven Systems', level: 1,
+      match: function(s) { return s === 'ai-driven systems'; },
+      def: 'Technologies that apply artificial intelligence to automate, augment, or secure digital workflows — encompassing LLMs, code generators, diffusion models, and intelligent agents. The umbrella term for the current wave of AI that has redrawn the enterprise attack surface.' },
+
+    { term: 'LLM', level: 2,
+      match: function(s) { return s === 'llm' || s === 'llms'; },
+      def: 'Large Language Model — the transformer-based engine that predicts and generates text one token at a time. Stateless, non-deterministic, bounded by context window and knowledge cutoff date.' },
+
+    { term: 'RAG', level: 3,
+      match: function(s) { return s === 'rag'; },
+      def: 'Retrieval-Augmented Generation — grounding an LLM\'s response with context retrieved at runtime from a knowledge base or vector store. Brings enterprise data into the model\'s context window, expanding both capability and data-leakage risk.' },
+
+    { term: 'LLM Agent', level: 3,
+      match: function(s) { return s.startsWith('llm a'); },
+      def: 'An LLM connected to tools it can invoke — file access, web browsing, API calls, code execution. The model\'s output now triggers real-world actions, amplifying both capability and blast radius.' },
+
+    { term: 'MCP', level: 4,
+      match: function(s) { return s === 'mcp'; },
+      def: 'Model Context Protocol — Anthropic\'s open standard for connecting LLMs to external tools and data sources. Replaces N×M custom integrations with N+M standardized connectors, but dramatically expands the attack surface for privilege escalation and lateral movement.' },
+
+    { term: 'Agentic AI', level: 5,
+      match: function(s) { return s.startsWith('agentic'); },
+      def: 'Autonomous AI that plans, executes, and iterates toward a goal without per-step human approval. Creates novel governance challenges because traditional RBAC and audit models assume human-paced decisions.' },
+
+    /* Attack concepts */
+    { term: 'Vibe Coding', level: 1,
+      match: function(s) { return s === 'vibe coding'; },
+      def: 'Describing intent in natural language and letting an AI coding assistant generate the implementation. Fast but risky — AI-generated code introduces security vulnerabilities at 2–3× the rate of hand-written code.' },
+
+    { term: 'Slopsquatting', level: 2,
+      match: function(s) { return s === 'slopsquatting'; },
+      def: 'Supply chain attack exploiting AI hallucinations — models suggest package names that do not exist (~5–22% of the time), and attackers pre-register those names with malicious payloads ready to execute on install.' },
+
+    { term: 'Prompt Injection', level: 3,
+      match: function(s) { return s === 'prompt injection'; },
+      def: 'Embedding malicious instructions in text that an LLM processes, hijacking its behavior. OWASP\'s #1 LLM risk — can occur directly in user input (direct) or through poisoned documents, emails, or web pages the model retrieves (indirect).' },
+
+    { term: 'Jailbreaking', level: 2,
+      match: function(s) { return s.startsWith('jailbreak'); },
+      def: 'Crafting prompts that bypass an LLM\'s built-in safety guidelines, coaxing it to generate harmful, restricted, or policy-violating output. A core concern for any externally-facing AI application.' },
+
+    { term: 'Embeddings', level: 3,
+      match: function(s) { return s.startsWith('embedding'); },
+      def: 'Dense numerical vectors that capture semantic meaning of text or data. Used in RAG to store and retrieve knowledge. Research shows 50–70% of original text can be reconstructed from leaked embeddings (ALGEN framework, 2025).' },
+
+    /* Security standards */
+    { term: 'OWASP', level: 2,
+      match: function(s) { return s === 'owasp'; },
+      def: 'Open Web Application Security Project — the non-profit behind the Top 10 vulnerability lists for web apps and, since 2023, LLM applications. Their LLM Top 10 is the primary risk taxonomy used across the industry for AI security.' },
+
+    /* IAM & access control */
+    { term: 'IAM', level: 2,
+      match: function(s) { return s === 'iam'; },
+      def: 'Identity and Access Management — the policy engine controlling who (human or service account) can invoke what resource. Misconfigured IAM on AI services is one of the fastest paths to unauthorized model access and runaway cloud bills.' },
+
+    { term: 'OAuth', level: 2,
+      match: function(s) { return s === 'oauth'; },
+      def: 'Open Authorization — token-based delegation protocol that lets apps access resources on a user\'s behalf without sharing passwords. MCP servers accumulate OAuth tokens for every connected SaaS app; over-scoped tokens are a primary attack surface.' },
+
+    { term: 'ZTNA', level: 3,
+      match: function(s) { return s === 'ztna'; },
+      def: 'Zero Trust Network Access — grants per-application, identity-verified access without placing users on the full network. Limits blast radius when an AI extension, MCP server, or compromised credential tries to move laterally.' },
+
+    /* Network security */
+    { term: 'SASE', level: 3,
+      match: function(s) { return s === 'sase'; },
+      def: 'Secure Access Service Edge — converges network security services (SWG, CASB, ZTNA, FWaaS) and SD-WAN into a single cloud-delivered platform. Applies policy at the edge, close to the user and their AI tools.' },
+
+    { term: 'SWG', level: 2,
+      match: function(s) { return s === 'swg'; },
+      def: 'Secure Web Gateway — proxy that enforces acceptable-use policy, blocks malicious sites, and inspects encrypted HTTPS traffic. Sits between developer endpoints and external LLM APIs to catch unauthorized AI usage and shadow AI.' },
+
+    { term: 'CASB', level: 2,
+      match: function(s) { return s === 'casb'; },
+      def: 'Cloud Access Security Broker — proxy or API-based control layer between users and cloud apps. Enforces DLP, detects shadow AI usage, governs OAuth tokens, and monitors for data exfiltration to unauthorized SaaS services.' },
+
+    { term: 'DLP', level: 1,
+      match: function(s) { return s === 'dlp'; },
+      def: 'Data Loss Prevention — policies and controls that detect and block sensitive data leaving approved boundaries. Applied to outbound LLM API calls to prevent PII, source code, and proprietary content from reaching external models.' },
+
+    /* Cloud security */
+    { term: 'CSPM', level: 2,
+      match: function(s) { return s === 'cspm'; },
+      def: 'Cloud Security Posture Management — continuously scans cloud accounts for misconfigured resources, exposed storage buckets, and policy violations. The automated "did you leave the door unlocked?" check for cloud infrastructure.' },
+
+    { term: 'CWPP', level: 3,
+      match: function(s) { return s === 'cwpp'; },
+      def: 'Cloud Workload Protection Platform — runtime threat detection and response for containers, VMs, and serverless functions. Guards AI inference servers and GPU workloads against container escape, privilege escalation, and lateral movement.' },
+
+    { term: 'CIEM', level: 4,
+      match: function(s) { return s === 'ciem'; },
+      def: 'Cloud Infrastructure Entitlement Management — discovers and right-sizes over-permissive IAM roles across cloud accounts. Catches wildcarded invoke permissions on AI services before they enable unauthorized access or five-figure billing surprises.' },
+
+    { term: 'CNAPP', level: 4,
+      match: function(s) { return s === 'cnapp'; },
+      def: 'Cloud-Native Application Protection Platform — unified protection spanning code, cloud config (CSPM), workloads (CWPP), identity (CIEM), and data (DSPM) in one platform. The converged security architecture for cloud-native AI workloads.' },
+
+    { term: 'DSPM', level: 3,
+      match: function(s) { return s === 'dspm'; },
+      def: 'Data Security Posture Management — discovers, classifies, and tracks sensitive data (PII, PCI, PHI) wherever it lives: S3, databases, vector stores, SaaS apps. Finds data sprawl created by AI pipelines indexing production data.' },
+
+    { term: 'SSPM', level: 3,
+      match: function(s) { return s === 'sspm'; },
+      def: 'SaaS Security Posture Management — continuous visibility and governance of SaaS app configurations, OAuth grants, shared files, and over-privileged accounts. Critical for RAG pipelines that index collaboration tools like SharePoint and Google Drive.' },
+
+    /* Vulnerability classes */
+    { term: 'XSS', level: 3,
+      match: function(s) { return s === 'xss'; },
+      def: 'Cross-Site Scripting — injecting malicious scripts into web content viewed by other users. An LLM threat when model-generated text is rendered as HTML without sanitization, enabling session hijacking and credential theft.' },
+
+    { term: 'SSRF', level: 4,
+      match: function(s) { return s === 'ssrf'; },
+      def: 'Server-Side Request Forgery — attacker causes the server to make HTTP requests to internal systems they cannot directly reach. An LLM risk when model output drives web requests — browsing, connector callbacks, or tool invocations.' },
+
+    { term: 'RCE', level: 5,
+      match: function(s) { return s === 'rce'; },
+      def: 'Remote Code Execution — running arbitrary commands on a target system. The highest-severity vulnerability class. Several MCP CVEs in 2025 led directly to RCE via prompt injection or connections to malicious MCP servers.' },
+
+    /* Infra & data */
+    { term: 'IaC', level: 2,
+      match: function(s) { return s === 'iac'; },
+      def: 'Infrastructure as Code — defining cloud infrastructure in version-controlled files (Terraform, Bicep, CloudFormation). AI-generated IaC can embed misconfigurations that persist silently into production, making CI/CD scanning essential.' },
+
+    { term: 'PII', level: 1,
+      match: function(s) { return s === 'pii'; },
+      def: 'Personally Identifiable Information — any data that can identify an individual (name, email, SSN, biometrics). Appears unexpectedly in vector stores and LLM logs when developers paste real datasets into AI pipelines.' },
+
+    /* Fortinet */
+    { term: 'FortiAIGate', level: 4,
+      match: function(s) { return s === 'fortiaigate'; },
+      def: 'Fortinet\'s purpose-built AI security gateway — deployed inline between an application and its LLM. Inspects every prompt and completion for injection, jailbreaking, and data exfiltration; enforces token budgets; and logs per-interaction for the SOC.' },
   ];
 
-  /* Ladder ordered simple → powerful */
-  var LADDER = ['GenAI', 'LLM', 'LLM Agent', 'MCP', 'Agentic AI'];
-
-  /* Combined regex — longest alternatives first to prevent partial matches.
-     LLMs? catches both "LLM" and "LLMs"; \b...\b prevents matching inside
-     OWASP codes like LLM01 or LLM08 (digit after M = no word boundary). */
-  var PATTERN = /\b(Agentic\s+AI|LLM\s+[Aa]gents?|GenAI|LLMs?|MCP)\b/g;
+  /* Combined regex — multi-word and longest alternatives first to avoid partial matches.
+     \b...\b prevents matching inside OWASP codes like LLM01 (digit = no word boundary after M). */
+  var PATTERN = /\b(Agentic\s+AI|[Pp]rompt\s+[Ii]njection|[Vv]ibe\s+[Cc]oding|AI-Driven\s+Systems|LLM\s+[Aa]gents?|[Jj]ailbreak(?:ing)?|[Ss]lopsquatting|[Ee]mbeddings?|FortiAIGate|OWASP|CNAPP|SSPM|CSPM|CWPP|CIEM|DSPM|ZTNA|SASE|CASB|OAuth|LLMs?|SSRF|RCE|IAM|RAG|DLP|SWG|XSS|IaC|PII|MCP)\b/g;
 
   function findEntry(matched) {
-    var t = matched.toLowerCase();
-    if (t.indexOf('agentic') === 0) return GLOSSARY[0];
-    if (t.indexOf('llm a') === 0)   return GLOSSARY[1];
-    if (t.indexOf('genai') === 0)   return GLOSSARY[2];
-    if (t.indexOf('llm') === 0)     return GLOSSARY[3];
-    if (t.indexOf('mcp') === 0)     return GLOSSARY[4];
-    return null;
+    var lower = matched.toLowerCase().replace(/\s+/g, ' ');
+    return GLOSSARY.find(function(e) { return e.match(lower); }) || null;
   }
 
   /* ── DOM text-node wrapping ── */
@@ -718,7 +824,6 @@
       {
         acceptNode: function (n) {
           if (!n.textContent.trim()) return NodeFilter.FILTER_REJECT;
-          /* Skip inside links, code, existing gl-term spans, script, style, header brand, footer */
           if (n.parentElement.closest('a, code, script, style, .gl-term, header, footer'))
             return NodeFilter.FILTER_REJECT;
           return NodeFilter.FILTER_ACCEPT;
@@ -739,7 +844,7 @@
     '<div class="gl-pop-term"></div>' +
     '<div class="gl-pop-def"></div>' +
     '<div class="gl-ladder">' +
-      '<div class="gl-ladder-hdr"><span>Simple</span><span>Powerful</span></div>' +
+      '<div class="gl-ladder-hdr"><span>Basic</span><span>Frontier</span></div>' +
       '<div class="gl-rungs">' + LADDER.map(function () { return '<div class="gl-rung"></div>'; }).join('') + '</div>' +
       '<div class="gl-rung-names">' + LADDER.map(function (l) { return '<div class="gl-rung-name">' + l + '</div>'; }).join('') + '</div>' +
     '</div>';
@@ -767,7 +872,7 @@
     var rungs = popup.querySelectorAll('.gl-rung');
     var names = popup.querySelectorAll('.gl-rung-name');
     rungs.forEach(function (r, i) { r.classList.toggle('gl-lit', i < entry.level); });
-    names.forEach(function (n, i) { n.classList.toggle('gl-lit', LADDER[i] === entry.term); });
+    names.forEach(function (n, i) { n.classList.toggle('gl-lit', i === entry.level - 1); });
 
     position(el);
     popup.classList.add('gl-visible');
