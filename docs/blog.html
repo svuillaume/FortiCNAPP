@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Walk the GenAISec Talk — Fortinet</title>
+  <title>Walk the AI-Driven Systems Sec in Cloud Service Provider — Fortinet</title>
   <style>
     :root {
       --red: #EE3124;
@@ -476,6 +476,22 @@
       color: var(--muted);
       line-height: 1.55;
     }
+    /* CSP integration badges */
+    .csp-badge {
+      display: inline-block;
+      font-size: 0.58rem;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-left: 5px;
+      vertical-align: middle;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+    .csp-badge.aws   { background: #FF9900; color: #fff; }
+    .csp-badge.azure { background: #0078D4; color: #fff; }
+    .csp-badge.gcp   { background: #34A853; color: #fff; }
+    .csp-badge.sent  { background: #5C2D91; color: #fff; }
     @media (max-width: 680px) {
       .fnet-flow-bar { display: none; }
       .fnet-cols {
@@ -499,7 +515,7 @@
 
 <div class="hero">
   <div class="tag">Security Insights</div>
-  <h1>Walk the GenAISec Talk</h1>
+  <h1>Walk the AI-Driven Systems Sec in Cloud Service Provider</h1>
   <p class="subtitle">From the developer's laptop to the LLM endpoint in your cloud, AI-Driven Systems have quietly redrawn the enterprise attack surface. Here is a clean, practical view of what's changed, real attacks already happening at each layer, where the Fortinet Security Fabric fits in — and the best-of-breed vendors covering each layer alongside it.</p>
 </div>
 
@@ -574,9 +590,9 @@
     <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
     <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines.</li>
     <li><a href="https://www.fortinet.com/products/data-loss-prevention/fortidlp"><strong>FortiDLP</strong></a> enforces endpoint data loss prevention policies in real time — detecting and blocking sensitive data (PII, credentials, proprietary source code) from being pasted into AI coding assistants or submitted to external LLM interfaces, directly on the device before traffic ever hits the network.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
-    <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
+    <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
   </ul>
 
   <!-- ── Layer 1 Architecture Diagram ── -->
@@ -745,8 +761,8 @@
   <ul>
     <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> is purpose-built for this layer. Deployed as a containerized LLM gateway between the application and the model, it inspects every prompt and completion in real time, enforces guardrails against prompt injection and jailbreaking, prevents data exfiltration and model theft, blocks excessive token consumption, and provides per-interaction logging and cost tracking.</li>
     <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> / <a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud"><strong>FortiAppSec Cloud</strong></a> protects the HTTP layer in front of your LLM-powered APIs — schema enforcement, rate limiting, bot mitigation, and OWASP coverage.</li>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> inspects outbound traffic to external LLM providers with application-control awareness for AI SaaS and DLP on payloads.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> runtime behavior detection delivers composite alerts that detect anomalous runtime behavior in the application calling the LLM — unusual outbound destinations, abnormal token-consumption spikes, sudden secret access patterns, or compromised containers attempting to reach LLM APIs.</li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic to external LLM providers with application-control awareness for AI SaaS and DLP on payloads.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> runtime behavior detection delivers composite alerts that detect anomalous runtime behavior in the application calling the LLM — unusual outbound destinations, abnormal token-consumption spikes, sudden secret access patterns, or compromised containers attempting to reach LLM APIs.</li>
   </ul>
 
   <!-- ── Layer 2 Architecture Diagram ── -->
@@ -874,8 +890,8 @@
 
   <h3>Where Fortinet fits</h3>
   <ul>
-    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB</strong></a> and <a href="https://www.fortinet.com/products/sase"><strong>SSPM (in FortiSASE)</strong></a> govern the SaaS sources feeding RAG pipelines (Microsoft 365, Google Workspace, Salesforce). They catch over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP DSPM</strong></a> discovers and classifies sensitive data flowing into vector stores hosted on S3, Azure Blob, or managed services like OpenSearch and Pinecone — surfacing PII, PCI, and PHI sprawl in the embedding layer.</li>
+    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB</strong></a><span class="csp-badge sent">Azure Sentinel</span> and <a href="https://www.fortinet.com/products/sase"><strong>SSPM (in FortiSASE)</strong></a> govern the SaaS sources feeding RAG pipelines (Microsoft 365, Google Workspace, Salesforce). They catch over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP DSPM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span> discovers and classifies sensitive data flowing into vector stores hosted on S3, Azure Blob, or managed services like OpenSearch and Pinecone — surfacing PII, PCI, and PHI sprawl in the embedding layer.</li>
     <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> provides dynamic file analysis in a detonation environment, identifying malicious behavior, hidden scripts, and prompt-injection payloads <strong>before</strong> they reach the vector store.</li>
     <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> protects the RAG application's ingestion and query APIs with schema enforcement.</li>
     <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> enforces guardrails on the prompts assembled from retrieved content, catching indirect injection at the model boundary.</li>
@@ -1017,9 +1033,9 @@
 
   <h3>Where Fortinet fits</h3>
   <ul>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of AI-Driven Systems/LLM traffic egressing through FortiGate</a>.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
-    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of AI-Driven Systems/LLM traffic egressing through FortiGate</a>.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
+    <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a><span class="csp-badge sent">Azure Sentinel</span> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
     <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> dynamically analyzes MCP server npm/PyPI packages and container images before deployment.</li>
   </ul>
 
@@ -1143,10 +1159,10 @@
 
   <h3>Where Fortinet fits</h3>
   <ul>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> delivers CSPM, CWPP, and CIEM across AWS, Azure, GCP, and OCI — covering IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, ISO frameworks.</li>
-    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a> segments model-serving subnets from data planes, with east-west enforcement.</li>
+    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> delivers CSPM, CWPP, and CIEM across AWS, Azure, GCP, and OCI — covering IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, ISO frameworks.</li>
+    <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> segments model-serving subnets from data planes, with east-west enforcement.</li>
     <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> detonates model artifacts and container images pulled from public registries before they reach inference clusters.</li>
-    <li><a href="https://www.fortinet.com/products/management/fortianalyzer"><strong>FortiAnalyzer</strong></a> centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for AI events.</li>
+    <li><a href="https://www.fortinet.com/products/management/fortianalyzer"><strong>FortiAnalyzer</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for AI events.</li>
   </ul>
 
   <!-- ── Layer 5 Architecture Diagram ── -->
