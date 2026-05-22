@@ -126,20 +126,98 @@
       font-size: 1.05rem;
       font-style: italic;
     }
-    .layers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 0.75rem;
-      margin: 1.25rem 0;
-    }
-    .layer-card {
+    /* ── Five Layers Workflow ── */
+    .wf-wrap {
       background: var(--light);
-      border-radius: 8px;
-      padding: 1rem;
-      border-top: 3px solid var(--red);
-      font-size: 0.9rem;
+      border-radius: 12px;
+      padding: 1.75rem 1.25rem 1.5rem;
+      margin: 1.25rem 0;
+      overflow-x: auto;
+      border: 1px solid var(--border);
     }
-    .layer-card strong { display: block; margin-bottom: 0.25rem; }
+    .wf-track {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+      min-width: 520px;
+    }
+    .wf-track::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: calc(10% + 2px);
+      right: calc(10% + 2px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--red) 0%, rgba(238,49,36,0.2) 100%);
+      z-index: 0;
+    }
+    .wf-step {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .wf-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.8rem;
+      box-shadow: 0 3px 12px rgba(238,49,36,0.35);
+      border: 3px solid var(--light);
+      flex-shrink: 0;
+    }
+    .wf-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 0.3rem;
+      padding: 0 0.15rem;
+    }
+    .wf-desc {
+      font-size: 0.67rem;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.45;
+      padding: 0 0.1rem;
+      font-style: italic;
+    }
+    @media (max-width: 600px) {
+      .wf-wrap { padding: 1.25rem 1rem; }
+      .wf-track {
+        min-width: unset;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+      .wf-track::before {
+        top: 0; bottom: 0;
+        left: 19px; right: auto;
+        width: 2px; height: auto;
+        background: linear-gradient(180deg, var(--red) 0%, rgba(238,49,36,0.2) 100%);
+      }
+      .wf-step {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.85rem;
+        padding-bottom: 1.25rem;
+        text-align: left;
+      }
+      .wf-step:last-child { padding-bottom: 0; }
+      .wf-num { margin-bottom: 0; }
+      .wf-name, .wf-desc { text-align: left; }
+    }
     .table-wrap {
       overflow-x: auto;
       margin: 1.5rem 0;
@@ -436,14 +514,41 @@
   <hr>
 
   <h2>The five layers at a glance</h2>
-  <div class="layers-grid">
-    <div class="layer-card"><strong>1. Developer Endpoint</strong>where code is written with AI assistance</div>
-    <div class="layer-card"><strong>2. LLM API Consumption</strong>where your application talks to the model</div>
-    <div class="layer-card"><strong>3. RAG Pipeline</strong>where retrieved data feeds the model</div>
-    <div class="layer-card"><strong>4. MCP Integration</strong>where the model reads from connected tools</div>
-    <div class="layer-card"><strong>5. Cloud &amp; Model Infrastructure</strong>where it all runs</div>
+  <div class="wf-wrap">
+    <div class="wf-track">
+
+      <div class="wf-step">
+        <div class="wf-num">1</div>
+        <div class="wf-name">Developer Endpoint</div>
+        <div class="wf-desc">where code is written with AI assistance</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-num">2</div>
+        <div class="wf-name">LLM API Consumption</div>
+        <div class="wf-desc">where your application talks to the model</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-num">3</div>
+        <div class="wf-name">RAG Pipeline</div>
+        <div class="wf-desc">where retrieved data feeds the model</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-num">4</div>
+        <div class="wf-name">MCP Integration</div>
+        <div class="wf-desc">where the model reads from connected tools</div>
+      </div>
+
+      <div class="wf-step">
+        <div class="wf-num">5</div>
+        <div class="wf-name">Cloud &amp; Model Infrastructure</div>
+        <div class="wf-desc">where it all runs</div>
+      </div>
+
+    </div>
   </div>
-  <p>Let us take each in turn.</p>
 
   <hr>
 
