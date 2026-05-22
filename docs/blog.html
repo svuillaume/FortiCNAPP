@@ -733,6 +733,102 @@
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> runtime behavior detection delivers composite alerts that detect anomalous runtime behavior in the application calling the LLM — unusual outbound destinations, abnormal token-consumption spikes, sudden secret access patterns, or compromised containers attempting to reach LLM APIs.</li>
   </ul>
 
+  <!-- ── Layer 2 Architecture Diagram ── -->
+  <div class="fnet-diagram">
+    <div class="fnet-diagram-hdr">
+      <span class="fnet-diagram-tag">Fortinet Coverage</span>
+      <span class="fnet-diagram-title">LLM API Consumption — Protection Architecture</span>
+    </div>
+    <div class="fnet-diagram-body">
+      <div class="fnet-flow-bar">
+        <div class="fnet-flow-stage">Application Layer</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">LLM Gateway</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">Network &amp; Runtime</div>
+      </div>
+      <div class="fnet-cols">
+        <!-- Col 1: Application -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiWeb · FortiAppSec Cloud</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">WAF</span>
+              <span class="fnet-pill">Rate Limiting</span>
+              <span class="fnet-pill">Bot Mitigation</span>
+              <span class="fnet-pill">OWASP</span>
+            </div>
+            <div class="fnet-card-desc">Protects the HTTP layer in front of LLM-powered APIs — schema enforcement, rate limiting, and bot mitigation before prompts reach the model.</div>
+          </div>
+        </div>
+        <!-- Arrow 1 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 2: LLM Gateway -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="#EE3124"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiAIGate</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Prompt Inspection</span>
+              <span class="fnet-pill">Guardrails</span>
+              <span class="fnet-pill">Jailbreak Detection</span>
+              <span class="fnet-pill">DLP</span>
+              <span class="fnet-pill">Token Control</span>
+              <span class="fnet-pill">Cost Tracking</span>
+            </div>
+            <div class="fnet-card-desc">Purpose-built LLM gateway deployed inline between application and model. Inspects every prompt and completion in real time — blocking injection, exfiltration, and runaway token spend.</div>
+          </div>
+        </div>
+        <!-- Arrow 2 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 3: Network + Runtime -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#EE3124" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiGate VM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">DLP</span>
+              <span class="fnet-pill">App Control</span>
+              <span class="fnet-pill">AI SaaS</span>
+            </div>
+            <div class="fnet-card-desc">Inspects outbound traffic to external LLM providers with application-control awareness for AI SaaS and DLP on payloads.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="#EE3124" stroke-width="2"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#EE3124" stroke-width="2"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCNAPP — Runtime</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Behavioral</span>
+              <span class="fnet-pill">Anomaly Detection</span>
+              <span class="fnet-pill">Runtime</span>
+            </div>
+            <div class="fnet-card-desc">Composite alerts on unusual outbound destinations, token-consumption spikes, and compromised containers attempting to reach LLM APIs.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h3>Other best-of-breed vendors at this layer</h3>
   <ul>
     <li><strong>AI-native LLM firewalls / guardrails:</strong> <a href="https://www.lakera.ai/">Lakera Guard</a>, <a href="https://www.prompt.security/">Prompt Security</a>, <a href="https://www.hiddenlayer.com/">HiddenLayer AISec</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.robustintelligence.com/">Robust Intelligence</a>, <a href="https://protectai.com/">Protect AI</a>.</li>
@@ -768,6 +864,112 @@
     <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> protects the RAG application's ingestion and query APIs with schema enforcement.</li>
     <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> enforces guardrails on the prompts assembled from retrieved content, catching indirect injection at the model boundary.</li>
   </ul>
+
+  <!-- ── Layer 3 Architecture Diagram ── -->
+  <div class="fnet-diagram">
+    <div class="fnet-diagram-hdr">
+      <span class="fnet-diagram-tag">Fortinet Coverage</span>
+      <span class="fnet-diagram-title">RAG Pipeline — Protection Architecture</span>
+    </div>
+    <div class="fnet-diagram-body">
+      <div class="fnet-flow-bar">
+        <div class="fnet-flow-stage">SaaS Sources</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">Vector Store &amp; APIs</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">Model Boundary</div>
+      </div>
+      <div class="fnet-cols">
+        <!-- Col 1: SaaS Sources -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#EE3124" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCASB · SSPM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">CASB</span>
+              <span class="fnet-pill">SSPM</span>
+              <span class="fnet-pill">OAuth Governance</span>
+            </div>
+            <div class="fnet-card-desc">Governs Microsoft 365, Google Workspace, and Salesforce — catches over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed into RAG.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="#EE3124" stroke-width="2"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#EE3124" stroke-width="2"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCNAPP — DSPM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">DSPM</span>
+              <span class="fnet-pill">PII · PCI · PHI</span>
+              <span class="fnet-pill">Vector Stores</span>
+            </div>
+            <div class="fnet-card-desc">Discovers and classifies sensitive data flowing into S3, Azure Blob, OpenSearch, and Pinecone — surfacing data sprawl in the embedding layer.</div>
+          </div>
+        </div>
+        <!-- Arrow 1 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 2: Vector Store + APIs -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 2v8L4 20h16L14 10V2" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8.5" y1="2" x2="15.5" y2="2" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiSandbox</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">File Detonation</span>
+              <span class="fnet-pill">Pre-Ingestion</span>
+              <span class="fnet-pill">Injection Payloads</span>
+            </div>
+            <div class="fnet-card-desc">Dynamically analyzes documents in a detonation environment — identifies malicious behavior, hidden scripts, and prompt-injection payloads before they reach the vector store.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiWeb</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">WAF</span>
+              <span class="fnet-pill">Schema Enforcement</span>
+              <span class="fnet-pill">API Protection</span>
+            </div>
+            <div class="fnet-card-desc">Protects the RAG application's ingestion and query APIs — schema enforcement, rate limiting, and injection-attempt blocking.</div>
+          </div>
+        </div>
+        <!-- Arrow 2 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 3: Model Boundary -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="#EE3124"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiAIGate</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Guardrails</span>
+              <span class="fnet-pill">Indirect Injection</span>
+              <span class="fnet-pill">Model Boundary</span>
+            </div>
+            <div class="fnet-card-desc">Enforces guardrails on prompts assembled from retrieved content — catches indirect injection at the model boundary before it influences model output.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <h3>Other best-of-breed vendors at this layer</h3>
   <ul>
@@ -805,6 +1007,98 @@
     <li><a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a> dynamically analyzes MCP server npm/PyPI packages and container images before deployment.</li>
   </ul>
 
+  <!-- ── Layer 4 Architecture Diagram ── -->
+  <div class="fnet-diagram">
+    <div class="fnet-diagram-hdr">
+      <span class="fnet-diagram-tag">Fortinet Coverage</span>
+      <span class="fnet-diagram-title">MCP Integration — Protection Architecture</span>
+    </div>
+    <div class="fnet-diagram-body">
+      <div class="fnet-flow-bar">
+        <div class="fnet-flow-stage">Supply Chain</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">Runtime &amp; Access</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">SaaS &amp; OAuth</div>
+      </div>
+      <div class="fnet-cols">
+        <!-- Col 1: Supply Chain -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 2v8L4 20h16L14 10V2" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8.5" y1="2" x2="15.5" y2="2" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiSandbox</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Package Analysis</span>
+              <span class="fnet-pill">Container Scan</span>
+              <span class="fnet-pill">Pre-Deploy</span>
+            </div>
+            <div class="fnet-card-desc">Dynamically analyzes MCP server npm/PyPI packages and container images before deployment — detonating suspicious artifacts in an isolated environment.</div>
+          </div>
+        </div>
+        <!-- Arrow 1 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 2: Runtime + Access -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#EE3124" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiGate VM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Egress Control</span>
+              <span class="fnet-pill">LLM Traffic</span>
+              <span class="fnet-pill">Deep Inspection</span>
+            </div>
+            <div class="fnet-card-desc">Inspects outbound traffic from MCP servers making network calls — applying selective AI/LLM traffic control and DLP on payloads egressing to external systems.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="#EE3124" stroke-width="2"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#EE3124" stroke-width="2"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCNAPP</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Process Detection</span>
+              <span class="fnet-pill">Over-Privilege</span>
+              <span class="fnet-pill">Behavioral</span>
+            </div>
+            <div class="fnet-card-desc">Detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</div>
+          </div>
+        </div>
+        <!-- Arrow 2 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 3: SaaS + OAuth -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#EE3124" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCASB · SSPM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">OAuth Tokens</span>
+              <span class="fnet-pill">SaaS Visibility</span>
+              <span class="fnet-pill">Token Revocation</span>
+            </div>
+            <div class="fnet-card-desc">Maintains visibility into OAuth tokens MCP servers hold against SaaS apps — enabling revocation and rotation at scale before over-scoped credentials are exploited.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <h3>Other best-of-breed vendors at this layer</h3>
   <ul>
     <li><strong>MCP-specific gateways and governance:</strong> <a href="https://www.lunar.dev/">Lunar.dev MCPX</a>, <a href="https://www.docker.com/products/mcp-catalog-and-toolkit/">Docker MCP Gateway and Toolkit</a>, <a href="https://www.enkryptai.com/solutions/mcp-security">Enkrypt AI MCP Security</a>, <a href="https://invariantlabs.ai/">Invariant Labs</a>, <a href="https://www.truefoundry.com/">TrueFoundry MCP Gateway</a>, <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://composio.dev/">Composio</a>.</li>
@@ -839,6 +1133,99 @@
     <li><a href="https://www.fortinet.com/products/management/fortianalyzer"><strong>FortiAnalyzer</strong></a> centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for AI events.</li>
   </ul>
 
+  <!-- ── Layer 5 Architecture Diagram ── -->
+  <div class="fnet-diagram">
+    <div class="fnet-diagram-hdr">
+      <span class="fnet-diagram-tag">Fortinet Coverage</span>
+      <span class="fnet-diagram-title">Cloud &amp; Model Infrastructure — Protection Architecture</span>
+    </div>
+    <div class="fnet-diagram-body">
+      <div class="fnet-flow-bar">
+        <div class="fnet-flow-stage">Cloud Posture &amp; IAM</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">Workload &amp; Network</div>
+        <div class="fnet-flow-arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="fnet-flow-stage">Registry &amp; Visibility</div>
+      </div>
+      <div class="fnet-cols">
+        <!-- Col 1: Cloud Posture + IAM -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="#EE3124" stroke-width="2"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#EE3124" stroke-width="2"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCNAPP</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">CSPM</span>
+              <span class="fnet-pill">CWPP</span>
+              <span class="fnet-pill">CIEM</span>
+              <span class="fnet-pill">IaC Scan</span>
+              <span class="fnet-pill">Compliance</span>
+            </div>
+            <div class="fnet-card-desc">Covers IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, and ISO across AWS, Azure, GCP, and OCI.</div>
+          </div>
+        </div>
+        <!-- Arrow 1 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 2: Workload + Network -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#EE3124" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiGate VM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Network Segmentation</span>
+              <span class="fnet-pill">East-West</span>
+              <span class="fnet-pill">Micro-Seg</span>
+            </div>
+            <div class="fnet-card-desc">Segments model-serving subnets from data planes — enforcing east-west policy to contain lateral movement across GPU clusters and inference nodes.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 2v8L4 20h16L14 10V2" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8.5" y1="2" x2="15.5" y2="2" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiSandbox</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Model Detonation</span>
+              <span class="fnet-pill">Registry Artifacts</span>
+              <span class="fnet-pill">Container Images</span>
+            </div>
+            <div class="fnet-card-desc">Detonates model artifacts and container images pulled from public registries before they reach inference clusters — catching pickle-deserialization payloads and hidden backdoors.</div>
+          </div>
+        </div>
+        <!-- Arrow 2 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <!-- Col 3: Registry + Visibility -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiAnalyzer</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Log Correlation</span>
+              <span class="fnet-pill">SOC Pane</span>
+              <span class="fnet-pill">AI Event Analytics</span>
+            </div>
+            <div class="fnet-card-desc">Centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for all AI security events across every layer.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <hr>
 
