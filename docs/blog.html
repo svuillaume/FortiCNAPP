@@ -500,6 +500,47 @@
       }
       .fnet-col-arr { display: none; }
     }
+    /* PNG diagram gallery */
+    .png-gallery { display: flex; flex-direction: column; gap: 1.5rem; margin: 1.75rem 0; }
+    .png-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .png-card-hdr {
+      background: var(--dark);
+      color: #fff;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .png-card-tag {
+      background: var(--red);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .png-card-title { font-size: 0.9rem; font-weight: 700; }
+    .png-card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .png-card-caption {
+      background: #f0f0f5;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -1257,6 +1298,69 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <hr>
+
+  <h2>Fortinet AI Security Fabric — Defense Layers</h2>
+  <p>The six diagrams below show how the Fortinet Security Fabric maps its product capabilities onto the AI attack surface described above. Each layer addresses a distinct control point — from the developer's IDE to the API compliance connector inside Claude Enterprise.</p>
+
+  <div class="png-gallery">
+
+    <div class="png-card">
+      <div class="png-card-hdr">
+        <span class="png-card-tag">Layer 1</span>
+        <span class="png-card-title">AI-Assisted Developer Surface</span>
+      </div>
+      <img src="images/01_ai_dev_surface.png" alt="Layer 1 — AI-assisted developer surface: FortiCNAPP plugin for Claude Code IDE, Cursor IDE, and shift-left risk detection">
+      <div class="png-card-caption">FortiCNAPP plugin for Claude Code and Cursor IDEs — inline SAST + secret scan catches risk as the AI writes it, not at PR.</div>
+    </div>
+
+    <div class="png-card">
+      <div class="png-card-hdr">
+        <span class="png-card-tag">Layer 2</span>
+        <span class="png-card-title">Endpoint Enforcement</span>
+      </div>
+      <img src="images/02_endpoint.png" alt="Layer 2 — Endpoint enforcement: FortiEndpoint unified agent (ZTNA + EPP + EDR + DLP), FortiAI app control, FortiAuthenticator, FortiCNAPP Code Sec, FortiCNAPP AI-DSPM">
+      <div class="png-card-caption">One unified agent for ZTNA, EPP, EDR, and DLP — extended with FortiCNAPP for AI authorship and data risk at the source.</div>
+    </div>
+
+    <div class="png-card">
+      <div class="png-card-hdr">
+        <span class="png-card-tag">Layer 3</span>
+        <span class="png-card-title">FortiSASE — Single Agent</span>
+      </div>
+      <img src="images/03_fortisase.png" alt="Layer 3 — FortiSASE: shadow AI discovery, DLP on LLM prompts, SWG + ZTNA + CASB on one agent">
+      <div class="png-card-caption">One agent, anywhere the user works — converged SWG, ZTNA, and CASB enforcement blocks secrets, PII, and code from reaching public LLMs.</div>
+    </div>
+
+    <div class="png-card">
+      <div class="png-card-hdr">
+        <span class="png-card-tag">Layer 4</span>
+        <span class="png-card-title">ZTNA Access Plane</span>
+      </div>
+      <img src="images/04_ztna.png" alt="Layer 4 — ZTNA access plane: FortiGate VM as ZTNA proxy, FortiEndpoint + FortiAuthenticator for device posture and identity, blast radius control">
+      <div class="png-card-caption">Stops a malicious MCP server or rogue IDE extension from reaching prod GitHub, Kubernetes, or cloud accounts.</div>
+    </div>
+
+    <div class="png-card">
+      <div class="png-card-hdr">
+        <span class="png-card-tag">Layer 5</span>
+        <span class="png-card-title">FortiCNAPP — Code, IaC, and Data</span>
+      </div>
+      <img src="images/05_forticnapp_code_data.png" alt="Layer 5 — FortiCNAPP: code and IaC scanning, dependency / slopsquatting detection, DSPM sensitive data flow, shadow data store discovery">
+      <div class="png-card-caption">Shift-left SAST/IaC plus runtime DSPM — closes the loop on AI-authored infrastructure risk before merge and after deploy.</div>
+    </div>
+
+    <div class="png-card">
+      <div class="png-card-hdr">
+        <span class="png-card-tag">Layer 6</span>
+        <span class="png-card-title">DSPM Connector to Anthropic API</span>
+      </div>
+      <img src="images/06_dspm_anthropic_connector.png" alt="Layer 6 — DSPM connector to Anthropic API: FortiData appliance connects via Anthropic Compliance API to pull chats, files, and artifacts; runs discovery policies for PII/PHI/PCI on a daily schedule">
+      <div class="png-card-caption">Out-of-band data discovery inside Claude Enterprise — audits what already lives in conversation history and artifacts: the gap inline DLP cannot see.</div>
+    </div>
+
   </div>
 
   <hr>
