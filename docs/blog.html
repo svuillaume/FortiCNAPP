@@ -583,6 +583,18 @@
     .locked-gate-error { font-size: 0.72rem; color: var(--red); width: 100%; margin-top: 0.25rem; display: none; }
     .locked-gate-error.visible { display: block; }
     .locked-gate-caps { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.4rem; }
+    /* Hidden table column */
+    .vendor-col { display: none; }
+    .table-col-gate {
+      display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
+      background: var(--light); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 0.5rem;
+    }
+    .table-col-gate .locked-gate-icon { width: 28px; height: 28px; flex-shrink: 0; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .table-col-gate .locked-gate-label strong { font-size: 0.8rem; }
+    .table-col-gate .locked-gate-label span { font-size: 0.72rem; color: var(--muted); }
+    .table-col-gate .locked-gate-form { display: flex; gap: 0.4rem; }
+    .table-col-gate.hidden { display: none; }
     .locked-gate-cap {
       background: rgba(238,49,36,0.1);
       color: var(--red);
@@ -1677,13 +1689,22 @@
 
   <h3>Layer summary</h3>
   <div class="table-wrap">
+    <div class="table-col-gate" id="vendor-col-gate">
+      <div class="locked-gate-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label"><strong>Notable third-party vendors</strong><br><span>Column hidden — enter password to reveal</span></div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off" id="vendor-col-pw">
+        <button type="button" id="vendor-col-btn">Unlock</button>
+        <div class="locked-gate-error" id="vendor-col-err">Incorrect password</div>
+      </div>
+    </div>
     <table>
       <thead>
         <tr>
           <th>Layer</th>
           <th>Attack surface added</th>
           <th>Primary Fortinet coverage</th>
-          <th>Notable third-party vendors</th>
+          <th class="vendor-col">Notable third-party vendors</th>
         </tr>
       </thead>
       <tbody>
@@ -1691,31 +1712,31 @@
           <td><strong>1. Developer Endpoint</strong></td>
           <td>Insecure code, data leakage, supply chain, lateral movement</td>
           <td><a href="https://www.fortinet.com/products/sase">FortiSASE</a>, <a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient/FortiEDR</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a> (DSPM + IaC + code), ZTNA</td>
-          <td>Snyk, Checkmarx, Veracode, GHAS, Tabnine, MintMCP, Backslash</td>
+          <td class="vendor-col">Snyk, Checkmarx, Veracode, GHAS, Tabnine, MintMCP, Backslash</td>
         </tr>
         <tr>
           <td><strong>2. LLM API Consumption</strong></td>
           <td>Prompt injection, output handling, cost DoS, runtime anomalies</td>
           <td><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb/FortiAppSec</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></td>
-          <td>Lakera, Prompt Security, HiddenLayer, CalypsoAI, Protect AI, NeMo Guardrails</td>
+          <td class="vendor-col">Lakera, Prompt Security, HiddenLayer, CalypsoAI, Protect AI, NeMo Guardrails</td>
         </tr>
         <tr>
           <td><strong>3. RAG Pipeline</strong></td>
           <td>Permission bypass, KB poisoning, embedding leakage, data sprawl</td>
           <td><a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB/SSPM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP DSPM</a>, <a href="https://www.fortinet.com/products/fortisandbox"><strong>FortiSandbox</strong></a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb</a>, <a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a></td>
-          <td>Netskope, MDCA, Obsidian, Cyera, BigID, Sentra, OPSWAT, Votiro</td>
+          <td class="vendor-col">Netskope, MDCA, Obsidian, Cyera, BigID, Sentra, OPSWAT, Votiro</td>
         </tr>
         <tr>
           <td><strong>4. MCP Integration</strong></td>
           <td>Server compromise, token sprawl, audit gaps</td>
           <td><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB/SSPM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a></td>
-          <td>Lunar.dev MCPX, Docker MCP Toolkit, Enkrypt AI, Invariant Labs, TrueFoundry, Zenity</td>
+          <td class="vendor-col">Lunar.dev MCPX, Docker MCP Toolkit, Enkrypt AI, Invariant Labs, TrueFoundry, Zenity</td>
         </tr>
         <tr>
           <td><strong>5. Cloud &amp; Model Infra</strong></td>
           <td>IAM misconfig, runtime compromise, model supply chain, compliance</td>
           <td><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a>, <a href="https://www.fortinet.com/products/management/fortianalyzer">FortiAnalyzer</a></td>
-          <td>Wiz, Prisma Cloud, CrowdStrike, Defender for Cloud, SentinelOne, Orca, HiddenLayer, Protect AI</td>
+          <td class="vendor-col">Wiz, Prisma Cloud, CrowdStrike, Defender for Cloud, SentinelOne, Orca, HiddenLayer, Protect AI</td>
         </tr>
       </tbody>
     </table>
@@ -2117,6 +2138,11 @@
     document.querySelectorAll('.locked-section[data-lock="vendors"]').forEach(function (sec) {
       sec.classList.add('unlocked');
     });
+    document.querySelectorAll('.vendor-col').forEach(function (el) {
+      el.style.display = 'table-cell';
+    });
+    var gate = document.getElementById('vendor-col-gate');
+    if (gate) gate.classList.add('hidden');
     sessionStorage.setItem(SESSION_KEY, '1');
   }
 
@@ -2148,6 +2174,22 @@
     unlockAll();
   } else {
     document.querySelectorAll('.locked-gate').forEach(wireGate);
+    var colBtn = document.getElementById('vendor-col-btn');
+    var colPw  = document.getElementById('vendor-col-pw');
+    var colErr = document.getElementById('vendor-col-err');
+    if (colBtn && colPw) {
+      function attemptCol() {
+        sha256hex(colPw.value).then(function (digest) {
+          if (digest === HASH) { unlockAll(); }
+          else { colErr.classList.add('visible'); colPw.value = ''; colPw.focus(); }
+        });
+      }
+      colBtn.addEventListener('click', attemptCol);
+      colPw.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') attemptCol();
+        colErr.classList.remove('visible');
+      });
+    }
   }
 }());
 </script>
