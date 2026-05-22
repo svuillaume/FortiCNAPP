@@ -37,13 +37,17 @@
       gap: 1rem;
     }
     header .brand {
-      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
       color: #fff;
       text-decoration: none;
     }
-    header .brand span { color: var(--red); }
+    header .brand .logo { height: 26px; width: auto; display: block; flex-shrink: 0; }
+    header .brand .brand-sep { color: rgba(255,255,255,0.35); font-weight: 300; }
     header .nav-link {
       margin-left: auto;
       color: rgba(255,255,255,0.6);
@@ -258,7 +262,10 @@
 
 <header>
   <div class="inner">
-    <a class="brand" href="/genAISeC/"><span>Forti</span>net · GenAI Security</a>
+    <a class="brand" href="/genAISeC/">
+      <img class="logo" src="https://icons.fortinet.com/icons/Logos/Fortinet-logomark-rgb-red.svg" alt="Fortinet">
+      <span>Fortinet</span><span class="brand-sep">&nbsp;·&nbsp;</span><span>GenAI Security</span>
+    </a>
     <a class="nav-link" href="blog.html">&larr; Back to blog</a>
   </div>
 </header>

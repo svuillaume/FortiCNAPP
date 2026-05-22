@@ -1,0 +1,7 @@
+.git
+.gitignore
+*.md
+memory/
+.DS_Store
+**/.DS_Store
+docker-compose.yml
