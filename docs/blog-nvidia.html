@@ -200,6 +200,54 @@
     .nvidia-stack ul { margin-left: 1.25rem; }
     .nvidia-stack li { margin: 0.4rem 0; color: rgba(255,255,255,0.85); font-size: 0.93rem; }
     .nvidia-stack li strong { color: #76b900; }
+    .nv-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .nv-item {
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .nv-item-head {
+      padding: 0.65rem 1rem;
+      background: rgba(118,185,0,0.15);
+      border-bottom: 1px solid rgba(118,185,0,0.2);
+      font-weight: 700;
+      font-size: 0.93rem;
+      color: #9ed63a;
+    }
+    .nv-item-body { padding: 0.75rem 1rem; }
+    .nv-what {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .nv-why {
+      display: flex;
+      gap: 0.5rem;
+      align-items: flex-start;
+      background: rgba(238,49,36,0.12);
+      border-left: 3px solid var(--red);
+      border-radius: 0 5px 5px 0;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.5;
+    }
+    .nv-why-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+    }
     .threat-list { list-style: none; margin-left: 0; }
     .threat-list li {
       padding: 0.55rem 0;
@@ -391,13 +439,64 @@
 
   <div class="nvidia-stack">
     <h4>NVIDIA Technologies Inside FortiAIGate</h4>
-    <ul>
-      <li><strong>NVIDIA Blackwell</strong> GPUs — Latest-generation AI accelerators powering security inspection at wire speed with no latency penalty.</li>
-      <li><strong>NVIDIA Hopper</strong> — Previous-generation high-performance GPUs, widely deployed in enterprise data centers and fully supported.</li>
-      <li><strong>NVIDIA Dynamo</strong> — Distributed inference-serving framework coordinating GPU clusters for maximum throughput at scale.</li>
-      <li><strong>NVIDIA Nemotron</strong> — Safety models used inside FortiAIGate to detect harmful content and policy violations in AI outputs.</li>
-      <li><strong>Multi-Instance GPU</strong> (MIG) — Splits a single physical GPU into multiple independent, fault-isolated instances with guaranteed QoS.</li>
-    </ul>
+    <div class="nv-grid">
+
+      <div class="nv-item">
+        <div class="nv-item-head">NVIDIA Blackwell GPUs</div>
+        <div class="nv-item-body">
+          <div class="nv-what">Latest-generation AI accelerator chips (GB200, B100/B200). Power FortiAIGate's security inspection pipeline at wire speed alongside the AI inference workload — on the same silicon.</div>
+          <div class="nv-why">
+            <span class="nv-why-label">vs standard GPU</span>
+            <span>A standard GPU (e.g. A10) forces a tradeoff: run the model <em>or</em> run security inspection — not both at throughput. Blackwell's 4× inference density over Hopper means FortiAIGate's guardrail layer adds no measurable latency to the model's response. Security no longer competes with performance.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-item">
+        <div class="nv-item-head">NVIDIA Hopper (H100 / H200)</div>
+        <div class="nv-item-body">
+          <div class="nv-what">Previous-generation high-performance AI GPU, the most widely deployed enterprise AI accelerator in production data centers today. FortiAIGate fully supports Hopper-based infrastructure.</div>
+          <div class="nv-why">
+            <span class="nv-why-label">vs standard GPU</span>
+            <span>Hopper's 80 GB HBM3 and 3.35 TB/s memory bandwidth are ~5× higher than a standard A10. That headroom lets FortiAIGate hold full prompt and response context in GPU memory for inspection without evicting model weights — a standard GPU would thrash between the two and crater throughput.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-item">
+        <div class="nv-item-head">NVIDIA Dynamo</div>
+        <div class="nv-item-body">
+          <div class="nv-what">Distributed inference-serving framework that disaggregates prefill and decode stages across GPU clusters, with dynamic scheduling and KV-cache transfer between nodes.</div>
+          <div class="nv-why">
+            <span class="nv-why-label">vs standard GPU serving</span>
+            <span>Without Dynamo (e.g., plain vLLM), inserting a security inspection step serializes the pipeline — every request waits for guardrail processing before decode begins, compounding latency at scale. Dynamo's disaggregated prefill means FortiAIGate's inspection runs in parallel with decode, not in front of it. No head-of-line blocking.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-item">
+        <div class="nv-item-head">NVIDIA Nemotron Safety Models</div>
+        <div class="nv-item-body">
+          <div class="nv-what">A family of AI models trained specifically for content safety, sovereignty, and policy enforcement. Used inside FortiAIGate to score inputs and outputs for harmful intent, data leakage, and compliance violations.</div>
+          <div class="nv-why">
+            <span class="nv-why-label">vs rule-based filters</span>
+            <span>Rules and signatures catch only what you already know. Nemotron safety models detect novel jailbreaks, indirect prompt injection through retrieved content, and emergent policy violations that no signature has ever seen. They generalize — rule lists don't.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="nv-item">
+        <div class="nv-item-head">NVIDIA Multi-Instance GPU (MIG)</div>
+        <div class="nv-item-body">
+          <div class="nv-what">Hardware partitioning technology that splits one physical GPU into up to seven independent instances, each with its own guaranteed memory slice, compute engines, and I/O bandwidth.</div>
+          <div class="nv-why">
+            <span class="nv-why-label">vs shared GPU without MIG</span>
+            <span>On a standard shared GPU, a runaway tenant can consume all memory bandwidth and starve others — or a compromised workload can potentially read another tenant's GPU memory. MIG enforces hard hardware boundaries: one tenant's crash, spike, or breach cannot affect any other. This is what makes multi-customer AI infrastructure safe to operate.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <h3>Deployment flexibility</h3>
