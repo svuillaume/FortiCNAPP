@@ -573,6 +573,7 @@
   <ul>
     <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
     <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines.</li>
+    <li><a href="https://www.fortinet.com/products/data-loss-prevention/fortidlp"><strong>FortiDLP</strong></a> enforces endpoint data loss prevention policies in real time — detecting and blocking sensitive data (PII, credentials, proprietary source code) from being pasted into AI coding assistants or submitted to external LLM interfaces, directly on the device before traffic ever hits the network.</li>
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
     <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
@@ -613,6 +614,21 @@
               <div class="fnet-card-name">FortiClient · FortiEDR</div>
             </div>
             <div class="fnet-card-desc">Enforces endpoint posture and blocks data exfiltration from developer machines — including browser extensions and AI coding tools.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <!-- Eye/scan icon for DLP -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M1 12S5 4 12 4s11 8 11 8-4 8-11 8S1 12 1 12z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiDLP</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Endpoint DLP</span>
+              <span class="fnet-pill">PII Detection</span>
+              <span class="fnet-pill">AI Prompt Control</span>
+            </div>
+            <div class="fnet-card-desc">Detects and blocks sensitive data — credentials, PII, proprietary source code — from being pasted into AI coding assistants or submitted to external LLMs, on-device before traffic hits the network.</div>
           </div>
         </div>
 
