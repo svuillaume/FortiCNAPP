@@ -582,6 +582,42 @@
     .locked-gate-form button:hover { opacity: 0.85; }
     .locked-gate-error { font-size: 0.72rem; color: var(--red); width: 100%; margin-top: 0.25rem; display: none; }
     .locked-gate-error.visible { display: block; }
+    /* FortiGuard Labs callout */
+    .fortiguard-callout {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin: 1.75rem 0;
+      border-left: 4px solid var(--red);
+    }
+    .fortiguard-callout-hdr {
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem;
+    }
+    .fortiguard-callout-hdr svg { flex-shrink: 0; }
+    .fortiguard-callout-hdr strong {
+      font-size: 1rem; font-weight: 800; letter-spacing: 0.01em;
+    }
+    .fortiguard-callout-hdr span {
+      font-size: 0.72rem; color: rgba(255,255,255,0.55); margin-left: auto; white-space: nowrap;
+    }
+    .fortiguard-callout-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 0.75rem;
+    }
+    .fortiguard-item {
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid rgba(238,49,36,0.2);
+    }
+    .fortiguard-item-name {
+      font-size: 0.78rem; font-weight: 700; color: #EE3124; margin-bottom: 0.3rem;
+    }
+    .fortiguard-item-desc {
+      font-size: 0.7rem; color: rgba(255,255,255,0.7); line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -1404,6 +1440,41 @@
             <div class="fnet-card-desc">Centralizes logs from FortiGate, FortiWeb, FortiAIGate, FortiCNAPP, and FortiCASB — giving the SOC a single pane of glass for all AI security events across every layer.</div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fortiguard-callout">
+    <div class="fortiguard-callout-hdr">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.5C17.25 22.15 21 17.25 21 12V7L12 2z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round" fill="rgba(238,49,36,0.15)"/></svg>
+      <strong>FortiGuard Labs — The Intelligence Backbone</strong>
+      <span>fortiguard.com</span>
+    </div>
+    <p style="font-size:0.8rem;color:rgba(255,255,255,0.75);margin:0 0 1rem;">Every Fortinet product described in this post is continuously updated by <a href="https://www.fortinet.com/fortiguard/labs" style="color:#EE3124;">FortiGuard Labs</a> — Fortinet's global threat research and response organization. For AI-specific threats, FortiGuard delivers targeted intelligence across each control layer:</p>
+    <div class="fortiguard-callout-grid">
+      <div class="fortiguard-item">
+        <div class="fortiguard-item-name">FortiGate VM</div>
+        <div class="fortiguard-item-desc">FortiGuard IPS signatures for AI/LLM traffic, AppControl categories for sanctioned vs. unsanctioned LLM SaaS, and URL reputation filtering for AI endpoints.</div>
+      </div>
+      <div class="fortiguard-item">
+        <div class="fortiguard-item-name">FortiAIGate</div>
+        <div class="fortiguard-item-desc">FortiGuard AI-specific guardrail updates — new jailbreak patterns, prompt injection signatures, and model exfiltration techniques as they emerge.</div>
+      </div>
+      <div class="fortiguard-item">
+        <div class="fortiguard-item-name">FortiWeb</div>
+        <div class="fortiguard-item-desc">FortiGuard MCP protocol schema updates, web attack signatures for LLM-facing APIs, and OWASP LLM Top-10 coverage refreshes.</div>
+      </div>
+      <div class="fortiguard-item">
+        <div class="fortiguard-item-name">FortiSandbox</div>
+        <div class="fortiguard-item-desc">FortiGuard sandbox threat intelligence — IOC sharing, malicious model artifact signatures, and detonation profiles for AI-related supply chain threats.</div>
+      </div>
+      <div class="fortiguard-item">
+        <div class="fortiguard-item-name">FortiSASE</div>
+        <div class="fortiguard-item-desc">FortiGuard DLP dictionaries for AI prompt content, URL filtering for shadow AI SaaS discovery, and inline malware prevention for AI-generated file output.</div>
+      </div>
+      <div class="fortiguard-item">
+        <div class="fortiguard-item-name">FortiAnalyzer</div>
+        <div class="fortiguard-item-desc">FortiGuard IOC enrichment for AI security event correlation — threat scoring, actor attribution, and MITRE ATT&amp;CK mapping for AI-layer incidents.</div>
       </div>
     </div>
   </div>
