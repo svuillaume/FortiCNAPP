@@ -1,0 +1,44 @@
+{
+    # ACME account email — used by Let's Encrypt for expiry notices
+    email vuillaumes@gmail.com
+}
+
+mydevsecops.duckdns.org {
+
+    # ── TLS via Let's Encrypt DNS-01 challenge (DuckDNS) ──────────────────────
+    # Caddy calls the DuckDNS API to set the _acme-challenge TXT record,
+    # Let's Encrypt validates it, and the cert is issued — no port 80 needed.
+    # DUCKDNS_TOKEN must be set as an environment variable.
+    tls {
+        dns duckdns {env.DUCKDNS_TOKEN}
+    }
+
+    # ── Compression ────────────────────────────────────────────────────────────
+    encode gzip
+
+    # ── Security & HTTPS-enforcement headers ──────────────────────────────────
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options    nosniff
+        X-Frame-Options           SAMEORIGIN
+        X-XSS-Protection          "1; mode=block"
+        Referrer-Policy           strict-origin-when-cross-origin
+        -Server
+    }
+
+    # ── Health probe (used by Docker healthcheck and load balancers) ──────────
+    respond /health 200
+
+    # ── Routing ───────────────────────────────────────────────────────────────
+    # Redirect bare root and /genAISeC (no trailing slash) to the canonical path
+    redir /           /genAISeC/ permanent
+    redir /genAISeC   /genAISeC/ permanent
+
+    # Serve the site at /genAISeC/ — mirrors the GitHub Pages URL structure
+    # so all internal absolute links (/genAISeC/blog.html etc.) work unchanged
+    handle /genAISeC/* {
+        root * /srv
+        uri strip_prefix /genAISeC
+        file_server
+    }
+}

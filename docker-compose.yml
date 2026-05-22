@@ -3,16 +3,27 @@ version: "3.9"
 services:
   web:
     build: .
-    image: genaisec:local
+    image: genaisec:https
     ports:
-      - "8080:80"
+      - "80:80"    # Caddy auto-redirects HTTP → HTTPS
+      - "443:443"  # HTTPS
+    environment:
+      # DuckDNS token for the Let's Encrypt DNS-01 challenge.
+      # Copy .env.example → .env and fill in your token before running.
+      DUCKDNS_TOKEN: ${DUCKDNS_TOKEN}
     volumes:
-      # Mount docs/ so edits show without rebuilding the image
-      - ./docs:/usr/share/nginx/html:ro
+      # caddy_data holds the TLS certificates issued by Let's Encrypt.
+      # NEVER delete this volume — you will hit LE rate limits if certs are lost.
+      - caddy_data:/data
+      - caddy_config:/config
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/health"]
-      interval: 30s
-      timeout: 5s
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:2019/config/"]
+      interval: 60s
+      timeout: 10s
       retries: 3
-      start_period: 5s
+      start_period: 30s
+
+volumes:
+  caddy_data:    # persists Let's Encrypt certs across container restarts
+  caddy_config:  # persists Caddy's internal config cache
