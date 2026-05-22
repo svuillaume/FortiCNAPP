@@ -269,6 +269,143 @@
       line-height: 1.3;
     }
     .gl-rung-name.gl-lit { color: #fff; font-weight: 700; }
+
+    /* ── Layer 1 Fortinet Architecture Diagram ── */
+    .fnet-diagram {
+      margin: 1.75rem 0;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .fnet-diagram-hdr {
+      background: var(--dark);
+      color: #fff;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .fnet-diagram-tag {
+      background: var(--red);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .fnet-diagram-title {
+      font-size: 0.87rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .fnet-diagram-body {
+      background: #f0f0f5;
+      padding: 1.25rem;
+    }
+    .fnet-flow-bar {
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr 28px 1fr;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 0;
+    }
+    .fnet-flow-stage {
+      text-align: center;
+      padding: 0.45rem 0.5rem;
+      background: var(--dark);
+      color: rgba(255,255,255,0.7);
+      border-radius: 6px;
+      font-size: 0.64rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .fnet-flow-arr {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .fnet-cols {
+      display: grid;
+      grid-template-columns: 1fr 28px 1fr 28px 1fr;
+      align-items: start;
+      gap: 0;
+    }
+    .fnet-col-arr {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 1rem;
+    }
+    .fnet-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      border: 1px solid #dddde5;
+      border-left: 3px solid var(--red);
+      margin-bottom: 0.5rem;
+      transition: box-shadow 0.15s, border-left-color 0.15s;
+    }
+    .fnet-card:last-child { margin-bottom: 0; }
+    .fnet-card:hover {
+      box-shadow: 0 4px 16px rgba(238,49,36,0.12);
+    }
+    .fnet-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.35rem;
+    }
+    .fnet-card-icon {
+      width: 30px;
+      height: 30px;
+      background: rgba(238,49,36,0.08);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .fnet-card-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+    }
+    .fnet-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin: 0.35rem 0;
+    }
+    .fnet-pill {
+      background: rgba(238,49,36,0.1);
+      color: var(--red);
+      font-size: 0.59rem;
+      font-weight: 700;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .fnet-card-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    @media (max-width: 680px) {
+      .fnet-flow-bar { display: none; }
+      .fnet-cols {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .fnet-col-arr { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -334,6 +471,126 @@
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
     <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
   </ul>
+
+  <!-- ── Layer 1 Architecture Diagram ── -->
+  <div class="fnet-diagram">
+    <div class="fnet-diagram-hdr">
+      <span class="fnet-diagram-tag">Fortinet Coverage</span>
+      <span class="fnet-diagram-title">Developer Endpoint — Protection Architecture</span>
+    </div>
+    <div class="fnet-diagram-body">
+
+      <!-- Stage labels -->
+      <div class="fnet-flow-bar">
+        <div class="fnet-flow-stage">On Device</div>
+        <div class="fnet-flow-arr">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="fnet-flow-stage">Network &amp; Identity</div>
+        <div class="fnet-flow-arr">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="fnet-flow-stage">Code Pipeline &amp; Data</div>
+      </div>
+
+      <!-- Cards -->
+      <div class="fnet-cols">
+
+        <!-- Column 1: Endpoint -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <!-- Monitor icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#EE3124" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiClient · FortiEDR</div>
+            </div>
+            <div class="fnet-card-desc">Enforces endpoint posture and blocks data exfiltration from developer machines — including browser extensions and AI coding tools.</div>
+          </div>
+        </div>
+
+        <!-- Arrow 1 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <!-- Column 2: Network + Identity -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <!-- Globe icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#EE3124" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiSASE</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">SWG</span>
+              <span class="fnet-pill">ZTNA</span>
+              <span class="fnet-pill">CASB</span>
+              <span class="fnet-pill">DLP</span>
+            </div>
+            <div class="fnet-card-desc">Discovers shadow AI usage and inspects every outbound LLM API call — on-network and remote — via a single unified agent.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <!-- Lock icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#EE3124" stroke-width="2"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiGate VM · FortiAuthenticator</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">ZTNA</span>
+              <span class="fnet-pill">Identity-Aware</span>
+              <span class="fnet-pill">Per-App Access</span>
+            </div>
+            <div class="fnet-card-desc">Blocks lateral movement from compromised AI extensions or MCP servers — no access to GitHub, Kubernetes, or cloud accounts without per-application identity verification.</div>
+          </div>
+        </div>
+
+        <!-- Arrow 2 -->
+        <div class="fnet-col-arr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#EE3124" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+
+        <!-- Column 3: Code + Data -->
+        <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <!-- Database icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="#EE3124" stroke-width="2"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" stroke="#EE3124" stroke-width="2"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" stroke="#EE3124" stroke-width="2"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCNAPP — DSPM</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">Data Discovery</span>
+              <span class="fnet-pill">Shadow Data</span>
+            </div>
+            <div class="fnet-card-desc">Continuously discovers sensitive data in AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</div>
+          </div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <!-- Code / branch icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="18" cy="18" r="3" stroke="#EE3124" stroke-width="2"/><circle cx="6" cy="6" r="3" stroke="#EE3124" stroke-width="2"/><circle cx="6" cy="18" r="3" stroke="#EE3124" stroke-width="2"/><path d="M6 9v6M9 6h3a3 3 0 013 3v6" stroke="#EE3124" stroke-width="2" stroke-linecap="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiCNAPP — IaC &amp; Code Scan</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">IaC</span>
+              <span class="fnet-pill">SAST</span>
+              <span class="fnet-pill">CI/CD</span>
+            </div>
+            <div class="fnet-card-desc">Catches insecure AI-generated code, hardcoded secrets, and slopsquatting-style dependency risks before they merge into production.</div>
+          </div>
+        </div>
+
+      </div><!-- /fnet-cols -->
+    </div><!-- /fnet-diagram-body -->
+  </div><!-- /fnet-diagram -->
 
   <h3>Other best-of-breed vendors at this layer</h3>
   <ul>
