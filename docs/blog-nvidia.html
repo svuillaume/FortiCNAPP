@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortinet Deepens Integration with NVIDIA — GenAISec</title>
+  <style>
+    :root {
+      --red: #EE3124;
+      --dark: #1a1a2e;
+      --mid: #2d2d44;
+      --light: #f5f5f7;
+      --text: #1d1d1f;
+      --muted: #6e6e73;
+      --border: #d2d2d7;
+      --link: #0071e3;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text);
+      background: #fff;
+    }
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 0 2rem;
+    }
+    header .inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1.25rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header .brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-decoration: none;
+    }
+    header .brand span { color: var(--red); }
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #0f2a1a 60%, #0a3d1f 100%);
+      color: #fff;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero .tag {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 720px;
+      margin: 0 auto 1.25rem;
+    }
+    .hero .subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 640px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+    .meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.75rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      flex-wrap: wrap;
+    }
+    .meta a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    .meta a:hover { color: #fff; }
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+    .main h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.75rem;
+      color: var(--dark);
+      padding-top: 0.5rem;
+      border-top: 3px solid var(--red);
+      display: inline-block;
+    }
+    .main h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 1.75rem 0 0.5rem;
+      color: var(--dark);
+    }
+    .main p { margin: 0.75rem 0; }
+    .main ul, .main ol { margin: 0.75rem 0 0.75rem 1.5rem; }
+    .main li { margin: 0.35rem 0; }
+    .main a { color: var(--link); text-decoration: none; }
+    .main a:hover { text-decoration: underline; }
+    .main strong { font-weight: 700; }
+    .main em { font-style: italic; }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+    blockquote {
+      border-left: 4px solid var(--red);
+      background: var(--light);
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 1.05rem;
+      font-style: italic;
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .badge-what  { background: #e8f0fe; color: #1a56c0; }
+    .badge-why   { background: #fff3e0; color: #b45309; }
+    .badge-how   { background: #e8f5e9; color: #1b7a35; }
+    .badge-angle { background: #fce4ec; color: #b71c1c; }
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .pillar-card {
+      background: var(--light);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      border-left: 4px solid var(--red);
+      font-size: 0.9rem;
+    }
+    .pillar-card strong { display: block; margin-bottom: 0.25rem; color: var(--dark); }
+    .pillar-card span { color: var(--muted); font-size: 0.85rem; }
+    .deploy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+    .deploy-card {
+      background: var(--dark);
+      color: #fff;
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+    .deploy-card strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .nvidia-stack {
+      background: linear-gradient(135deg, #1a1a2e, #0f2a1a);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      margin: 1.5rem 0;
+      color: #fff;
+    }
+    .nvidia-stack h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.85rem;
+    }
+    .nvidia-stack ul { margin-left: 1.25rem; }
+    .nvidia-stack li { margin: 0.4rem 0; color: rgba(255,255,255,0.85); font-size: 0.93rem; }
+    .nvidia-stack li strong { color: #76b900; }
+    .threat-list { list-style: none; margin-left: 0; }
+    .threat-list li {
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .threat-list li:last-child { border-bottom: none; }
+    .cta-box {
+      background: var(--light);
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .cta-box .cta-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 0.35rem;
+    }
+    .cta-box .cta-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .cta-box .cta-desc { font-size: 0.88rem; color: var(--muted); }
+    .cta-box a.cta-btn {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      padding: 0.7rem 1.4rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    .disclaimer {
+      background: var(--light);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 2rem;
+    }
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.82rem;
+    }
+    footer a { color: rgba(255,255,255,0.5); }
+    @media (max-width: 600px) {
+      .main { padding: 2rem 1.25rem 3rem; }
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+    }
+
+    /* ── Glossary term highlights ── */
+    .gl-term {
+      border-bottom: 1.5px dotted var(--red);
+      cursor: help;
+      border-radius: 2px;
+      transition: background 0.12s;
+    }
+    .gl-term:hover, .gl-term.gl-active { background: rgba(238,49,36,0.09); }
+
+    /* ── Popup card ── */
+    #gl-popup {
+      position: fixed;
+      z-index: 9999;
+      width: 320px;
+      background: var(--dark);
+      color: #fff;
+      border-radius: 12px;
+      padding: 1.1rem 1.25rem 1rem;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.38), 0 0 0 1px rgba(255,255,255,0.07);
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px) scale(0.97);
+      transition: opacity 0.17s ease, transform 0.17s ease;
+      font-size: 0.87rem;
+      line-height: 1.55;
+    }
+    #gl-popup.gl-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .gl-pop-badge { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3rem; }
+    .gl-pop-term  { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.45rem; }
+    .gl-pop-def   { color: rgba(255,255,255,0.8); font-size: 0.84rem; }
+    .gl-ladder {
+      margin-top: 0.85rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .gl-ladder-hdr { display: flex; justify-content: space-between; font-size: 0.6rem; color: rgba(255,255,255,0.32); margin-bottom: 0.32rem; text-transform: uppercase; letter-spacing: 0.08em; }
+    .gl-rungs { display: flex; gap: 3px; }
+    .gl-rung { flex: 1; height: 5px; border-radius: 2px; background: rgba(255,255,255,0.11); transition: background 0.15s; }
+    .gl-rung.gl-lit { background: var(--red); }
+    .gl-rung-names { display: flex; gap: 3px; margin-top: 4px; }
+    .gl-rung-name { flex: 1; font-size: 0.56rem; color: rgba(255,255,255,0.26); text-align: center; line-height: 1.3; }
+    .gl-rung-name.gl-lit { color: #fff; font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a class="brand" href="/genAISeC/"><span>Forti</span>net · GenAI Security</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="tag">Press Release Breakdown</div>
+  <h1>Fortinet Deepens Integration with NVIDIA to Uniquely Secure Enterprise AI at Scale</h1>
+  <p class="subtitle">A crisp PreSales breakdown of the announcement — What, Why, and How — with the field context you need to position FortiAIGate in GPU-accelerated cloud environments.</p>
+  <div class="meta">
+    <span>May 2026</span>
+    <span>·</span>
+    <a href="https://www.fortinet.com/corporate/about-us/newsroom/press-releases/2026/fortinet-deepens-integration-to-uniquely-secure-enterprise-ai-at-scale-with-nvidia" target="_blank" rel="noopener">Official press release &rarr;</a>
+    <span>·</span>
+    <a href="blog.html">&larr; Back to blog</a>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── WHAT ── -->
+  <div class="section-badge badge-what">What</div>
+  <h2>FortiAIGate × NVIDIA</h2>
+
+  <p>The joint <strong>FortiAIGate</strong> solution integrates Fortinet's security enforcement with NVIDIA's AI platforms and software technologies to protect AI workloads, data, and autonomous agents in real time — across data centers and the cloud.</p>
+
+  <p>This is not a reference architecture or a co-marketing exercise. FortiAIGate is shipped, accelerated by NVIDIA silicon, and purpose-built to sit inline between your applications and the AI models they call.</p>
+
+  <h3>Key capabilities baked in</h3>
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <strong>LLM Runtime Guardrails</strong>
+      <span>Blocks prompt injection, toxic content, and data exfiltration as prompts and completions flow through the gateway in real time.</span>
+    </div>
+    <div class="pillar-card">
+      <strong>Zero-Trust for AI</strong>
+      <span>Enforces security policies on all AI model traffic — every input and every output — with no implicit trust granted to any request.</span>
+    </div>
+    <div class="pillar-card">
+      <strong>AI Sovereignty</strong>
+      <span>Self-hosted deployment with full logging of every prompt and response. Your data never leaves your perimeter.</span>
+    </div>
+    <div class="pillar-card">
+      <strong>Agentic AI Protection</strong>
+      <span>Secures MCP Server connections and autonomous agent workflows against tool abuse and unauthorized actions.</span>
+    </div>
+    <div class="pillar-card">
+      <strong>Multitenant Isolation</strong>
+      <span>Using NVIDIA Multi-Instance GPU to partition a single physical GPU into fully isolated, fault-independent workload instances.</span>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ── WHY ── -->
+  <div class="section-badge badge-why">Why</div>
+  <h2>The Business Driver</h2>
+
+  <p>Enterprises are racing to adopt AI, and security has become a critical enabler of that innovation. The accelerating shift toward autonomous AI agents is creating unprecedented demand for secure, high-performance enterprise computing platforms. Organizations can no longer treat AI security as a separate conversation from AI performance — they are the same conversation.</p>
+
+  <blockquote>
+    The enterprise AI attack surface has expanded dramatically — and most existing security tooling was not designed to see inside an AI inference pipeline.
+  </blockquote>
+
+  <h3>The four threat vectors driving this</h3>
+  <ul class="threat-list">
+    <li><strong>Prompt Injection</strong> attacks on LLMs — malicious instructions hidden in user input or retrieved documents that override the model's safety behavior. OWASP ranks this the #1 LLM risk in 2025.</li>
+    <li><strong>Data Leakage</strong> from uncontrolled AI outputs — sensitive PII, credentials, and confidential context extracted by adversaries through carefully crafted queries to the model.</li>
+    <li><strong>Sovereignty &amp; compliance</strong> gaps — GDPR, national AI regulations, and sector-specific mandates require full auditability of what enters and exits AI systems. Most deployments produce none.</li>
+    <li><strong>Agentic AI</strong> acting outside approved policies — as AI systems gain the ability to take real actions (read files, call APIs, write code), the blast radius of any security failure multiplies.</li>
+  </ul>
+
+  <hr>
+
+  <!-- ── HOW ── -->
+  <div class="section-badge badge-how">How</div>
+  <h2>The Technical Stack</h2>
+
+  <p>FortiAIGate is deployed inline — between your applications and the AI models they call — so it can inspect, enforce, and log every interaction without adding a separate management plane or breaking your existing application architecture.</p>
+
+  <div class="nvidia-stack">
+    <h4>NVIDIA Technologies Inside FortiAIGate</h4>
+    <ul>
+      <li><strong>NVIDIA Blackwell</strong> GPUs — Latest-generation AI accelerators powering security inspection at wire speed with no latency penalty.</li>
+      <li><strong>NVIDIA Hopper</strong> — Previous-generation high-performance GPUs, widely deployed in enterprise data centers and fully supported.</li>
+      <li><strong>NVIDIA Dynamo</strong> — Distributed inference-serving framework coordinating GPU clusters for maximum throughput at scale.</li>
+      <li><strong>NVIDIA Nemotron</strong> — Safety models used inside FortiAIGate to detect harmful content and policy violations in AI outputs.</li>
+      <li><strong>Multi-Instance GPU</strong> (MIG) — Splits a single physical GPU into multiple independent, fault-isolated instances with guaranteed QoS.</li>
+    </ul>
+  </div>
+
+  <h3>Deployment flexibility</h3>
+  <div class="deploy-grid">
+    <div class="deploy-card">
+      <strong>Data Center Appliance</strong>
+      GPU-powered, rack-mounted, runs inline at data center scale alongside your model-serving infrastructure.
+    </div>
+    <div class="deploy-card">
+      <strong>Virtual Appliance</strong>
+      Runs on NVIDIA-Certified Systems in your private cloud environment.
+    </div>
+    <div class="deploy-card">
+      <strong>Container</strong>
+      Deploys alongside model-serving containers on Kubernetes — same policy, same logs.
+    </div>
+  </div>
+
+  <p>All three form factors deliver consistent policy enforcement and centralized management — FortiAIGate looks the same to FortiManager and FortiAnalyzer regardless of where it runs.</p>
+
+  <hr>
+
+  <!-- ── PRESALES ANGLE ── -->
+  <div class="section-badge badge-angle">PreSales Angle</div>
+  <h2>Where This Fits Your Cloud Portfolio</h2>
+
+  <p>FortiAIGate is the <strong>runtime security layer</strong> that sits above FortiCNAPP (posture) and complements FortiWeb / FortiAppSec Cloud (API and application protection). It closes the gap no other Fortinet product — and very few competitors — covers: <strong>securing the LLM inference layer itself</strong> inside GPU-accelerated cloud environments.</p>
+
+  <h3>The three-layer picture for customer conversations</h3>
+  <ul>
+    <li><strong><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></strong> — posture, cloud configuration, identity risk, and data sensitivity across the entire AI infrastructure. The "before it runs" layer.</li>
+    <li><strong><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb</a> / <a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud">FortiAppSec Cloud</a></strong> — HTTP API layer in front of LLM-powered apps: schema enforcement, rate limiting, bot mitigation. The "application perimeter" layer.</li>
+    <li><strong><a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a></strong> — inline between the application and the model, inspecting every prompt and completion in real time. The "inside the inference pipeline" layer. <em>This is what's new.</em></li>
+  </ul>
+
+  <h3>Best-fit prospects</h3>
+  <ul>
+    <li>Organizations running AI workloads on AWS, Azure, or GCP with <strong>NVIDIA Blackwell</strong> or NVIDIA Hopper GPU infrastructure (EC2 P5, Azure ND, GCP A3).</li>
+    <li>Financial services, healthcare, and government accounts where <strong>AI Sovereignty</strong> and full prompt/response logging are non-negotiable compliance requirements.</li>
+    <li>Enterprises piloting or deploying <strong>Agentic AI</strong> workflows where autonomous actions require a control plane that can audit and enforce policy at the inference layer.</li>
+    <li>Any account where the CISO has been asked "show me everything the AI system processed this quarter" and has no answer — FortiAIGate provides that log.</li>
+  </ul>
+
+  <h3>The one-sentence competitive differentiator</h3>
+  <blockquote>
+    Most AI security vendors protect the application layer — FortiAIGate is purpose-built for the inference layer, co-engineered with NVIDIA, accelerated by NVIDIA Blackwell, and integrated into the Fortinet Security Fabric for unified visibility across the full AI stack.
+  </blockquote>
+
+  <hr>
+
+  <div class="cta-box">
+    <div>
+      <div class="cta-label">PreSales Reference</div>
+      <div class="cta-title">Fortinet GenAI Security — Reference &amp; Positioning Guide</div>
+      <div class="cta-desc">Product pillars, FortiAIGate deep-dive, FortiOS 8.0, MCP visibility, master reference list, and quick-hit talking points.</div>
+    </div>
+    <a href="reference.html" class="cta-btn">Open guide &rarr;</a>
+  </div>
+
+  <hr>
+
+  <div class="disclaimer">
+    <p><strong>&copy; 2026 Fortinet, Inc. All rights reserved.</strong><br>
+    This document and its contents are proprietary to Fortinet and are intended solely for the internal use of the designated audience for technical discussion, solution positioning, and security strategy alignment. The views, architectural interpretations, and recommendations contained herein may change as AI security capabilities and vendor implementations continue to evolve.</p>
+    <p style="margin-top:0.75rem">No part of this document may be reproduced, distributed, modified, or transmitted in any form or by any means — electronic, mechanical, photocopying, recording, or otherwise — without the prior written consent of Fortinet, Inc.</p>
+  </div>
+
+</div>
+
+<footer>
+  &copy; 2026 Fortinet, Inc. All rights reserved. &nbsp;·&nbsp; <a href="/genAISeC/">Back to home</a>
+</footer>
+
+<!-- ── Glossary popup system ── -->
+<script>
+(function () {
+  'use strict';
+
+  var GLOSSARY = [
+    /* The five "ladder" terms — Simple → Powerful protection-depth scale */
+    {
+      term: 'Prompt Injection',
+      level: 1,
+      def: 'An attack where hidden instructions in user input or retrieved content trick the AI into ignoring its safety rules — social engineering aimed at the model itself instead of a person. FortiAIGate blocks these at the gateway before they reach the model.'
+    },
+    {
+      term: 'Data Leakage',
+      level: 2,
+      def: 'Sensitive information — PII, credentials, trade secrets — escaping your environment through an AI model\'s responses. FortiAIGate inspects every completion before it leaves the gateway and blocks unauthorized disclosures.'
+    },
+    {
+      term: 'Zero-Trust for AI',
+      level: 3,
+      def: 'Apply "never trust, always verify" to AI traffic. Every prompt going in and every response coming out is authenticated, checked against policy, and logged — no AI request gets a free pass just because it came from an internal app.'
+    },
+    {
+      term: 'LLM Runtime Guardrails',
+      level: 4,
+      def: 'Real-time filters active while the AI is running. They inspect inputs for prompt injection and jailbreak attempts, and scan outputs for toxic content or sensitive data leaks — catching threats at the moment of inference, not after the fact.'
+    },
+    {
+      term: 'AI Sovereignty',
+      level: 5,
+      def: 'Your organization retains full control of AI data. Prompts and responses are logged on your own infrastructure — no data sent to third-party cloud providers. Critical for GDPR compliance and national AI regulations that require full auditability of AI-processed content.'
+    },
+    /* Supporting terms — appear as standalone definitions */
+    {
+      term: 'FortiAIGate',
+      level: 4,
+      def: 'Fortinet\'s purpose-built AI security gateway, co-engineered with NVIDIA. Deployed inline between your applications and the LLMs they call, it inspects every prompt and completion in real time — enforcing policy, blocking attacks, and providing per-interaction audit logs.'
+    },
+    {
+      term: 'Agentic AI',
+      level: 5,
+      def: 'AI that plans and executes multi-step tasks autonomously — reading files, calling APIs, running code — without per-step human approval. The expanded blast radius of autonomous actions makes inline security enforcement essential, not optional.'
+    },
+    {
+      term: 'MCP Server',
+      level: 3,
+      def: 'Model Context Protocol server — software that connects an AI model to enterprise tools like databases, GitHub, or Slack. FortiAIGate governs what the model can request through these connections, ensuring only authorized tool calls are allowed.'
+    },
+    {
+      term: 'Multitenant Isolation',
+      level: 3,
+      def: 'Multiple customers or workloads run on the same physical GPU hardware, completely fenced off from each other. One tenant cannot see another\'s data, consume their allocated GPU memory, or affect their performance — enforced by NVIDIA Multi-Instance GPU.'
+    },
+    {
+      term: 'NVIDIA Blackwell',
+      level: 3,
+      def: 'NVIDIA\'s latest-generation AI accelerator GPU. Provides the raw compute throughput to run security inspection and AI inference simultaneously at wire speed — eliminating the traditional "security costs latency" tradeoff in the inference pipeline.'
+    },
+    {
+      term: 'NVIDIA Hopper',
+      level: 2,
+      def: 'NVIDIA\'s previous-generation high-performance AI GPU (the H100 / H200 family), widely deployed in enterprise data centers. FortiAIGate supports Hopper-based systems, protecting existing GPU infrastructure before customers upgrade to Blackwell.'
+    },
+    {
+      term: 'NVIDIA Dynamo',
+      level: 4,
+      def: 'NVIDIA\'s distributed inference-serving framework. Coordinates work across multiple GPUs to maximize throughput and minimize latency when serving large AI models — the software layer that makes a GPU cluster act as a single fast system.'
+    },
+    {
+      term: 'NVIDIA Nemotron',
+      level: 4,
+      def: 'NVIDIA\'s family of safety-focused AI models. Used inside FortiAIGate to detect harmful content, sovereignty violations, and policy breaches in AI outputs. AI being used to protect AI.'
+    },
+    {
+      term: 'Multi-Instance GPU',
+      level: 3,
+      def: 'A GPU technology that partitions one physical GPU into up to seven independent instances, each with its own guaranteed memory, compute, and I/O. A crash or security event in one instance cannot affect the others — essential for shared AI infrastructure.'
+    }
+  ];
+
+  /* Ladder — the five core security-concept rungs shown in the popup */
+  var LADDER = ['Prompt Injection', 'Data Leakage', 'Zero-Trust for AI', 'LLM Runtime Guardrails', 'AI Sovereignty'];
+
+  /* Pattern — longest alternatives first to prevent partial matches */
+  var PATTERN = /\b(LLM\s+Runtime\s+Guardrails|Zero-Trust\s+for\s+AI|AI\s+Sovereignty|Multi-Instance\s+GPU|NVIDIA\s+Blackwell|NVIDIA\s+Hopper|NVIDIA\s+Dynamo|NVIDIA\s+Nemotron|MCP\s+Server|Multitenant\s+[Ii]solation|Prompt\s+[Ii]njection|Data\s+[Ll]eakage|Agentic\s+AI|FortiAIGate)\b/g;
+
+  function normalize(matched) {
+    var t = matched.toLowerCase().replace(/\s+/g, ' ');
+    if (t.startsWith('llm runtime'))       return 'LLM Runtime Guardrails';
+    if (t.startsWith('zero-trust'))        return 'Zero-Trust for AI';
+    if (t.startsWith('ai sovereignty'))    return 'AI Sovereignty';
+    if (t.startsWith('multi-instance'))    return 'Multi-Instance GPU';
+    if (t.startsWith('nvidia blackwell'))  return 'NVIDIA Blackwell';
+    if (t.startsWith('nvidia hopper'))     return 'NVIDIA Hopper';
+    if (t.startsWith('nvidia dynamo'))     return 'NVIDIA Dynamo';
+    if (t.startsWith('nvidia nemotron'))   return 'NVIDIA Nemotron';
+    if (t.startsWith('mcp server'))        return 'MCP Server';
+    if (t.startsWith('multitenant'))       return 'Multitenant Isolation';
+    if (t.startsWith('prompt'))            return 'Prompt Injection';
+    if (t.startsWith('data'))              return 'Data Leakage';
+    if (t.startsWith('agentic'))           return 'Agentic AI';
+    if (t.startsWith('fortiaigate'))       return 'FortiAIGate';
+    return null;
+  }
+
+  function findEntry(matched) {
+    var key = normalize(matched);
+    if (!key) return null;
+    return GLOSSARY.find(function (e) { return e.term === key; }) || null;
+  }
+
+  /* ── DOM text-node wrapping ── */
+  function wrapNode(node) {
+    var text = node.textContent;
+    PATTERN.lastIndex = 0;
+    if (!PATTERN.test(text)) return;
+    PATTERN.lastIndex = 0;
+
+    var frag = document.createDocumentFragment();
+    var last = 0, m;
+    while ((m = PATTERN.exec(text)) !== null) {
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var entry = findEntry(m[0]);
+      if (entry) {
+        var s = document.createElement('span');
+        s.className = 'gl-term';
+        s.dataset.glTerm = entry.term;
+        s.textContent = m[0];
+        frag.appendChild(s);
+      } else {
+        frag.appendChild(document.createTextNode(m[0]));
+      }
+      last = PATTERN.lastIndex;
+    }
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+
+  function highlight() {
+    var walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode: function (n) {
+          if (!n.textContent.trim()) return NodeFilter.FILTER_REJECT;
+          if (n.parentElement.closest('a, code, script, style, .gl-term, header, footer'))
+            return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+    var nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(wrapNode);
+  }
+
+  /* ── Popup ── */
+  var popup = document.createElement('div');
+  popup.id = 'gl-popup';
+  popup.setAttribute('role', 'tooltip');
+  popup.innerHTML =
+    '<div class="gl-pop-badge">Quick Definition</div>' +
+    '<div class="gl-pop-term"></div>' +
+    '<div class="gl-pop-def"></div>' +
+    '<div class="gl-ladder">' +
+      '<div class="gl-ladder-hdr"><span>Simple</span><span>Powerful</span></div>' +
+      '<div class="gl-rungs">' + LADDER.map(function () { return '<div class="gl-rung"></div>'; }).join('') + '</div>' +
+      '<div class="gl-rung-names">' + LADDER.map(function (l) { return '<div class="gl-rung-name">' + l + '</div>'; }).join('') + '</div>' +
+    '</div>';
+
+  function position(el) {
+    var rect = el.getBoundingClientRect();
+    var PW = 320, PH = 230;
+    var left = rect.left;
+    if (left + PW > window.innerWidth - 12) left = window.innerWidth - PW - 12;
+    if (left < 12) left = 12;
+    var top = rect.bottom + 10;
+    if (rect.bottom + PH > window.innerHeight - 12) top = rect.top - PH - 10;
+    popup.style.left = left + 'px';
+    popup.style.top  = top  + 'px';
+  }
+
+  function show(el) {
+    var name  = el.dataset.glTerm;
+    var entry = GLOSSARY.find(function (e) { return e.term === name; });
+    if (!entry) return;
+
+    popup.querySelector('.gl-pop-term').textContent = entry.term;
+    popup.querySelector('.gl-pop-def').textContent  = entry.def;
+
+    /* Only show the complexity ladder for the 5 core ladder terms */
+    var ladderEl = popup.querySelector('.gl-ladder');
+    var inLadder = LADDER.indexOf(entry.term) !== -1;
+    ladderEl.style.display = inLadder ? '' : 'none';
+
+    if (inLadder) {
+      var rungs = popup.querySelectorAll('.gl-rung');
+      var names = popup.querySelectorAll('.gl-rung-name');
+      rungs.forEach(function (r, i) { r.classList.toggle('gl-lit', i < entry.level); });
+      names.forEach(function (n, i) { n.classList.toggle('gl-lit', LADDER[i] === entry.term); });
+    }
+
+    position(el);
+    popup.classList.add('gl-visible');
+    el.classList.add('gl-active');
+  }
+
+  function hide() {
+    popup.classList.remove('gl-visible');
+    document.querySelectorAll('.gl-term.gl-active').forEach(function (e) { e.classList.remove('gl-active'); });
+  }
+
+  var hideId;
+  function wire() {
+    document.addEventListener('mouseover', function (e) {
+      clearTimeout(hideId);
+      var t = e.target.closest('.gl-term');
+      if (t) show(t); else hideId = setTimeout(hide, 260);
+    });
+    popup.addEventListener('mouseenter', function () { clearTimeout(hideId); });
+    popup.addEventListener('mouseleave', function () { hideId = setTimeout(hide, 260); });
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('.gl-term');
+      if (t) { e.stopPropagation(); show(t); } else hide();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    document.body.appendChild(popup);
+    highlight();
+    wire();
+  });
+}());
+</script>
+</body>
+</html>
