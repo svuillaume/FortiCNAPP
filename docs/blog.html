@@ -541,6 +541,47 @@
       border-top: 1px solid var(--border);
       font-style: italic;
     }
+    /* Password-locked section */
+    .locked-section { position: relative; margin: 1rem 0; }
+    .locked-section .locked-content { display: none; }
+    .locked-section.unlocked .locked-content { display: block; }
+    .locked-section.unlocked .locked-gate { display: none; }
+    .locked-gate {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .locked-gate-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--dark); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .locked-gate-icon svg { display: block; }
+    .locked-gate-label { flex: 1; min-width: 180px; }
+    .locked-gate-label strong { display: block; font-size: 0.85rem; color: var(--dark); margin-bottom: 2px; }
+    .locked-gate-label span { font-size: 0.75rem; color: var(--muted); }
+    .locked-gate-form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .locked-gate-form input[type="password"] {
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.4rem 0.75rem; font-size: 0.8rem;
+      outline: none; transition: border-color 0.15s;
+      width: 160px;
+    }
+    .locked-gate-form input[type="password"]:focus { border-color: var(--red); }
+    .locked-gate-form button {
+      background: var(--red); color: #fff;
+      border: none; border-radius: 6px;
+      padding: 0.4rem 1rem; font-size: 0.8rem; font-weight: 700;
+      cursor: pointer; transition: opacity 0.15s;
+    }
+    .locked-gate-form button:hover { opacity: 0.85; }
+    .locked-gate-error { font-size: 0.72rem; color: var(--red); width: 100%; margin-top: 0.25rem; display: none; }
+    .locked-gate-error.visible { display: block; }
   </style>
 </head>
 <body>
@@ -771,13 +812,26 @@
     </div><!-- /fnet-diagram-body -->
   </div><!-- /fnet-diagram -->
 
-  <h3>Other best-of-breed vendors at this layer</h3>
-  <ul>
-    <li><strong>AI coding assistants with native enterprise security:</strong> <a href="https://github.com/features/copilot">GitHub Copilot Enterprise</a>, <a href="https://aws.amazon.com/q/developer/">Amazon Q Developer</a>, and <a href="https://www.tabnine.com/">Tabnine Enterprise</a>.</li>
-    <li><strong>AI-aware SAST and code scanning:</strong> <a href="https://snyk.io/platform/deepcode-ai/">Snyk DeepCode AI</a>, <a href="https://checkmarx.com/">Checkmarx</a>, <a href="https://www.veracode.com/">Veracode</a>, <a href="https://www.sonarsource.com/">SonarQube</a>.</li>
-    <li><strong>GitHub Advanced Security (GHAS):</strong> <a href="https://github.com/security/advanced-security">Code Security and Secret Protection</a>.</li>
-    <li><strong>MCP and AI dev-tool gateways:</strong> <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://www.backslash.security/">Backslash Security</a>, <a href="https://www.truefoundry.com/">TrueFoundry</a>.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Other best-of-breed vendors at this layer</h3>
+      <ul>
+        <li><strong>AI coding assistants with native enterprise security:</strong> <a href="https://github.com/features/copilot">GitHub Copilot Enterprise</a>, <a href="https://aws.amazon.com/q/developer/">Amazon Q Developer</a>, and <a href="https://www.tabnine.com/">Tabnine Enterprise</a>.</li>
+        <li><strong>AI-aware SAST and code scanning:</strong> <a href="https://snyk.io/platform/deepcode-ai/">Snyk DeepCode AI</a>, <a href="https://checkmarx.com/">Checkmarx</a>, <a href="https://www.veracode.com/">Veracode</a>, <a href="https://www.sonarsource.com/">SonarQube</a>.</li>
+        <li><strong>GitHub Advanced Security (GHAS):</strong> <a href="https://github.com/security/advanced-security">Code Security and Secret Protection</a>.</li>
+        <li><strong>MCP and AI dev-tool gateways:</strong> <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://www.backslash.security/">Backslash Security</a>, <a href="https://www.truefoundry.com/">TrueFoundry</a>.</li>
+      </ul>
+    </div>
+  </div>
 
   <hr>
 
@@ -902,13 +956,26 @@
     </div>
   </div>
 
-  <h3>Other best-of-breed vendors at this layer</h3>
-  <ul>
-    <li><strong>AI-native LLM firewalls / guardrails:</strong> <a href="https://www.lakera.ai/">Lakera Guard</a>, <a href="https://www.prompt.security/">Prompt Security</a>, <a href="https://www.hiddenlayer.com/">HiddenLayer AISec</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.robustintelligence.com/">Robust Intelligence</a>, <a href="https://protectai.com/">Protect AI</a>.</li>
-    <li><strong>Adjacent emerging players:</strong> <a href="https://www.operant.ai/">Operant AI</a>, <a href="https://acuvity.ai/">Acuvity</a>, <a href="https://neuraltrust.ai/">NeuralTrust</a>, <a href="https://www.pillar.security/">Pillar Security</a>, <a href="https://www.enkryptai.com/">Enkrypt AI</a>.</li>
-    <li><strong>CSP-native model protections:</strong> <a href="https://azure.microsoft.com/en-us/products/ai-services/ai-content-safety">Azure AI Content Safety</a> (Prompt Shields), <a href="https://aws.amazon.com/bedrock/guardrails/">AWS Bedrock Guardrails</a>, <a href="https://cloud.google.com/security/products/model-armor">Google Cloud Model Armor</a>.</li>
-    <li><strong>Open source:</strong> <a href="https://github.com/NVIDIA/NeMo-Guardrails">NVIDIA NeMo Guardrails</a>, <a href="https://github.com/leondz/garak">Garak LLM vulnerability scanner</a>, <a href="https://github.com/Azure/PyRIT">PyRIT</a>.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Other best-of-breed vendors at this layer</h3>
+      <ul>
+        <li><strong>AI-native LLM firewalls / guardrails:</strong> <a href="https://www.lakera.ai/">Lakera Guard</a>, <a href="https://www.prompt.security/">Prompt Security</a>, <a href="https://www.hiddenlayer.com/">HiddenLayer AISec</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.robustintelligence.com/">Robust Intelligence</a>, <a href="https://protectai.com/">Protect AI</a>.</li>
+        <li><strong>Adjacent emerging players:</strong> <a href="https://www.operant.ai/">Operant AI</a>, <a href="https://acuvity.ai/">Acuvity</a>, <a href="https://neuraltrust.ai/">NeuralTrust</a>, <a href="https://www.pillar.security/">Pillar Security</a>, <a href="https://www.enkryptai.com/">Enkrypt AI</a>.</li>
+        <li><strong>CSP-native model protections:</strong> <a href="https://azure.microsoft.com/en-us/products/ai-services/ai-content-safety">Azure AI Content Safety</a> (Prompt Shields), <a href="https://aws.amazon.com/bedrock/guardrails/">AWS Bedrock Guardrails</a>, <a href="https://cloud.google.com/security/products/model-armor">Google Cloud Model Armor</a>.</li>
+        <li><strong>Open source:</strong> <a href="https://github.com/NVIDIA/NeMo-Guardrails">NVIDIA NeMo Guardrails</a>, <a href="https://github.com/leondz/garak">Garak LLM vulnerability scanner</a>, <a href="https://github.com/Azure/PyRIT">PyRIT</a>.</li>
+      </ul>
+    </div>
+  </div>
 
   <hr>
 
@@ -1044,13 +1111,26 @@
     </div>
   </div>
 
-  <h3>Other best-of-breed vendors at this layer</h3>
-  <ul>
-    <li><strong>CASB / SSPM:</strong> <a href="https://www.netskope.com/">Netskope One</a>, <a href="https://www.zscaler.com/">Zscaler</a>, <a href="https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-cloud-apps">Microsoft Defender for Cloud Apps</a>, <a href="https://www.obsidiansecurity.com/">Obsidian Security</a>, <a href="https://www.reco.ai/">Reco AI</a>.</li>
-    <li><strong>DSPM specialists:</strong> <a href="https://www.cyera.io/">Cyera</a>, <a href="https://bigid.com/">BigID</a>, <a href="https://www.sentra.io/">Sentra</a>, <a href="https://www.dig.security/">Dig Security</a>.</li>
-    <li><strong>Document and content sandboxing:</strong> <a href="https://www.opswat.com/products/metadefender">OPSWAT MetaDefender</a>, <a href="https://votiro.com/">Votiro</a>, <a href="https://www.glasswall.com/">Glasswall</a>.</li>
-    <li><strong>RAG-aware security tooling:</strong> <a href="https://www.lakera.ai/">Lakera Guard for RAG</a>, <a href="https://www.cranium.ai/">Cranium AI</a>, <a href="https://securiti.ai/">Securiti AI</a>.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Other best-of-breed vendors at this layer</h3>
+      <ul>
+        <li><strong>CASB / SSPM:</strong> <a href="https://www.netskope.com/">Netskope One</a>, <a href="https://www.zscaler.com/">Zscaler</a>, <a href="https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-cloud-apps">Microsoft Defender for Cloud Apps</a>, <a href="https://www.obsidiansecurity.com/">Obsidian Security</a>, <a href="https://www.reco.ai/">Reco AI</a>.</li>
+        <li><strong>DSPM specialists:</strong> <a href="https://www.cyera.io/">Cyera</a>, <a href="https://bigid.com/">BigID</a>, <a href="https://www.sentra.io/">Sentra</a>, <a href="https://www.dig.security/">Dig Security</a>.</li>
+        <li><strong>Document and content sandboxing:</strong> <a href="https://www.opswat.com/products/metadefender">OPSWAT MetaDefender</a>, <a href="https://votiro.com/">Votiro</a>, <a href="https://www.glasswall.com/">Glasswall</a>.</li>
+        <li><strong>RAG-aware security tooling:</strong> <a href="https://www.lakera.ai/">Lakera Guard for RAG</a>, <a href="https://www.cranium.ai/">Cranium AI</a>, <a href="https://securiti.ai/">Securiti AI</a>.</li>
+      </ul>
+    </div>
+  </div>
 
   <hr>
 
@@ -1074,6 +1154,7 @@
 
   <h3>Where Fortinet fits</h3>
   <ul>
+    <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> provides purpose-built MCP protection — inspecting and validating SSE (Server-Sent Events) and streamable HTTP traffic between MCP clients and servers. It delivers real-time signature detection to block injection and remote command execution attacks against tool argument values, poisoning attack scans to prevent falsified tool prompts, JSON Schema validation to enforce the unmodified MCP protocol schema, and automatic FortiGuard updates for MCP-specific threat intelligence.</li>
     <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances"><strong>FortiGate VM</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge sent">Azure Sentinel</span> inspects outbound traffic from MCP servers making network calls. Fortinet has documented specific guidance for <a href="https://community.fortinet.com/t5/FortiGate/Technical-Guide-Selective-control-of-Generative-AI-LLM-traffic/ta-p/405240">selective control of AI-Driven Systems/LLM traffic egressing through FortiGate</a>.</li>
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> detects MCP server processes, flags over-privileged service accounts, and surfaces runtime anomalies via behavioral baselines.</li>
     <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB / SSPM</strong></a><span class="csp-badge sent">Azure Sentinel</span> maintains visibility into OAuth tokens MCP servers hold against SaaS apps, enabling revocation and rotation at scale.</li>
@@ -1118,6 +1199,20 @@
         </div>
         <!-- Col 2: Runtime + Access -->
         <div>
+          <div class="fnet-card">
+            <div class="fnet-card-top">
+              <div class="fnet-card-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/><path d="M2 17l10 5 10-5" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/><path d="M2 12l10 5 10-5" stroke="#EE3124" stroke-width="2" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="fnet-card-name">FortiWeb</div>
+            </div>
+            <div class="fnet-pills">
+              <span class="fnet-pill">MCP Schema Validation</span>
+              <span class="fnet-pill">SSE / HTTP Inspection</span>
+              <span class="fnet-pill">Injection Detection</span>
+            </div>
+            <div class="fnet-card-desc">Inspects SSE and streamable HTTP traffic between MCP clients and servers. Validates JSON Schema, blocks injection and RCE attacks on tool argument values, detects poisoning/jailbreak attempts, and auto-updates via FortiGuard for MCP-specific threat intelligence.</div>
+          </div>
           <div class="fnet-card">
             <div class="fnet-card-top">
               <div class="fnet-card-icon">
@@ -1172,12 +1267,25 @@
     </div>
   </div>
 
-  <h3>Other best-of-breed vendors at this layer</h3>
-  <ul>
-    <li><strong>MCP-specific gateways and governance:</strong> <a href="https://www.lunar.dev/">Lunar.dev MCPX</a>, <a href="https://www.docker.com/products/mcp-catalog-and-toolkit/">Docker MCP Gateway and Toolkit</a>, <a href="https://www.enkryptai.com/solutions/mcp-security">Enkrypt AI MCP Security</a>, <a href="https://invariantlabs.ai/">Invariant Labs</a>, <a href="https://www.truefoundry.com/">TrueFoundry MCP Gateway</a>, <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://composio.dev/">Composio</a>.</li>
-    <li><strong>MCP code/config scanning:</strong> <a href="https://www.backslash.security/">Backslash Open</a>, <a href="https://www.pillar.security/">Pillar Security</a>.</li>
-    <li><strong>AI agent observability adjacent to MCP:</strong> <a href="https://zenity.io/">Zenity</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.lasso.security/">Lasso Security</a>.</li>
-  </ul>
+  <div class="locked-section" data-lock="vendors">
+    <div class="locked-gate">
+      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
+      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
+      <div class="locked-gate-form">
+        <input type="password" placeholder="Password" autocomplete="off">
+        <button type="button">Unlock</button>
+        <div class="locked-gate-error">Incorrect password</div>
+      </div>
+    </div>
+    <div class="locked-content">
+      <h3>Other best-of-breed vendors at this layer</h3>
+      <ul>
+        <li><strong>MCP-specific gateways and governance:</strong> <a href="https://www.lunar.dev/">Lunar.dev MCPX</a>, <a href="https://www.docker.com/products/mcp-catalog-and-toolkit/">Docker MCP Gateway and Toolkit</a>, <a href="https://www.enkryptai.com/solutions/mcp-security">Enkrypt AI MCP Security</a>, <a href="https://invariantlabs.ai/">Invariant Labs</a>, <a href="https://www.truefoundry.com/">TrueFoundry MCP Gateway</a>, <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://composio.dev/">Composio</a>.</li>
+        <li><strong>MCP code/config scanning:</strong> <a href="https://www.backslash.security/">Backslash Open</a>, <a href="https://www.pillar.security/">Pillar Security</a>.</li>
+        <li><strong>AI agent observability adjacent to MCP:</strong> <a href="https://zenity.io/">Zenity</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.lasso.security/">Lasso Security</a>.</li>
+      </ul>
+    </div>
+  </div>
 
   <hr>
 
@@ -1791,6 +1899,60 @@
     highlight();
     wire();
   });
+}());
+</script>
+
+<script>
+/* Password-gated sections */
+(function () {
+  var HASH = 'ba4705c25b20911e165e4699fc106f5ede0c9275375211ebcfb2f56416eb1616';
+  var SESSION_KEY = 'fnet_vendors_unlocked';
+
+  function sha256hex(str) {
+    var buf = new TextEncoder().encode(str);
+    return crypto.subtle.digest('SHA-256', buf).then(function (ab) {
+      return Array.from(new Uint8Array(ab)).map(function (b) {
+        return b.toString(16).padStart(2, '0');
+      }).join('');
+    });
+  }
+
+  function unlockAll() {
+    document.querySelectorAll('.locked-section[data-lock="vendors"]').forEach(function (sec) {
+      sec.classList.add('unlocked');
+    });
+    sessionStorage.setItem(SESSION_KEY, '1');
+  }
+
+  function wireGate(gate) {
+    var input = gate.querySelector('input[type="password"]');
+    var btn   = gate.querySelector('button');
+    var err   = gate.querySelector('.locked-gate-error');
+
+    function attempt() {
+      sha256hex(input.value).then(function (digest) {
+        if (digest === HASH) {
+          unlockAll();
+        } else {
+          err.classList.add('visible');
+          input.value = '';
+          input.focus();
+        }
+      });
+    }
+
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') attempt();
+      err.classList.remove('visible');
+    });
+  }
+
+  if (sessionStorage.getItem(SESSION_KEY) === '1') {
+    unlockAll();
+  } else {
+    document.querySelectorAll('.locked-gate').forEach(wireGate);
+  }
 }());
 </script>
 </body>
