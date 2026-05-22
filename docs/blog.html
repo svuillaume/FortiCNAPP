@@ -112,6 +112,33 @@
     .main a:hover { text-decoration: underline; }
     .main strong { font-weight: 700; }
     .main em { font-style: italic; }
+    .main h4 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      margin: 1.5rem 0 0.35rem;
+      color: var(--dark);
+    }
+    /* ── Layer diagram images ── */
+    .layer-img {
+      margin: 0.75rem 0 1.5rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.09);
+      border: 1px solid var(--border);
+    }
+    .layer-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .layer-img figcaption {
+      padding: 0.5rem 1rem;
+      background: var(--light);
+      font-size: 0.79rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      font-style: italic;
+    }
     hr {
       border: none;
       border-top: 1px solid var(--border);
@@ -312,6 +339,11 @@
   <h2>Layer 1 — The Developer Endpoint</h2>
   <p>This is where "vibe coding" lives. Developers prompt AI assistants to generate, refactor, or autocomplete code at speeds that outpace traditional code review.</p>
 
+  <figure class="layer-img">
+    <img src="images/01_ai_dev_surface.png" alt="Layer 1 — AI-assisted developer surface: FortiCNAPP plugin for Claude Code and Cursor IDE">
+    <figcaption>Layer 1 at a glance: FortiCNAPP plugins for Claude Code IDE and Cursor IDE deliver inline SAST and secret scanning — catching risk as the AI writes it, not at PR review.</figcaption>
+  </figure>
+
   <h3>The main risks</h3>
   <ul>
     <li><strong>Insecure code at scale.</strong> A December 2025 study of open-source pull requests found AI-generated code introduces <strong>2.74x more security vulnerabilities</strong> than human-written code. Veracode's 2025 GenAI Code Security Report tested 100+ LLMs and found AI introduced security vulnerabilities in <strong>45% of cases</strong>.</li>
@@ -327,13 +359,41 @@
   </ul>
 
   <h3>Where Fortinet fits</h3>
-  <ul>
-    <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
-    <li><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure.</li>
-    <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
-    <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
-  </ul>
+
+  <h4>FortiSASE — Shadow AI discovery &amp; DLP on LLM traffic</h4>
+  <p><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</p>
+  <figure class="layer-img">
+    <img src="images/03_fortisase.png" alt="FortiSASE: shadow AI discovery, DLP on LLM prompts, SWG + ZTNA + CASB on one agent">
+    <figcaption>FortiSASE: catalogs every LLM (sanctioned or not), blocks secrets and PII leaving for public LLMs, and converges SWG + ZTNA + CASB inspection on one agent — on-network or remote.</figcaption>
+  </figure>
+
+  <h4>FortiEndpoint — Posture enforcement &amp; exfiltration prevention</h4>
+  <p><a href="https://www.fortinet.com/products/endpoint-security/forticlient"><strong>FortiClient</strong></a> / <a href="https://www.fortinet.com/products/endpoint-security/fortiedr"><strong>FortiEDR</strong></a> enforces endpoint posture and blocks exfiltration from developer machines. FortiAI app control detects unsanctioned LLM use; FortiAuthenticator feeds identity context into ZTNA and SASE policy.</p>
+  <figure class="layer-img">
+    <img src="images/02_endpoint.png" alt="Endpoint enforcement: FortiEndpoint, FortiAI app control, FortiAuthenticator, FortiCNAPP Code Sec, FortiCNAPP AI-DSPM">
+    <figcaption>One unified agent (ZTNA + EPP + EDR + DLP) extended with FortiCNAPP for AI authorship and data risk at the source — FortiAI app control spots unsanctioned LLM usage before it becomes a data loss event.</figcaption>
+  </figure>
+
+  <h4>FortiCNAPP — IaC, code scanning &amp; slopsquatting defence</h4>
+  <p><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge. Inline SAST runs directly inside Claude Code and Cursor IDEs as the AI writes the code.</p>
+  <figure class="layer-img">
+    <img src="images/05_forticnapp_code_data.png" alt="FortiCNAPP: code and IaC scanning, dependency / slopsquatting, DSPM data flow, shadow data store discovery">
+    <figcaption>FortiCNAPP closes the full CI/CD loop: catches insecure generated code and hallucinated packages before merge, tracks PII / PCI / PHI across AI-generated code paths, and surfaces S3 / blob / DB shadow stores created by AI-suggested infrastructure.</figcaption>
+  </figure>
+
+  <h4>FortiCNAPP DSPM — Anthropic API connector</h4>
+  <p><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP — DSPM</strong></a> continuously discovers sensitive data flowing through AI-generated code paths and flags shadow data stores created by AI-suggested infrastructure. The Anthropic Compliance API connector audits what already lives inside Claude Enterprise — the gap inline DLP cannot see.</p>
+  <figure class="layer-img">
+    <img src="images/06_dspm_anthropic_connector.png" alt="FortiCNAPP DSPM connector to Anthropic API: out-of-band data discovery inside Claude Enterprise">
+    <figcaption>Out-of-band discovery inside Claude Enterprise: FortiData connects via the Anthropic Compliance API (api.anthropic.com:443) to pull chats, files, and artifacts, then runs PII / PHI / PCI discovery policies on a daily schedule — one datastore per chat, risk records aggregated.</figcaption>
+  </figure>
+
+  <h4>ZTNA — Per-application, identity-aware access control</h4>
+  <p><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</p>
+  <figure class="layer-img">
+    <img src="images/04_ztna.png" alt="ZTNA access plane: FortiGate VM ZTNA proxy, FortiEndpoint + FortiAuthenticator device posture and identity, blast radius control">
+    <figcaption>Per-application, identity-aware access: FortiGate VM acts as the ZTNA proxy (no flat network); FortiEndpoint + FortiAuthenticator provide continuous device posture and identity context — stops a malicious MCP server or rogue IDE extension from reaching prod GitHub, Kubernetes, or cloud accounts.</figcaption>
+  </figure>
 
   <h3>Other best-of-breed vendors at this layer</h3>
   <ul>
