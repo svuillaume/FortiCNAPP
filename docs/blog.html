@@ -112,59 +112,6 @@
     .main a:hover { text-decoration: underline; }
     .main strong { font-weight: 700; }
     .main em { font-style: italic; }
-    /* ── Layer intro image ── */
-    .layer-img {
-      margin: 0.75rem 0 1.75rem;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.09);
-      border: 1px solid var(--border);
-    }
-    .layer-img img { width: 100%; height: auto; display: block; }
-    .layer-img figcaption {
-      padding: 0.5rem 1rem;
-      background: var(--light);
-      font-size: 0.79rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-      font-style: italic;
-    }
-    /* ── Coverage diagram panel ── */
-    .coverage-panel {
-      background: var(--light);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem 1.5rem;
-      margin: 1.5rem 0;
-      border-left: 4px solid var(--red);
-    }
-    .coverage-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--red);
-      margin-bottom: 1rem;
-    }
-    .diagram-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 0.85rem;
-    }
-    .diagram-card {
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-    }
-    .diagram-card img { width: 100%; height: auto; display: block; }
-    .diagram-label {
-      padding: 0.45rem 0.75rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
     hr {
       border: none;
       border-top: 1px solid var(--border);
@@ -365,11 +312,6 @@
   <h2>Layer 1 — The Developer Endpoint</h2>
   <p>This is where "vibe coding" lives. Developers prompt AI assistants to generate, refactor, or autocomplete code at speeds that outpace traditional code review.</p>
 
-  <figure class="layer-img">
-    <img src="images/01_ai_dev_surface.png" alt="Layer 1 — AI-assisted developer surface: FortiCNAPP plugin for Claude Code and Cursor IDE">
-    <figcaption>Layer 1 at a glance: FortiCNAPP plugins for Claude Code IDE and Cursor IDE deliver inline SAST and secret scanning — catching risk as the AI writes it, not at PR review.</figcaption>
-  </figure>
-
   <h3>The main risks</h3>
   <ul>
     <li><strong>Insecure code at scale.</strong> A December 2025 study of open-source pull requests found AI-generated code introduces <strong>2.74x more security vulnerabilities</strong> than human-written code. Veracode's 2025 GenAI Code Security Report tested 100+ LLMs and found AI introduced security vulnerabilities in <strong>45% of cases</strong>.</li>
@@ -392,28 +334,6 @@
     <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a> IaC + code scanning catches insecure generated code, hardcoded secrets, and slopsquatting-style dependency risks in CI/CD before merge.</li>
     <li><strong>ZTNA via <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a> + FortiClient + <a href="https://www.fortinet.com/products/identity-access-management/fortiauthenticator">FortiAuthenticator</a></strong> enforces per-application, identity-aware access — a compromised AI extension or malicious MCP server cannot freely lateral-move into production GitHub, Kubernetes, or cloud accounts.</li>
   </ul>
-
-  <div class="coverage-panel">
-    <div class="coverage-label">Fortinet Coverage — Layer 1 Visual Breakdown</div>
-    <div class="diagram-grid">
-      <div class="diagram-card">
-        <img src="images/03_fortisase.png" alt="FortiSASE — Shadow AI discovery, DLP on LLM prompts, SWG+ZTNA+CASB">
-        <div class="diagram-label">FortiSASE — Shadow AI &amp; DLP on LLM traffic</div>
-      </div>
-      <div class="diagram-card">
-        <img src="images/05_forticnapp_code_data.png" alt="FortiCNAPP — code, IaC, DSPM, shadow data store discovery">
-        <div class="diagram-label">FortiCNAPP — IaC, code scanning &amp; DSPM</div>
-      </div>
-      <div class="diagram-card">
-        <img src="images/06_dspm_anthropic_connector.png" alt="FortiCNAPP DSPM — Anthropic Compliance API connector">
-        <div class="diagram-label">FortiCNAPP DSPM — Anthropic API connector</div>
-      </div>
-      <div class="diagram-card">
-        <img src="images/04_ztna.png" alt="ZTNA access plane — FortiGate VM, FortiEndpoint + FortiAuthenticator, blast-radius control">
-        <div class="diagram-label">ZTNA access plane — blast-radius control</div>
-      </div>
-    </div>
-  </div>
 
   <h3>Other best-of-breed vendors at this layer</h3>
   <ul>
