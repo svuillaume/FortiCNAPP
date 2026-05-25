@@ -10,11 +10,11 @@ Generative AI is no longer a side project. Developers are "vibe coding" with Cop
 
 Each of these shifts introduces a new layer of risk. And like any new architecture, GenAI does not replace the security fundamentals — it **stacks new concerns on top of them**.
 
-This post walks through the five layers of a typical GenAI deployment, the main risks at each layer, recent real-world incidents, how the Fortinet portfolio maps to each layer, and the leading third-party vendors customers also evaluate. No agentic AI here — we are keeping the scope to LLM consumption, RAG, and MCP integrations.
+This post walks through the five layers of a typical CodeVibing Environment, the main risks at each layer, recent real-world incidents, how the Fortinet portfolio maps to each layer, and the leading third-party vendors customers also evaluate. No agentic AI here — we are keeping the scope to LLM consumption, RAG, and MCP integrations.
 
 ---
 
-## The five layers at a glance
+## CodeVibing Security - The five layers at a glance
 
 1. **Developer Endpoint** — where code is written with AI assistance
 2. **LLM API Consumption** — where your application talks to the model
