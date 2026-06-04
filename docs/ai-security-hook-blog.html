@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autonomous Patching: To Be or Not to Be — FortiCNAPP</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f8fa;
+      --surface2: #f0f2f5;
+      --border: #e0e2e8;
+      --accent: #EE3124;
+      --navy: #1a1a2e;
+      --text: #1d1d2e;
+      --text-body: #374151;
+      --text-muted: #6b7280;
+      --code-bg: #f5f6f8;
+      --green: #16a34a;
+      --yellow: #d97706;
+      --red: #dc2626;
+      --blue: #0057b8;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text-body);
+      line-height: 1.7;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    /* ── Top nav ── */
+    .topnav {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 24px;
+    }
+    .topnav-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topnav-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .topnav-brand svg { flex-shrink: 0; }
+    .topnav-sep { color: rgba(255,255,255,0.3); font-weight: 300; margin: 0 2px; }
+    .breadcrumb {
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .breadcrumb a:hover { color: #fff; }
+    .breadcrumb-sep { color: rgba(255,255,255,0.2); }
+
+    /* ── Header ── */
+    .header-wrap {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header {
+      background: #fff;
+      padding: 40px 24px 32px;
+      text-align: left;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .header-tag {
+      display: inline-block;
+      background: var(--surface2);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    header h1 {
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 680px;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
+      color: var(--navy);
+    }
+
+    header h1 span { color: var(--accent); }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 0 20px;
+      line-height: 1.6;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .meta-dot { width: 3px; height: 3px; background: var(--border); border-radius: 50%; }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 52px 24px 64px;
+    }
+
+    /* ── Sections ── */
+    section { margin-bottom: 48px; }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 16px;
+      padding-left: 14px;
+      border-left: 3px solid var(--accent);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; color: var(--text-body); }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: var(--text); font-weight: 600; }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      background: var(--code-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      color: #c0392b;
+      border: 1px solid var(--border);
+    }
+
+    /* ── Code block ── */
+    .code-block {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin: 20px 0;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      overflow-x: auto;
+      color: var(--text);
+    }
+
+    .code-block code { background: none; border: none; padding: 0; color: inherit; font-size: inherit; }
+    .code-block .comment { color: #9ca3af; }
+    .code-block .string { color: #15803d; }
+    .code-block .key { color: var(--blue); }
+    .code-block .highlight { color: var(--accent); font-weight: 600; }
+
+    /* ── Callout ── */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin: 24px 0;
+    }
+
+    .callout.warning { border-left-color: var(--yellow); background: #fffbf0; }
+    .callout.warning .callout-label { color: var(--yellow); }
+    .callout.info { border-left-color: var(--blue); background: #f0f5ff; }
+    .callout.info .callout-label { color: var(--blue); }
+    .callout.success { border-left-color: var(--green); background: #f0faf4; }
+    .callout.success .callout-label { color: var(--green); }
+
+    .callout-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .callout p { margin: 0; font-size: 14px; color: var(--text-body); }
+
+    /* ── Scan dimension cards ── */
+    .scan-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) { .scan-grid { grid-template-columns: 1fr; } }
+
+    .scan-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+
+    .scan-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 6px;
+    }
+
+    .scan-card h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .scan-card p { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+    /* ── Risk cards ── */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) { .risk-grid { grid-template-columns: 1fr; } }
+
+    .risk-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+    }
+
+    .risk-card .risk-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .risk-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .badge-critical { background: rgba(220,38,38,0.1); color: var(--red); }
+    .badge-high { background: rgba(217,119,6,0.1); color: var(--yellow); }
+
+    .risk-card p { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+    /* ── Comparison table ── */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 540px) { .compare { grid-template-columns: 1fr; } }
+
+    .compare-col {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .compare-col.bad { border-top: 3px solid var(--red); }
+    .compare-col.good { border-top: 3px solid var(--green); }
+
+    .compare-header {
+      padding: 12px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .bad .compare-header { color: var(--red); background: rgba(220,38,38,0.04); }
+    .good .compare-header { color: var(--green); background: rgba(22,163,74,0.04); }
+
+    .compare-body { padding: 14px 18px; }
+    .compare-body p { font-size: 14px; color: var(--text-body); margin: 0; }
+
+    /* ── Checklist ── */
+    .checklist { list-style: none; margin: 18px 0; }
+
+    .checklist li {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      color: var(--text-body);
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .checklist .num {
+      width: 24px; height: 24px;
+      background: rgba(238,49,36,0.1);
+      border: 1px solid rgba(238,49,36,0.2);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Insight / pull-quote ── */
+    .insight {
+      background: #fff8f7;
+      border: 1px solid rgba(238,49,36,0.18);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 24px 28px;
+      margin: 28px 0;
+    }
+
+    .insight p {
+      font-size: 17px;
+      font-style: italic;
+      color: var(--navy);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    .insight p span { color: var(--accent); font-style: normal; font-weight: 700; }
+
+    /* ── TL;DR ── */
+    .tldr {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 28px;
+      margin-top: 48px;
+    }
+
+    .tldr h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .tldr p { font-size: 15px; margin-bottom: 10px; color: var(--text-body); }
+    .tldr p:last-child { margin-bottom: 0; }
+
+    /* ── Mode cards ── */
+    .mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    @media (max-width: 600px) { .mode-grid { grid-template-columns: 1fr; } }
+
+    .mode-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .mode-card.green { border-top: 3px solid var(--green); }
+    .mode-card.blue  { border-top: 3px solid var(--blue); }
+
+    .mode-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .mode-card.green .mode-label { color: var(--green); }
+    .mode-card.blue  .mode-label { color: var(--blue); }
+
+    .mode-card h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .mode-card p  { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+    /* ── Capability pills ── */
+    .pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+
+    .pill {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .pill-blue   { background: #f0f4ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    .pill-yellow { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+    .pill-green  { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+
+    /* ── Feature list ── */
+    .feature-list {
+      list-style: none;
+      margin: 16px 0;
+      padding: 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-body);
+    }
+
+    .feature-list li:last-child { border-bottom: none; }
+
+    .feature-list .check {
+      width: 18px; height: 18px;
+      background: rgba(22,163,74,0.12);
+      border-radius: 50%;
+      color: var(--green);
+      font-size: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Install block ── */
+    .install-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px 22px;
+      margin: 20px 0;
+    }
+
+    .install-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .install-cmd {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
+      background: var(--code-bg);
+      padding: 9px 14px;
+      border-radius: 5px;
+      display: block;
+      color: #15803d;
+      margin-bottom: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .install-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 14px;
+      font-size: 13px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 0 24px;
+    }
+
+    /* ── Tags footer ── */
+    .post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .post-tag {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 16px;
+      background: var(--surface2);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
+      border-top: none;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 48px;
+    }
+
+    footer a { color: rgba(255,255,255,0.55); text-decoration: underline; }
+    footer a:hover { color: #fff; }
+
+    /* ── PDF button ── */
+    .pdf-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 3px 12px rgba(238,49,36,0.35);
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 100;
+    }
+    .pdf-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .pdf-btn svg { flex-shrink: 0; }
+
+    /* ── Print ── */
+    @media print {
+      .pdf-btn, .topnav { display: none !important; }
+      header { padding: 24px; border-bottom: 2px solid var(--accent); }
+      header h1 { font-size: 26px; }
+      .container { padding: 24px; }
+      section { page-break-inside: avoid; margin-bottom: 28px; }
+      footer { background: #f0f0f0; color: #555; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 32px 18px 48px; }
+      header { padding: 40px 18px 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="topnav">
+    <div class="topnav-inner">
+      <a class="topnav-brand" href="/genAISeC/" aria-label="Fortinet GenAI Security">
+        <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="5" fill="#EE3124"/>
+          <path d="M8 8h16v4H12v4h10v4H12v8H8V8z" fill="#fff"/>
+        </svg>
+        Fortinet<span class="topnav-sep">&nbsp;·&nbsp;</span>GenAI Security
+      </a>
+      <span class="breadcrumb" style="margin-left:auto;">
+        <a href="/genAISeC/">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/genAISeC/">Blog</a>
+        <span class="breadcrumb-sep">/</span>
+        <span style="color:rgba(255,255,255,0.65);">Autonomous Patching</span>
+      </span>
+    </div>
+  </nav>
+
+  <div class="header-wrap">
+  <header>
+    <div class="header-tag">devsecops · code-security · forticnapp</div>
+    <h1>Autonomous Patching: <span>To Be or Not to Be</span></h1>
+    <p class="subtitle">The hidden risk of pre-commit security hooks in AI coding assistants — and why the "safer" mode might not be safer.</p>
+    <div class="meta">
+      <span>2026-06-04</span>
+      <span class="meta-dot"></span>
+      <span>~10 min read</span>
+      <span class="meta-dot"></span>
+      <span>FortiCNAPP Code Security v1.7.1</span>
+    </div>
+  </header>
+  </div>
+
+  <div class="container">
+
+    <!-- Intro -->
+    <section>
+      <div class="divider"></div>
+      <p>AI coding assistants like Claude Code now write entire features, refactor modules, and ship code at a pace no security team was sized for. Security hooks were the industry's answer: scan before you commit, block the bad stuff, keep vulnerabilities out of your codebase.</p>
+      <p>The pitch makes sense. But there's a design decision buried in most implementations that deserves far more scrutiny: <strong>what happens after the block?</strong></p>
+      <p>The answer, in most tools, is that the AI decides — and acts — without asking you.</p>
+    </section>
+
+    <!-- Background: What the plugin scans -->
+    <section>
+      <h2>What the FortiCNAPP Plugin Scans</h2>
+      <p>The <strong>FortiCNAPP Code Security plugin for Claude Code</strong> pairs Claude's code generation with FortiCNAPP's deterministic verification engine — closing the security loop in seconds, not in a CI pipeline hours later. It covers four scanning dimensions:</p>
+
+      <div class="scan-grid">
+        <div class="scan-card">
+          <div class="scan-card-label">Secrets Detection</div>
+          <h3>API Keys &amp; Credentials</h3>
+          <p>Catches API keys, tokens, and credentials before they reach the repository. Flags exact file and line with policy ID.</p>
+        </div>
+        <div class="scan-card">
+          <div class="scan-card-label">SCA · Software Composition Analysis</div>
+          <h3>Dependency CVEs</h3>
+          <p>Checks every dependency against the CVE database with CVSS scores. Cached by manifest hash for speed — only rescans on change.</p>
+        </div>
+        <div class="scan-card">
+          <div class="scan-card-label">SAST · Static Analysis</div>
+          <h3>Code Vulnerabilities</h3>
+          <p>Flags injection flaws, unsafe patterns, and auth mistakes with precise policy IDs and recommended fixes.</p>
+        </div>
+        <div class="scan-card">
+          <div class="scan-card-label">IaC Misconfiguration</div>
+          <h3>Infrastructure as Code</h3>
+          <p>Validates Terraform, CloudFormation, Kubernetes, and Helm charts against CIS, SOC 2, PCI-DSS, and NIST frameworks.</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <div class="callout-label">Deterministic, not probabilistic</div>
+        <p>AI-generated code is probabilistic — the same prompt produces different outputs each time, neither audited. The plugin's scanning engine is deterministic: authoritative, reproducible vulnerability detection on every task, on every commit.</p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section>
+      <h2>How the Hook System Works</h2>
+      <p>Modern AI coding tools support a hook system that lets plugins intercept tool calls before they execute. The Code Security plugin registers a <code>PreToolUse</code> hook, watches for <code>git commit</code> commands, scans staged files for IaC and SCA findings, and denies the commit if Critical or High severity issues are detected.</p>
+      <p>So far, so good. The problem is what comes next.</p>
+      <p>When a hook blocks an action, it returns a <code>permissionDecisionReason</code> — a message fed directly back to the AI explaining <em>why</em> the action was blocked. Here's what that message actually looks like, straight from the plugin source:</p>
+
+      <div class="code-block">
+        <span class="comment"># From pre-commit-scan.sh, lines 307–325</span><br><br>
+        MESSAGE=<span class="string">"Fortinet Code Security scanned your staged files<br>
+        &nbsp;and detected ${STAGED_CRIT} Critical, ${STAGED_HIGH} High<br>
+        &nbsp;security issues. The commit has been blocked.<br><br>
+        &nbsp;What would you like to do?<br>
+        &nbsp;<span class="highlight">1. Fix the issues</span> - update the code to resolve the findings<br>
+        &nbsp;2. Add exceptions - suppress via .lacework/codesec.yaml<br>
+        &nbsp;3. Skip for now - leave findings as-is and continue"</span>
+      </div>
+
+      <p>The AI reads this, picks an option, and continues. <strong>No human confirmation required.</strong></p>
+    </section>
+
+    <!-- The problem -->
+    <section>
+      <h2>The Autonomous Remediator Problem</h2>
+      <p>Option 1 — "Fix the issues" — sounds great on paper. In practice, it means the AI will attempt to patch CVEs, upgrade dependencies, or modify infrastructure code autonomously, without asking you first.</p>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <div class="risk-title"><span class="risk-badge badge-critical">Critical</span> Blind Dependency Upgrades</div>
+          <p>A CVE fix bumps <code style="font-size:12px;border:none;background:none;padding:0;color:#c0392b;">lodash</code> to the latest version. The latest version has a breaking API change. The scan passes. The app breaks in production.</p>
+        </div>
+        <div class="risk-card">
+          <div class="risk-title"><span class="risk-badge badge-high">High</span> Suppression as a Fix</div>
+          <p>The AI adds an exception to <code style="font-size:12px;border:none;background:none;padding:0;color:#c0392b;">.lacework/codesec.yaml</code>. The finding disappears from future scans. The vulnerability stays in the code.</p>
+        </div>
+        <div class="risk-card">
+          <div class="risk-title"><span class="risk-badge badge-high">High</span> Cascading Changes</div>
+          <p>A single CVE fix pulls in new transitive dependencies, each with their own risk surface — none scanned as part of the original staged files.</p>
+        </div>
+        <div class="risk-card">
+          <div class="risk-title"><span class="risk-badge badge-critical">Critical</span> False Confidence</div>
+          <p>The commit goes through clean. The scan passed. But the fix was cosmetic, incomplete, or introduced new issues the next scan won't catch until the next commit.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design flaw -->
+    <section>
+      <h2>The Design Flaw</h2>
+      <p>This isn't a bug — it's a design choice. The hook is intentionally structured to give the AI agency to remediate. The assumption is that autonomous fixing is a feature: developers shouldn't have to context-switch into security work mid-flow.</p>
+      <p>But there's a meaningful difference between:</p>
+
+      <div class="compare">
+        <div class="compare-col bad">
+          <div class="compare-header">Pre-Commit Mode</div>
+          <div class="compare-body">
+            <p>AI <strong style="color:var(--red);">receives findings as a prompt</strong> and acts immediately — choosing to fix, suppress, or skip without human input.</p>
+          </div>
+        </div>
+        <div class="compare-col good">
+          <div class="compare-header">Post-Task Mode</div>
+          <div class="compare-body">
+            <p>AI <strong style="color:var(--green);">surfaces findings to a human</strong> who decides what to remediate, when, and how. Scans run after the task completes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight">
+        <p>The first is a <span>tool</span>. The second is an <span>autonomous agent</span> operating on your codebase. Most teams haven't explicitly consented to the second.</p>
+      </div>
+    </section>
+
+    <!-- Post-task mode -->
+    <section>
+      <h2>Post-Task Mode: A Safer Default</h2>
+      <p>In post-task mode, scans run after Claude finishes its task rather than gating a specific commit action. Findings surface as a structured report at the end of the task. The AI presents them. The human decides what to remediate, when, and how.</p>
+      <p>Security happens <em>with</em> the work, not <em>to</em> the work.</p>
+      <p>The tradeoff is timing: findings land after the work is done. But for most teams, that's the right tradeoff. <strong>Security remediation decisions should have a human in the loop</strong> — especially for Critical CVEs that touch dependencies or infrastructure.</p>
+
+      <div class="callout info">
+        <div class="callout-label">Check your config</div>
+        <p>The plugin stores its mode in <code style="font-size:12px;">~/.lacework/plugins/code-security.json</code>. If you see <code style="font-size:12px;">"mode": "pre-commit"</code>, your AI is in autonomous-remediation territory. Switch to <code style="font-size:12px;">"mode": "post-task"</code> to restore human review.</p>
+      </div>
+    </section>
+
+    <!-- What to look for -->
+    <section>
+      <h2>Four Questions to Ask Your Team</h2>
+      <p>If your team is using AI coding tools with security plugins, run through this checklist:</p>
+
+      <ul class="checklist">
+        <li>
+          <span class="num">1</span>
+          <div><strong>What happens when a hook blocks an action?</strong> Is the denial reason fed back to the AI as a prompt? Does the AI act on it immediately?</div>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <div><strong>Is there a human confirmation step before remediation?</strong> Or does the AI autonomously choose between fix, suppress, and skip?</div>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <div><strong>Are AI-authored security fixes reviewed separately?</strong> A fix that passes a scan is not the same as a fix that is correct.</div>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <div><strong>What is the default mode?</strong> Pre-commit feels safer but may be the more dangerous default for exactly the reasons above.</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Broader point -->
+    <section>
+      <h2>The Broader Point</h2>
+      <p>The security community has spent decades arguing that controls should not be bypassable by the entity they are supposed to control. An AI that can both write code <em>and</em> remediate the security findings on that code — without human review — is effectively marking its own homework.</p>
+      <p>AI-assisted development is genuinely useful. AI-autonomous security remediation is a different thing entirely. And the line between them is blurring faster than most teams realize.</p>
+
+      <div class="callout warning">
+        <div class="callout-label">The core risk</div>
+        <p>When the AI that introduced a vulnerability is also the one that decides how to fix it, you've collapsed the check-and-balance that security reviews exist to provide.</p>
+      </div>
+    </section>
+
+    <!-- TL;DR -->
+    <div class="tldr">
+      <h3>TL;DR</h3>
+      <p>Pre-commit security hooks in AI tools can silently grant the AI permission to auto-fix, auto-suppress, or skip CVEs — with no human in the loop.</p>
+      <p>Post-task mode is the safer default: findings surface as a report, humans decide what to fix.</p>
+      <p><strong>Know which mode your tools are running in. It's one JSON field. Check it today.</strong></p>
+    </div>
+
+    <!-- Plugin Reference -->
+    <section style="margin-top:56px;">
+      <h2>FortiCNAPP Code Security for Claude Code</h2>
+
+      <p>The plugin analyzed in this post is the <strong>FortiCNAPP Code Security plugin for Claude Code</strong> — Fortinet's purpose-built security layer for AI-assisted development. It brings enterprise-grade IaC, SCA, SAST, and secret scanning directly into your coding workflow, without leaving the terminal.</p>
+
+      <!-- Two modes -->
+      <div class="mode-grid">
+        <div class="mode-card green">
+          <div class="mode-label">Post-Task Mode</div>
+          <h3>Human-in-the-loop by default</h3>
+          <p>Scans run when Claude finishes its task. Findings surface as a structured report — you review, you decide. Full visibility, zero autonomous action.</p>
+        </div>
+        <div class="mode-card blue">
+          <div class="mode-label">Pre-Commit Mode</div>
+          <h3>Gate every commit, enforce policy</h3>
+          <p>Blocks commits that carry Critical or High severity findings before they reach your repo. Ideal for teams enforcing a hard developer-workstation gate.</p>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <div class="callout-label">Your workflow, your call</div>
+        <p>Both modes ship in the same plugin. Switch with a single config field — <code style="font-size:12px;">"mode": "post-task"</code> or <code style="font-size:12px;">"mode": "pre-commit"</code> — so your team can adopt the security posture that fits today and graduate to a stricter gate as confidence grows.</p>
+      </div>
+
+      <!-- Design principles -->
+      <h3 style="margin-top:28px; margin-bottom:12px;">Built for Developer Experience</h3>
+      <ul class="feature-list">
+        <li><span class="check">✓</span><div><strong>Scans only modified files</strong> — no false positives from directory proximity; exact file matching every time.</div></li>
+        <li><span class="check">✓</span><div><strong>SCA results cached by manifest hash</strong> — dependency scans only re-run when your lockfile changes.</div></li>
+        <li><span class="check">✓</span><div><strong>Parallel IaC and SCA scanning</strong> — both dimensions run concurrently, not sequentially.</div></li>
+        <li><span class="check">✓</span><div><strong>Precise remediation context</strong> — every finding includes policy ID, exact file/line, and a recommended fix, so Claude has what it needs without guessing.</div></li>
+        <li><span class="check">✓</span><div><strong>Security context injection</strong> — the plugin prompts Claude to write secure defaults upfront, reducing findings before the scan even runs.</div></li>
+      </ul>
+
+      <!-- v1.7.1 release -->
+      <h3 style="margin-top:28px; margin-bottom:6px;">What's New in v1.7.1</h3>
+      <p style="font-size:14px; color:var(--text-muted); margin-bottom:12px;">The version inspected for this analysis includes the following improvements:</p>
+      <ul class="feature-list">
+        <li><span class="check">✓</span><div>Clean output formatting — structured, scannable findings report</div></li>
+        <li><span class="check">✓</span><div>Log rotation — 7-day pruning, 1 MB per-session caps</div></li>
+        <li><span class="check">✓</span><div>Parallel IaC and SCA execution pipeline</div></li>
+        <li><span class="check">✓</span><div>Smart dependency caching by manifest hash</div></li>
+        <li><span class="check">✓</span><div>Exact file matching eliminating directory-proximity false positives</div></li>
+      </ul>
+
+      <!-- Capability pills -->
+      <div class="pills" style="margin-top:24px;">
+        <span class="pill pill-blue">IaC Scanning</span>
+        <span class="pill pill-blue">SCA / CVE Detection</span>
+        <span class="pill pill-blue">SAST</span>
+        <span class="pill pill-blue">Secret Detection</span>
+        <span class="pill pill-blue">Pre-Commit Gate</span>
+        <span class="pill pill-blue">Post-Task Report</span>
+        <span class="pill pill-yellow">Public Preview</span>
+      </div>
+
+      <!-- Scope callout -->
+      <div class="callout info" style="margin-top:24px;">
+        <div class="callout-label">Scope clarification</div>
+        <p>The plugin is a <strong>first-line defense at the developer workstation</strong> — not a replacement for CI/CD pipeline scanning or runtime security controls. The deterministic engine handles authoritative, reproducible vulnerability detection; it does not replace human code review.</p>
+      </div>
+
+      <!-- Install -->
+      <div class="install-block">
+        <div class="install-label">Get started in two commands</div>
+        <code class="install-cmd">/plugin marketplace add lacework/forticnapp-llm-plugins</code>
+        <code class="install-cmd">/plugin install code-security@fortinet-plugins</code>
+        <p style="font-size:13px; color:var(--text-muted); margin-top:10px; margin-bottom:0;">Then run <code style="font-size:12px;">/fortinet:cli-setup</code> to configure credentials from <code style="font-size:12px;">~/.lacework.toml</code>, environment variables, or interactive prompt.</p>
+        <div class="install-links">
+          <a href="https://www.fortinet.com/products/forticnapp" target="_blank" rel="noopener">FortiCNAPP product page ↗</a>
+          <a href="https://docs.fortinet.com/document/forticnapp/latest/release-notes/782217/may-2026-platform-releases" target="_blank" rel="noopener">May 2026 release notes ↗</a>
+          <a href="https://github.com/lacework/forticnapp-llm-plugins" target="_blank" rel="noopener">GitHub repository ↗</a>
+        </div>
+      </div>
+
+      <!-- Closing quote -->
+      <div class="insight">
+        <p>AI is writing more of the code that runs in production every day. The question is who's checking it. The answer should be: <span>a deterministic engine, as close as possible to code creation, on every task</span> — with the precise fix one prompt away.</p>
+      </div>
+
+    </section>
+
+    <!-- Post tags -->
+    <div class="post-tags">
+      <span class="post-tag">#DevSecOps</span>
+      <span class="post-tag">#Cloud Security</span>
+      <span class="post-tag">#Code Security</span>
+      <span class="post-tag">#FortiCNAPP</span>
+      <span class="post-tag">#Claude Code</span>
+      <span class="post-tag">#AI Security</span>
+    </div>
+
+  </div>
+
+  <footer>
+    <p style="margin-bottom:6px;">Analysis based on FortiCNAPP Code Security plugin v1.7.1 &nbsp;·&nbsp;
+      <a href="https://www.fortinet.com/products/forticnapp" target="_blank" rel="noopener">fortinet.com/products/forticnapp</a>
+    </p>
+    <p>&copy; 2026 Fortinet, Inc. All rights reserved.</p>
+  </footer>
+
+  <button class="pdf-btn" onclick="window.print()" aria-label="Save as PDF">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    Save as PDF
+  </button>
+
+</body>
+</html>
