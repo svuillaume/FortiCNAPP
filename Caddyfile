@@ -7,7 +7,6 @@
 {env.DOMAIN} {
 
     # ── TLS via ZeroSSL DNS-01 challenge (DuckDNS) ────────────────────────────
-    # Caddy sets the _acme-challenge TXT record via DuckDNS API — no port 80 needed.
     tls {
         dns duckdns {env.DUCKDNS_TOKEN}
         resolvers 8.8.8.8 1.1.1.1
@@ -26,22 +25,14 @@
         -Server
     }
 
-    # ── Health probe (used by Docker healthcheck and load balancers) ──────────
+    # ── Health probe ──────────────────────────────────────────────────────────
     respond /health 200
 
-    # ── Routing ───────────────────────────────────────────────────────────────
-    # Legacy redirect: old repo was served at /genAISeC/ — forward cached browsers
-    redir /genAISeC*  /FortiCNAPP/{path} permanent
+    # ── Legacy redirects (old subpath URLs → root) ────────────────────────────
+    redir /genAISeC*   / permanent
+    redir /FortiCNAPP* / permanent
 
-    # Redirect bare root and /FortiCNAPP (no trailing slash) to the canonical path
-    redir /           /FortiCNAPP/ permanent
-    redir /FortiCNAPP   /FortiCNAPP/ permanent
-
-    # Serve the site at /FortiCNAPP/ — mirrors the GitHub Pages URL structure
-    # so all internal absolute links (/FortiCNAPP/blog.html etc.) work unchanged
-    handle /FortiCNAPP/* {
-        root * /srv
-        uri strip_prefix /FortiCNAPP
-        file_server
-    }
+    # ── Serve site from root ──────────────────────────────────────────────────
+    root * /srv
+    file_server
 }
