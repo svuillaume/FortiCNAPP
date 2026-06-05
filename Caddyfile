@@ -12,6 +12,7 @@ samvblogs.duckdns.org {
     # DUCKDNS_TOKEN must be set as an environment variable.
     tls {
         dns duckdns {env.DUCKDNS_TOKEN}
+        resolvers 8.8.8.8 1.1.1.1
     }
 
     # ── Compression ────────────────────────────────────────────────────────────
