@@ -3,7 +3,7 @@
     email vuillaumes@gmail.com
 }
 
-mydevsecops.duckdns.org {
+samvblogs.duckdns.org {
 
     # ── TLS via Let's Encrypt DNS-01 challenge (DuckDNS) ──────────────────────
     # Caddy calls the DuckDNS API to set the _acme-challenge TXT record,
