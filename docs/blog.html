@@ -638,9 +638,6 @@
   .share-btn:hover { border-color: var(--accent); color: var(--accent) !important; }
   .disclaimer { font-size: 13px; color: var(--text-muted) !important; font-style: italic; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 24px; }
 
-  /* Password gate */
-  .password-gate { background: var(--surface) !important; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 16px 0; text-align: center; }
-
   /* ══════════════════════════════════════════════════════════════════
      FOOTER
   ══════════════════════════════════════════════════════════════════ */
@@ -768,23 +765,7 @@
     <li><strong>Cursor IDE RCE via MCP — CVE-2025-54135 / CVE-2025-54136 (August 2025).</strong> Indirect prompt injection wrote a malicious <code>.cursor/mcp.json</code> configuration into the workspace, achieving persistent RCE across IDE restarts. (<a href="https://workos.com/blog/prompt-injection-attacks">WorkOS write-up</a>)</li>
   </ul>
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label">
-        <strong>Where Fortinet fits</strong>
-        <span>Security capabilities covered at this layer</span>
-        <div class="locked-gate-caps">
-          <span class="locked-gate-cap">SWG</span><span class="locked-gate-cap">ZTNA</span><span class="locked-gate-cap">CASB</span><span class="locked-gate-cap">DLP</span><span class="locked-gate-cap">Endpoint DLP</span><span class="locked-gate-cap">PII Detection</span><span class="locked-gate-cap">AI Prompt Control</span><span class="locked-gate-cap">DSPM</span><span class="locked-gate-cap">Data Discovery</span><span class="locked-gate-cap">IaC Scan</span><span class="locked-gate-cap">SAST</span>
-        </div>
-      </div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Where Fortinet fits</h3>
       <ul>
         <li><a href="https://www.fortinet.com/products/sase"><strong>FortiSASE</strong></a> discovers shadow AI usage and applies DLP on outbound LLM traffic, on-network or remote, with integrated SWG, ZTNA, and CASB on a single agent.</li>
@@ -929,20 +910,9 @@
       </div><!-- /fnet-cols -->
     </div><!-- /fnet-diagram-body -->
       </div><!-- /fnet-diagram -->
-    </div><!-- /locked-content Layer 1 -->
-  </div><!-- /locked-section Layer 1 -->
+  
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Other best-of-breed vendors at this layer</h3>
       <ul>
         <li><strong>AI coding assistants with native enterprise security:</strong> <a href="https://github.com/features/copilot">GitHub Copilot Enterprise</a>, <a href="https://aws.amazon.com/q/developer/">Amazon Q Developer</a>, and <a href="https://www.tabnine.com/">Tabnine Enterprise</a>.</li>
@@ -972,23 +942,7 @@
     <li><strong>ChatGPT Windows product key leak (July 2025).</strong> A crafted "guessing game" prompt bypassed content filters and tricked ChatGPT into revealing valid Windows product keys, including an enterprise license tied to a major bank.</li>
   </ul>
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label">
-        <strong>Where Fortinet fits</strong>
-        <span>Security capabilities covered at this layer</span>
-        <div class="locked-gate-caps">
-          <span class="locked-gate-cap">LLM Gateway</span><span class="locked-gate-cap">Prompt Inspection</span><span class="locked-gate-cap">Jailbreak Detection</span><span class="locked-gate-cap">DLP</span><span class="locked-gate-cap">Rate Limiting</span><span class="locked-gate-cap">OWASP LLM</span><span class="locked-gate-cap">WAF</span><span class="locked-gate-cap">Runtime Monitoring</span>
-        </div>
-      </div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Where Fortinet fits</h3>
       <ul>
         <li><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a> is purpose-built for this layer. Deployed as a containerized LLM gateway between the application and the model, it inspects every prompt and completion in real time, enforces guardrails against prompt injection and jailbreaking, prevents data exfiltration and model theft, blocks excessive token consumption, and provides per-interaction logging and cost tracking.</li>
@@ -1092,20 +1046,9 @@
       </div>
     </div>
       </div><!-- /fnet-diagram Layer 2 -->
-    </div><!-- /locked-content Layer 2 -->
-  </div><!-- /locked-section Layer 2 -->
+  
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Other best-of-breed vendors at this layer</h3>
       <ul>
         <li><strong>AI-native LLM firewalls / guardrails:</strong> <a href="https://www.lakera.ai/">Lakera Guard</a>, <a href="https://www.prompt.security/">Prompt Security</a>, <a href="https://www.hiddenlayer.com/">HiddenLayer AISec</a>, <a href="https://calypsoai.com/">CalypsoAI</a>, <a href="https://www.robustintelligence.com/">Robust Intelligence</a>, <a href="https://protectai.com/">Protect AI</a>.</li>
@@ -1135,23 +1078,7 @@
     <li><strong>EchoLeak's RAG dimension (June 2025).</strong> Beyond Layer 2, EchoLeak (CVE-2025-32711) is fundamentally a RAG attack: the model retrieved content from a context source with no integrity check.</li>
   </ul>
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label">
-        <strong>Where Fortinet fits</strong>
-        <span>Security capabilities covered at this layer</span>
-        <div class="locked-gate-caps">
-          <span class="locked-gate-cap">CASB</span><span class="locked-gate-cap">SSPM</span><span class="locked-gate-cap">DSPM</span><span class="locked-gate-cap">Data Classification</span><span class="locked-gate-cap">Data Discovery</span><span class="locked-gate-cap">Content Sandboxing</span><span class="locked-gate-cap">Schema Enforcement</span><span class="locked-gate-cap">Guardrails</span>
-        </div>
-      </div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Where Fortinet fits</h3>
       <ul>
         <li><a href="https://www.fortinet.com/products/casb/forticasb"><strong>FortiCASB</strong></a><span class="csp-badge sent">Azure Sentinel</span> and <a href="https://www.fortinet.com/products/sase"><strong>SSPM (in FortiSASE)</strong></a> govern the SaaS sources feeding RAG pipelines (Microsoft 365, Google Workspace, Salesforce). They catch over-shared SharePoint sites, exposed Drive folders, and risky OAuth apps before they get indexed.</li>
@@ -1266,20 +1193,9 @@
       </div>
     </div>
       </div><!-- /fnet-diagram Layer 3 -->
-    </div><!-- /locked-content Layer 3 -->
-  </div><!-- /locked-section Layer 3 -->
+  
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Other best-of-breed vendors at this layer</h3>
       <ul>
         <li><strong>CASB / SSPM:</strong> <a href="https://www.netskope.com/">Netskope One</a>, <a href="https://www.zscaler.com/">Zscaler</a>, <a href="https://www.microsoft.com/en-us/security/business/siem-and-xdr/microsoft-defender-cloud-apps">Microsoft Defender for Cloud Apps</a>, <a href="https://www.obsidiansecurity.com/">Obsidian Security</a>, <a href="https://www.reco.ai/">Reco AI</a>.</li>
@@ -1310,23 +1226,7 @@
     <li><strong>CVE-2025-53967 — Framelink Figma MCP Server RCE (October 2025).</strong> Imperva disclosed an RCE affecting thousands of design and developer workstations. (<a href="https://www.imperva.com/blog/another-critical-rce-discovered-in-a-popular-mcp-server/">Imperva disclosure</a>)</li>
   </ul>
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label">
-        <strong>Where Fortinet fits</strong>
-        <span>Security capabilities covered at this layer</span>
-        <div class="locked-gate-caps">
-          <span class="locked-gate-cap">MCP Schema Validation</span><span class="locked-gate-cap">SSE Inspection</span><span class="locked-gate-cap">Injection Detection</span><span class="locked-gate-cap">Egress Control</span><span class="locked-gate-cap">OAuth Visibility</span><span class="locked-gate-cap">Supply Chain Scan</span><span class="locked-gate-cap">Runtime Anomaly</span>
-        </div>
-      </div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Where Fortinet fits</h3>
       <ul>
         <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb"><strong>FortiWeb</strong></a> provides purpose-built MCP protection — inspecting and validating SSE (Server-Sent Events) and streamable HTTP traffic between MCP clients and servers. It delivers real-time signature detection to block injection and remote command execution attacks against tool argument values, poisoning attack scans to prevent falsified tool prompts, JSON Schema validation to enforce the unmodified MCP protocol schema, and automatic FortiGuard updates for MCP-specific threat intelligence.</li>
@@ -1441,20 +1341,9 @@
       </div>
     </div>
       </div><!-- /fnet-diagram Layer 4 -->
-    </div><!-- /locked-content Layer 4 -->
-  </div><!-- /locked-section Layer 4 -->
+  
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label"><strong>Other best-of-breed vendors at this layer</strong><span>Internal field content — enter password to view</span></div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Other best-of-breed vendors at this layer</h3>
       <ul>
         <li><strong>MCP-specific gateways and governance:</strong> <a href="https://www.lunar.dev/">Lunar.dev MCPX</a>, <a href="https://www.docker.com/products/mcp-catalog-and-toolkit/">Docker MCP Gateway and Toolkit</a>, <a href="https://www.enkryptai.com/solutions/mcp-security">Enkrypt AI MCP Security</a>, <a href="https://invariantlabs.ai/">Invariant Labs</a>, <a href="https://www.truefoundry.com/">TrueFoundry MCP Gateway</a>, <a href="https://www.mintmcp.com/">MintMCP</a>, <a href="https://composio.dev/">Composio</a>.</li>
@@ -1483,23 +1372,7 @@
     <li><strong>PyTorch pickle-deserialization RCE in model artifacts (well-documented 2024–2025).</strong> PickleScan and similar tools identified active malicious payloads in <code>.bin</code> files in public registries.</li>
   </ul>
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label">
-        <strong>Where Fortinet fits</strong>
-        <span>Security capabilities covered at this layer</span>
-        <div class="locked-gate-caps">
-          <span class="locked-gate-cap">CSPM</span><span class="locked-gate-cap">CWPP</span><span class="locked-gate-cap">CIEM</span><span class="locked-gate-cap">IAM Misconfiguration</span><span class="locked-gate-cap">Network Segmentation</span><span class="locked-gate-cap">Artifact Sandboxing</span><span class="locked-gate-cap">Log Centralization</span><span class="locked-gate-cap">SOC Visibility</span>
-        </div>
-      </div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h3>Where Fortinet fits</h3>
       <ul>
         <li><a href="https://www.fortinet.com/products/forticnapp"><strong>FortiCNAPP</strong></a><span class="csp-badge aws">AWS Security Hub</span><span class="csp-badge azure">Azure Defender</span><span class="csp-badge gcp">GCP SCC</span><span class="csp-badge sent">Azure Sentinel</span> delivers CSPM, CWPP, and CIEM across AWS, Azure, GCP, and OCI — covering IAM misconfigurations on AI services, runtime protection for GPU and inference workloads, IaC scanning, and compliance reporting against CIS, NIST, ISO frameworks.</li>
@@ -1601,8 +1474,7 @@
       </div>
     </div>
       </div><!-- /fnet-diagram Layer 5 -->
-    </div><!-- /locked-content Layer 5 -->
-  </div><!-- /locked-section Layer 5 -->
+  
 
   <div class="fortiguard-callout">
     <div class="fortiguard-callout-hdr">
@@ -1641,23 +1513,7 @@
 
   <hr>
 
-  <div class="locked-section" data-lock="vendors">
-    <div class="locked-gate">
-      <div class="locked-gate-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label">
-        <strong>Fortinet AI Security Fabric — Defense Layers</strong>
-        <span>Six product-layer architecture diagrams — enter password to view</span>
-        <div class="locked-gate-caps">
-          <span class="locked-gate-cap">AI Dev Surface</span><span class="locked-gate-cap">Endpoint Enforcement</span><span class="locked-gate-cap">FortiSASE</span><span class="locked-gate-cap">ZTNA Access Plane</span><span class="locked-gate-cap">Code · IaC · Data</span><span class="locked-gate-cap">DSPM Anthropic API</span>
-        </div>
-      </div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off">
-        <button type="button">Unlock</button>
-        <div class="locked-gate-error">Incorrect password</div>
-      </div>
-    </div>
-    <div class="locked-content">
+  
       <h2>Fortinet AI Security Fabric — Defense Layers</h2>
       <p>The six diagrams below show how the Fortinet Security Fabric maps its product capabilities onto the AI attack surface described above. Each layer addresses a distinct control point — from the developer's IDE to the API compliance connector inside Claude Enterprise.</p>
 
@@ -1718,8 +1574,7 @@
         </div>
 
       </div><!-- /png-gallery -->
-    </div><!-- /locked-content -->
-  </div><!-- /locked-section defense layers -->
+  
 
   <hr>
 
@@ -1731,14 +1586,6 @@
 
   <h3>Layer summary</h3>
   <div class="table-wrap">
-    <div class="table-col-gate" id="vendor-col-gate">
-      <div class="locked-gate-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></div>
-      <div class="locked-gate-label"><strong>Notable third-party vendors</strong><br><span>Column hidden — enter password to reveal</span></div>
-      <div class="locked-gate-form">
-        <input type="password" placeholder="Password" autocomplete="off" id="vendor-col-pw">
-        <button type="button" id="vendor-col-btn">Unlock</button>
-        <div class="locked-gate-error" id="vendor-col-err">Incorrect password</div>
-      </div>
     </div>
     <table>
       <thead>
@@ -2164,76 +2011,6 @@
 <script>
 /* Password-gated sections */
 (function () {
-  var HASH = '4c93098828b49de3a362bd44e19390e95626ec2034fe3978c55648949f4d9d5a';
-  var SESSION_KEY = 'fnet_vendors_unlocked';
-
-  function sha256hex(str) {
-    var buf = new TextEncoder().encode(str);
-    return crypto.subtle.digest('SHA-256', buf).then(function (ab) {
-      return Array.from(new Uint8Array(ab)).map(function (b) {
-        return b.toString(16).padStart(2, '0');
-      }).join('');
-    });
-  }
-
-  function unlockAll() {
-    document.querySelectorAll('.locked-section[data-lock="vendors"]').forEach(function (sec) {
-      sec.classList.add('unlocked');
-    });
-    document.querySelectorAll('.vendor-col').forEach(function (el) {
-      el.style.display = 'table-cell';
-    });
-    var gate = document.getElementById('vendor-col-gate');
-    if (gate) gate.classList.add('hidden');
-    sessionStorage.setItem(SESSION_KEY, '1');
-  }
-
-  function wireGate(gate) {
-    var input = gate.querySelector('input[type="password"]');
-    var btn   = gate.querySelector('button');
-    var err   = gate.querySelector('.locked-gate-error');
-
-    function attempt() {
-      sha256hex(input.value).then(function (digest) {
-        if (digest === HASH) {
-          unlockAll();
-        } else {
-          err.classList.add('visible');
-          input.value = '';
-          input.focus();
-        }
-      });
-    }
-
-    btn.addEventListener('click', attempt);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') attempt();
-      err.classList.remove('visible');
-    });
-  }
-
-  if (sessionStorage.getItem(SESSION_KEY) === '1') {
-    unlockAll();
-  } else {
-    document.querySelectorAll('.locked-gate').forEach(wireGate);
-    var colBtn = document.getElementById('vendor-col-btn');
-    var colPw  = document.getElementById('vendor-col-pw');
-    var colErr = document.getElementById('vendor-col-err');
-    if (colBtn && colPw) {
-      function attemptCol() {
-        sha256hex(colPw.value).then(function (digest) {
-          if (digest === HASH) { unlockAll(); }
-          else { colErr.classList.add('visible'); colPw.value = ''; colPw.focus(); }
-        });
-      }
-      colBtn.addEventListener('click', attemptCol);
-      colPw.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') attemptCol();
-        colErr.classList.remove('visible');
-      });
-    }
-  }
-}());
 </script>
 </body>
 </html>
