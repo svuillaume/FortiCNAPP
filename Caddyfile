@@ -30,6 +30,9 @@
     respond /health 200
 
     # ── Routing ───────────────────────────────────────────────────────────────
+    # Legacy redirect: old repo was served at /genAISeC/ — forward cached browsers
+    redir /genAISeC*  /FortiCNAPP/{path} permanent
+
     # Redirect bare root and /FortiCNAPP (no trailing slash) to the canonical path
     redir /           /FortiCNAPP/ permanent
     redir /FortiCNAPP   /FortiCNAPP/ permanent
