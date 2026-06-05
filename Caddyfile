@@ -1,6 +1,7 @@
 {
-    # ACME account email — used by Let's Encrypt for expiry notices
+    # ZeroSSL handles DuckDNS CAA SERVFAIL — Let's Encrypt does not
     email vuillaumes@gmail.com
+    acme_ca https://acme.zerossl.com/v2/DV90
 }
 
 samvblogs.duckdns.org {
