@@ -26,14 +26,6 @@
         -Server
     }
 
-    # ── Basic auth ────────────────────────────────────────────────────────────
-    # AUTH_PASS must be a bcrypt hash — generate with:
-    #   docker run --rm caddy:latest caddy hash-password --plaintext 'yourpassword'
-    # AUTH_SECRET is reserved for future HMAC session middleware
-    basic_auth * {
-        {env.AUTH_USER} {env.AUTH_PASS}
-    }
-
     # ── Health probe (used by Docker healthcheck and load balancers) ──────────
     respond /health 200
 

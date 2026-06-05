@@ -85,7 +85,4 @@ All consumed by `Caddyfile` via `{env.VAR}` syntax:
 | `DOMAIN` | Caddyfile site block | e.g. `samvblogs.duckdns.org` |
 | `LE_EMAIL` | Caddyfile `email` directive | ZeroSSL contact |
 | `DUCKDNS_TOKEN` | Caddyfile `dns duckdns` | DNS-01 challenge credential |
-| `AUTH_USER` | Caddyfile `basicauth` | Plain username |
-| `AUTH_PASS` | Caddyfile `basicauth` | **Must be bcrypt hash** (see generate command above) |
-| `AUTH_SECRET` | Reserved | Future HMAC session middleware |
 | `TLS_CERT` / `TLS_KEY` | Optional | Pre-existing cert paths — not yet wired into Caddyfile |
