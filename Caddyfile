@@ -27,9 +27,10 @@
     }
 
     # ── Basic auth ────────────────────────────────────────────────────────────
-    # AUTH_PASS must be a bcrypt hash: docker run --rm caddy:latest caddy hash-password
+    # AUTH_PASS must be a bcrypt hash — generate with:
+    #   docker run --rm caddy:latest caddy hash-password --plaintext 'yourpassword'
     # AUTH_SECRET is reserved for future HMAC session middleware
-    basicauth * {
+    basic_auth * {
         {env.AUTH_USER} {env.AUTH_PASS}
     }
 
