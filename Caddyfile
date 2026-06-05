@@ -37,15 +37,15 @@
     respond /health 200
 
     # ── Routing ───────────────────────────────────────────────────────────────
-    # Redirect bare root and /genAISeC (no trailing slash) to the canonical path
-    redir /           /genAISeC/ permanent
-    redir /genAISeC   /genAISeC/ permanent
+    # Redirect bare root and /FortiCNAPP (no trailing slash) to the canonical path
+    redir /           /FortiCNAPP/ permanent
+    redir /FortiCNAPP   /FortiCNAPP/ permanent
 
-    # Serve the site at /genAISeC/ — mirrors the GitHub Pages URL structure
-    # so all internal absolute links (/genAISeC/blog.html etc.) work unchanged
-    handle /genAISeC/* {
+    # Serve the site at /FortiCNAPP/ — mirrors the GitHub Pages URL structure
+    # so all internal absolute links (/FortiCNAPP/blog.html etc.) work unchanged
+    handle /FortiCNAPP/* {
         root * /srv
-        uri strip_prefix /genAISeC
+        uri strip_prefix /FortiCNAPP
         file_server
     }
 }

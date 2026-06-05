@@ -2,8 +2,8 @@
 
 A containerised static web app delivering Fortinet GenAI Security blog posts and PreSales reference content — published on GitHub Pages and self-hostable anywhere Docker runs.
 
-**Live site:** https://svuillaume.github.io/genAISeC/  
-**Self-hosted (HTTPS):** https://mydevsecops.duckdns.org/genAISeC/
+**Live site:** https://svuillaume.github.io/FortiCNAPP/  
+**Self-hosted (HTTPS):** https://mydevsecops.duckdns.org/FortiCNAPP/
 
 ---
 
@@ -47,14 +47,14 @@ The `docs/` folder is the GitHub Pages source. Push to `main` and the site deplo
 ```bash
 docker compose up
 ```
-Opens at **http://localhost:8080/genAISeC/**
+Opens at **http://localhost:8080/FortiCNAPP/**
 
 The `docs/` folder is volume-mounted so edits appear without rebuilding the image.
 
 > **Note:** The current `docker-compose.yml` is configured for the HTTPS production setup (see below). For a plain HTTP dev server, run nginx directly:
 > ```bash
 > docker run --rm -p 8080:80 \
->   -v $(pwd)/docs:/usr/share/nginx/html/genAISeC:ro \
+>   -v $(pwd)/docs:/usr/share/nginx/html/FortiCNAPP:ro \
 >   nginx:alpine
 > ```
 
@@ -97,14 +97,14 @@ On first start Caddy will:
 3. Caddy begins serving HTTPS and automatically redirects HTTP → HTTPS
 4. Cert is renewed automatically before expiry — no intervention needed
 
-The site is live at **https://mydevsecops.duckdns.org/genAISeC/**
+The site is live at **https://mydevsecops.duckdns.org/FortiCNAPP/**
 
 ### 3 — Verify
 
 ```bash
 docker compose ps          # confirm container is healthy
 docker compose logs -f     # watch Caddy output including cert issuance
-curl -I https://mydevsecops.duckdns.org/genAISeC/
+curl -I https://mydevsecops.duckdns.org/FortiCNAPP/
 ```
 
 ### Stopping and updating
@@ -122,7 +122,7 @@ docker compose up -d       # restart
 ## Project Structure
 
 ```
-genAISeC/
+FortiCNAPP/
 ├── docs/                        # Web content (GitHub Pages source)
 │   ├── index.html               # Home page — search, tag filtering, card listing
 │   ├── blog-nvidia.html         # Blog: FortiAIGate × NVIDIA breakdown
@@ -151,9 +151,9 @@ Browser
                      │  TLS cert: Let's Encrypt (DNS-01 via DuckDNS API)
                      │  Auto-renewed before expiry
                      │
-                     ├─ GET /                  → 301 /genAISeC/
-                     ├─ GET /genAISeC/         → /srv/index.html
-                     ├─ GET /genAISeC/*.html   → /srv/*.html
+                     ├─ GET /                  → 301 /FortiCNAPP/
+                     ├─ GET /FortiCNAPP/         → /srv/index.html
+                     ├─ GET /FortiCNAPP/*.html   → /srv/*.html
                      └─ GET /health            → 200 OK  (health probe)
 
 Docker volumes

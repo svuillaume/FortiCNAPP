@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repo is
 
 A containerised static blog delivering Fortinet GenAI Security content. It deploys to two targets simultaneously:
-- **GitHub Pages** — push to `main`, site deploys automatically at `https://svuillaume.github.io/genAISeC/`
+- **GitHub Pages** — push to `main`, site deploys automatically at `https://svuillaume.github.io/FortiCNAPP/`
 - **Self-hosted Docker** — Caddy serves HTTPS via ZeroSSL DNS-01 challenge over DuckDNS
 
 All content is in `docs/` — there is no build step, no bundler, no framework.
@@ -15,9 +15,9 @@ All content is in `docs/` — there is no build step, no bundler, no framework.
 **Local dev (instant, no Docker needed):**
 ```bash
 docker run --rm -p 8080:80 \
-  -v $(pwd)/docs:/usr/share/nginx/html/genAISeC:ro \
+  -v $(pwd)/docs:/usr/share/nginx/html/FortiCNAPP:ro \
   nginx:alpine
-# → http://localhost:8080/genAISeC/
+# → http://localhost:8080/FortiCNAPP/
 ```
 
 **Production HTTPS (needs `.env` filled in):**
@@ -42,8 +42,8 @@ docker run --rm caddy:latest caddy hash-password --plaintext 'yourpassword'
 
 ```
 Browser → Caddy (:443)
-            ├─ / → 301 /genAISeC/
-            ├─ /genAISeC/* → file_server from /srv  (= docs/ in image)
+            ├─ / → 301 /FortiCNAPP/
+            ├─ /FortiCNAPP/* → file_server from /srv  (= docs/ in image)
             └─ /health → 200
 ```
 
