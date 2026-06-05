@@ -638,6 +638,14 @@
   .share-btn:hover { border-color: var(--accent); color: var(--accent) !important; }
   .disclaimer { font-size: 13px; color: var(--text-muted) !important; font-style: italic; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 24px; }
 
+  /* Hero CTA button */
+  .btn { display: inline-block; background: var(--accent) !important; color: #fff !important; padding: 10px 20px; border-radius: 6px; font-weight: 700; font-size: 14px; text-decoration: none; margin-top: 16px; }
+  .btn:hover { opacity: 0.88; text-decoration: none !important; }
+
+  /* Filter bar */
+  .filter-bar { padding: 20px 0 16px; border-bottom: 1px solid var(--border); margin-bottom: 0; }
+  .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted); pointer-events: none; }
+
   /* Password gate */
   .password-gate { background: var(--surface) !important; border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 16px 0; text-align: center; }
 
@@ -699,9 +707,12 @@
 </header>
 
 <div class="hero">
-  <h1>GenAI Security Insights</h1>
-  <p>Practical security guidance for the GenAI stack — from the developer's laptop to the LLM endpoint in your cloud.</p>
-  <a class="btn" href="FortiCNAPP-TechTip-June2026-Release.html">Read the latest post &rarr;</a>
+  <div style="max-width:860px;margin:0 auto;padding:40px 24px 32px;">
+    <div class="header-tag">GenAI Security · Field Guide · PreSales Reference</div>
+    <h1>GenAI Security <span>Insights</span></h1>
+    <p class="subtitle">Practical security guidance for the GenAI stack — from the developer's laptop to the LLM endpoint in your cloud. Fortinet coverage at every layer.</p>
+    <a class="btn" href="FortiCNAPP-TechTip-June2026-Release.html">Read the latest tip &rarr;</a>
+  </div>
 </div>
 
 <div class="cards">

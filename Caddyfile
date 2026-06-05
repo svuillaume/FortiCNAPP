@@ -1,15 +1,13 @@
 {
     # ZeroSSL handles DuckDNS CAA SERVFAIL — Let's Encrypt does not
-    email vuillaumes@gmail.com
+    email {env.LE_EMAIL}
     acme_ca https://acme.zerossl.com/v2/DV90
 }
 
-samvblogs.duckdns.org {
+{env.DOMAIN} {
 
-    # ── TLS via Let's Encrypt DNS-01 challenge (DuckDNS) ──────────────────────
-    # Caddy calls the DuckDNS API to set the _acme-challenge TXT record,
-    # Let's Encrypt validates it, and the cert is issued — no port 80 needed.
-    # DUCKDNS_TOKEN must be set as an environment variable.
+    # ── TLS via ZeroSSL DNS-01 challenge (DuckDNS) ────────────────────────────
+    # Caddy sets the _acme-challenge TXT record via DuckDNS API — no port 80 needed.
     tls {
         dns duckdns {env.DUCKDNS_TOKEN}
         resolvers 8.8.8.8 1.1.1.1
@@ -26,6 +24,13 @@ samvblogs.duckdns.org {
         X-XSS-Protection          "1; mode=block"
         Referrer-Policy           strict-origin-when-cross-origin
         -Server
+    }
+
+    # ── Basic auth ────────────────────────────────────────────────────────────
+    # AUTH_PASS must be a bcrypt hash: docker run --rm caddy:latest caddy hash-password
+    # AUTH_SECRET is reserved for future HMAC session middleware
+    basicauth * {
+        {env.AUTH_USER} {env.AUTH_PASS}
     }
 
     # ── Health probe (used by Docker healthcheck and load balancers) ──────────

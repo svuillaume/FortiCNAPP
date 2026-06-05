@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Walk the AI-Driven Systems Sec in Cloud Service Provider — Fortinet</title>
+  <title>Walk the GenAISec Talk — Fortinet</title>
 <style>
   /* ═══════════════════════════════════════════════════════════════════
      FORTICNAPP WIKI — MASTER STYLESHEET
@@ -680,23 +680,124 @@
     .container, .main, .article-body { padding: 32px 18px 48px; }
     header, .hero, .article-header { padding: 32px 18px 24px !important; }
   }
+
+  /* ══════════════════════════════════════════════════════════════════
+     WORKFLOW STEPS (5-layer glance)
+  ══════════════════════════════════════════════════════════════════ */
+  .wf-wrap { margin: 24px 0; overflow-x: auto; }
+  .wf-track { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .wf-step { background: var(--bg); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: 6px; padding: 14px 12px; }
+  .wf-num { font-size: 28px; font-weight: 900; color: var(--accent); opacity: 0.15; line-height: 1; margin-bottom: 4px; }
+  .wf-name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; line-height: 1.3; }
+  .wf-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+  @media (max-width: 640px) { .wf-track { grid-template-columns: 1fr 1fr; } }
+
+  /* ══════════════════════════════════════════════════════════════════
+     CSP CLOUD PROVIDER BADGES
+  ══════════════════════════════════════════════════════════════════ */
+  .csp-badge { display: inline-block; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; margin-left: 4px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.6; }
+  .csp-badge.aws  { background: rgba(255,153,0,0.12); color: #b37300; border: 1px solid rgba(255,153,0,0.3); }
+  .csp-badge.azure { background: rgba(0,87,184,0.1); color: var(--blue); border: 1px solid rgba(0,87,184,0.25); }
+  .csp-badge.gcp  { background: rgba(52,168,83,0.1); color: #1e7e3d; border: 1px solid rgba(52,168,83,0.25); }
+  .csp-badge.sent { background: rgba(26,26,46,0.08); color: var(--text-muted); border: 1px solid rgba(26,26,46,0.15); }
+
+  /* ══════════════════════════════════════════════════════════════════
+     FORTINET COVERAGE DIAGRAMS
+  ══════════════════════════════════════════════════════════════════ */
+  .fnet-diagram { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin: 24px 0; }
+  .fnet-diagram-hdr { background: var(--navy); color: #fff; padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+  .fnet-diagram-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 3px; flex-shrink: 0; }
+  .fnet-diagram-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .fnet-diagram-body { padding: 20px; background: var(--surface); }
+  .fnet-flow-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fnet-flow-stage { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+  .fnet-flow-arr { display: flex; align-items: center; color: var(--accent); }
+  .fnet-cols { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 8px; align-items: start; }
+  .fnet-col-arr { display: flex; align-items: center; justify-content: center; padding-top: 18px; }
+  .fnet-card { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 8px; }
+  .fnet-card:last-child { margin-bottom: 0; }
+  .fnet-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .fnet-card-icon { width: 28px; height: 28px; background: rgba(238,49,36,0.08); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .fnet-card-name { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+  .fnet-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .fnet-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 3px; background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); font-family: 'SF Mono', monospace; }
+  .fnet-card-desc { font-size: 13px; color: var(--text-body); line-height: 1.5; }
+  @media (max-width: 768px) { .fnet-cols { grid-template-columns: 1fr !important; } .fnet-col-arr { display: none !important; } }
+
+  /* ══════════════════════════════════════════════════════════════════
+     FORTIGUARD INTELLIGENCE CALLOUT
+  ══════════════════════════════════════════════════════════════════ */
+  .fortiguard-callout { background: var(--navy); border-radius: 8px; padding: 20px 24px; margin: 28px 0; }
+  .fortiguard-callout-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .fortiguard-callout-hdr strong { font-size: 14px; color: #fff; flex: 1; }
+  .fortiguard-callout-hdr span { font-size: 11px; color: rgba(255,255,255,0.4); font-family: 'SF Mono', monospace; }
+  .fortiguard-callout-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .fortiguard-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; padding: 14px 16px; }
+  .fortiguard-item-name { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .fortiguard-item-desc { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+  /* ══════════════════════════════════════════════════════════════════
+     ARCHITECTURE DIAGRAM IMAGE GALLERY
+  ══════════════════════════════════════════════════════════════════ */
+  .png-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+  .png-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .png-card-hdr { background: var(--surface2); padding: 10px 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+  .png-card-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; background: var(--accent); color: #fff; padding: 2px 7px; border-radius: 3px; flex-shrink: 0; }
+  .png-card-title { font-size: 12px; font-weight: 600; color: var(--navy); }
+  .png-card img { width: 100%; display: block; }
+  .png-card-caption { padding: 10px 14px; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* Vendor column in summary table */
+  .vendor-col { font-size: 13px; max-width: 240px; }
+
+  /* ══════════════════════════════════════════════════════════════════
+     GLOSSARY INTERACTIVE POPUP
+  ══════════════════════════════════════════════════════════════════ */
+  #gl-popup { position: fixed; background: var(--navy); color: #fff; border-radius: 8px; padding: 14px 16px; width: 320px; box-shadow: 0 8px 24px rgba(0,0,0,0.25); z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.15s; }
+  #gl-popup.gl-visible { opacity: 1; pointer-events: auto; }
+  .gl-pop-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 6px; }
+  .gl-pop-term { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .gl-pop-def { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.55; margin-bottom: 12px; }
+  .gl-ladder { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
+  .gl-ladder-hdr { display: flex; justify-content: space-between; font-size: 10px; color: rgba(255,255,255,0.35); margin-bottom: 6px; }
+  .gl-rungs { display: flex; gap: 3px; margin-bottom: 4px; }
+  .gl-rung { flex: 1; height: 5px; border-radius: 2px; background: rgba(255,255,255,0.12); transition: background 0.2s; }
+  .gl-rung.gl-lit { background: var(--accent); }
+  .gl-rung-names { display: flex; }
+  .gl-rung-name { flex: 1; font-size: 9px; color: rgba(255,255,255,0.25); text-align: center; transition: color 0.2s; }
+  .gl-rung-name.gl-lit { color: var(--accent); font-weight: 700; }
+  .gl-term.gl-active { border-bottom-color: var(--accent); background: rgba(238,49,36,0.06); border-radius: 2px; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="inner">
-    <a class="brand" href="/genAISeC/">
-      <img class="logo" src="https://icons.fortinet.com/icons/Logos/Fortinet-logomark-rgb-red.svg" alt="Fortinet">
-      <span>Fortinet</span><span class="brand-sep">&nbsp;·&nbsp;</span><span>AI-Driven Security</span>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="/genAISeC/" aria-label="Fortinet GenAI Security">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect width="32" height="32" rx="5" fill="#EE3124"/><path d="M8 8h16v4H12v4h10v4H12v8H8V8z" fill="#fff"/></svg>
+      Fortinet<span class="topnav-sep">&nbsp;·&nbsp;</span>GenAI Security
     </a>
+    <span class="breadcrumb" style="margin-left:auto;">
+      <a href="/genAISeC/">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="/genAISeC/">Blog</a>
+      <span class="breadcrumb-sep">/</span>
+      <span style="color:rgba(255,255,255,0.65);">Walk the GenAISec Talk</span>
+    </span>
   </div>
-</header>
+</nav>
 
 <div class="hero">
   <div class="tag">Security Insights</div>
-  <h1>Walk the AI-Driven Systems Sec in Cloud Service Provider</h1>
-  <p class="subtitle">From the developer's laptop to the LLM endpoint in your cloud, AI-Driven Systems have quietly redrawn the enterprise attack surface. Here is a clean, practical view of what's changed, real attacks already happening at each layer, where the Fortinet Security Fabric fits in — and the best-of-breed vendors covering each layer alongside it.</p>
+  <h1>Walk the <span>GenAISec</span> Talk</h1>
+  <p class="subtitle">From the developer's laptop to the LLM endpoint in your cloud, AI-Driven Systems have quietly redrawn the enterprise attack surface. A clean five-layer breakdown: what changed, real-world CVEs at each layer, Fortinet Security Fabric coverage, and best-of-breed vendor mapping.</p>
+  <div class="meta" style="margin-top:12px;">
+    <span>May 21, 2026</span>
+    <span class="meta-dot"></span>
+    <span>~15 min read</span>
+    <span class="meta-dot"></span>
+    <span>Field Guide · PreSales · Architecture</span>
+  </div>
 </div>
 
 <div class="main">
@@ -1586,7 +1687,6 @@
 
   <h3>Layer summary</h3>
   <div class="table-wrap">
-    </div>
     <table>
       <thead>
         <tr>
@@ -1600,13 +1700,13 @@
         <tr>
           <td><strong>1. Developer Endpoint</strong></td>
           <td>Insecure code, data leakage, supply chain, lateral movement</td>
-          <td><a href="https://www.fortinet.com/products/sase">FortiSASE</a>, <a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient/FortiEDR</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a> (DSPM + IaC + code), ZTNA</td>
+          <td><strong><a href="https://www.fortinet.com/products/fortidlp">FortiDLP</a></strong>, <a href="https://www.fortinet.com/products/sase">FortiSASE</a>, <a href="https://www.fortinet.com/products/endpoint-security/forticlient">FortiClient/FortiEDR</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a> (DSPM + IaC), ZTNA</td>
           <td class="vendor-col">Snyk, Checkmarx, Veracode, GHAS, Tabnine, MintMCP, Backslash</td>
         </tr>
         <tr>
           <td><strong>2. LLM API Consumption</strong></td>
           <td>Prompt injection, output handling, cost DoS, runtime anomalies</td>
-          <td><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb/FortiAppSec</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></td>
+          <td><a href="https://www.fortinet.com/products/fortiaigate"><strong>FortiAIGate</strong></a>, <a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb/FortiAppSec</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <strong><a href="https://www.fortinet.com/products/fortipam">FortiPAM</a></strong> (API key vault), <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></td>
           <td class="vendor-col">Lakera, Prompt Security, HiddenLayer, CalypsoAI, Protect AI, NeMo Guardrails</td>
         </tr>
         <tr>
@@ -1618,26 +1718,28 @@
         <tr>
           <td><strong>4. MCP Integration</strong></td>
           <td>Server compromise, token sprawl, audit gaps</td>
-          <td><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB/SSPM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a></td>
+          <td><strong><a href="https://www.fortinet.com/products/fortipam">FortiPAM</a></strong> (credential vault), <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/casb/forticasb">FortiCASB/SSPM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a></td>
           <td class="vendor-col">Lunar.dev MCPX, Docker MCP Toolkit, Enkrypt AI, Invariant Labs, TrueFoundry, Zenity</td>
         </tr>
         <tr>
           <td><strong>5. Cloud &amp; Model Infra</strong></td>
           <td>IAM misconfig, runtime compromise, model supply chain, compliance</td>
-          <td><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a>, <a href="https://www.fortinet.com/products/management/fortianalyzer">FortiAnalyzer</a></td>
+          <td><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a>, <strong><a href="https://www.fortinet.com/products/fortipam">FortiPAM</a></strong>, <a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a>, <a href="https://www.fortinet.com/products/fortisandbox">FortiSandbox</a>, <a href="https://www.fortinet.com/products/management/fortianalyzer">FortiAnalyzer</a></td>
           <td class="vendor-col">Wiz, Prisma Cloud, CrowdStrike, Defender for Cloud, SentinelOne, Orca, HiddenLayer, Protect AI</td>
         </tr>
       </tbody>
     </table>
-  </div>
+  </div><!-- /table-wrap -->
 
   <hr>
 
   <h2>Where Fortinet differentiates in this landscape</h2>
   <p>This is the honest PreSales view across the layers above:</p>
   <ul>
-    <li><strong>Convergence over point products.</strong> Most third-party vendors above are deep in one layer. The <a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a> — anchored by FortiCNAPP, FortiAIGate, FortiSASE, FortiGate, FortiWeb, FortiCASB, FortiSandbox, and FortiAnalyzer — covers all five with a single telemetry, policy, and operations model.</li>
-    <li><strong>FortiAIGate as a first-class AI runtime control plane.</strong> Few network-security incumbents have shipped a purpose-built LLM gateway; Fortinet has.</li>
+    <li><strong>Convergence over point products.</strong> Most third-party vendors above are deep in one layer. The <a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a> — anchored by FortiCNAPP, FortiAIGate, FortiDLP, FortiPAM, FortiSASE, FortiGate, FortiWeb, FortiCASB, FortiSandbox, and FortiAnalyzer — covers all five with a single telemetry, policy, and operations model.</li>
+    <li><strong>FortiAIGate as a first-class AI runtime control plane.</strong> Few network-security incumbents have shipped a purpose-built LLM gateway; Fortinet has. FortiAIGate inspects every prompt and completion inline — enforcing guardrails, detecting injection, preventing exfiltration, and providing per-interaction cost tracking.</li>
+    <li><strong>FortiDLP as purpose-built shadow AI protection.</strong> GenAI changed DLP. FortiDLP's Secure Data Flow tracks data by origin even when manipulated, and ships with explicit shadow AI policies for the major public LLM providers — catching the path FortiAIGate cannot see.</li>
+    <li><strong>FortiPAM as the secrets backbone.</strong> LLM provider API keys, MCP server credentials, vector database admin tokens — every layer of the stack runs on credentials scattered across <code>.env</code> files and container variables. FortiPAM centralizes vaulting, rotates automatically, and produces the tamper-resistant audit trail EU AI Act and ISO 42001 increasingly require.</li>
     <li><strong>The Security Fabric story.</strong> A single dashboard from endpoint to LLM gateway to cloud workload to SaaS is operationally meaningful in an environment where the threat now spans all of those tiers.</li>
   </ul>
   <p>Customers still combine Fortinet with best-of-breed where it makes sense: an LLM-firewall specialist for the deepest prompt-injection coverage, a dedicated DSPM where data classification is the dominant investment, or an AI-SPM tool such as HiddenLayer for granular model-supply-chain governance. The point is the conversation is no longer Fortinet <strong>or</strong> these vendors — it is the right combination, with Fortinet providing the converged backbone.</p>
@@ -1713,6 +1815,8 @@
     <li><a href="https://www.fortinet.com/solutions/enterprise-midsize-business/security-fabric">Fortinet Security Fabric</a></li>
     <li><a href="https://www.fortinet.com/products/fortiaigate">FortiAIGate</a></li>
     <li><a href="https://www.fortinet.com/products/forticnapp">FortiCNAPP</a></li>
+    <li><a href="https://www.fortinet.com/products/fortidlp">FortiDLP</a></li>
+    <li><a href="https://www.fortinet.com/products/fortipam">FortiPAM</a></li>
     <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiweb">FortiWeb</a></li>
     <li><a href="https://www.fortinet.com/products/web-application-firewall/fortiappsec-cloud">FortiAppSec Cloud</a></li>
     <li><a href="https://www.fortinet.com/products/private-cloud-security/fortigate-virtual-appliances">FortiGate VM</a></li>
@@ -2009,8 +2113,11 @@
 </script>
 
 <script>
-/* Password-gated sections */
+/* Password-gated sections — placeholder for future gated content */
 (function () {
+  'use strict';
+  /* No gated sections currently active */
+}());
 </script>
 </body>
 </html>
